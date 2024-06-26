@@ -2,7 +2,7 @@
 The XML processing involves two main steps: expanding nodes and replacing placeholders.
 
 1. Expanding Nodes
-XML nodes like `<forces>...</forces>`, `<units>...</units>`, and `<profiles>...</profiles>` are expanded by replacing them with their child elements. This process is repeated for each instance in the current context, effectively generating multiple sets of the child elements.
+XML nodes like `<forces>...</forces>`, `<units>...</units>`, and `<profiles>...</profiles>` are expanded by replacing them with their child elements. This process is repeated for each of the matching objects, effectively generating multiple sets of the child elements.
 For example: a roster with 2 units with this XML:
 ```xml
 <units>
