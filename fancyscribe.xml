@@ -1,0 +1,1090 @@
+<template>
+    <units dedupe="true">
+        <div class="avoid-page-break" style="font-weight: 500; margin-bottom: 32px;"><label class="print-display-none"
+                style="display: flex; align-items: center; justify-content: flex-end; gap: 4px;"></label>
+            <div class="min-h-15rem"
+                style="padding: 24px 0px; background: linear-gradient(90deg, rgb(20, 21, 25) 0%, rgb(48, 57, 62) 45%, rgb(73, 74, 79) 100%); color: rgb(255, 255, 255); position: relative;">
+                <div style="padding: 4px 16px; color: rgb(255, 255, 255); position: relative; margin-left: 1.3rem;">
+                    <div style="position: absolute; left: 0px; top: 0px; width: 100%; display: flex;">
+                        <div style="background-color: var(--primary-color-transparent); height: 80px; min-width: 33%;">
+                        </div>
+                        <div style="height: 80px; display: flex; flex-direction: column;">
+                            <div style="background-color: var(--primary-color-transparent); height: 40px;"></div><svg
+                                height="40" width="100" viewBox="0 0 100 40"
+                                style="fill: var(--primary-color-transparent);">
+                                <path d="m0 0h100c-32 0-68 40-100 40z"></path>
+                            </svg>
+                        </div>
+                        <div style="flex: 10 1 0%; background-color: var(--primary-color-transparent); height: 40px;">
+                        </div>
+                    </div>
+                    <div
+                        style="font-family: ConduitITCStd; font-size: 2.5em; letter-spacing: 0.1px; line-height: 1; font-weight: 800; text-transform: uppercase; z-index: 1; position: relative; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                        <span>{{name}}</span>
+                        <costs>
+                            <span
+                                style="text-transform: initial; font-size: 1.2rem;"><span>{{value}}</span><span>{{name}}</span></span>
+                        </costs>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 6px; z-index: 1; position: relative;">
+                        <entry has-profile="model,unit,stats">
+                            <div style="display: flex; gap: 1.2rem;">
+                                <profiles include="model,unit,stats">
+                                    <characteristics>
+                                        <div style="display: flex; flex-direction: column; align-items: center;">
+                                            <div style="font-size: 0.9em; font-weight: 800;">{{name}}</div>
+                                            <div
+                                                style="color: var(--primary-color); padding: 2px; background: var(--primary-color); clip-path: polygon(12% 0px, 100% 0px, 100% 20%, 100% 88%, 88% 100%, 20% 100%, 0px 100%, 0px 12%);">
+                                                <div
+                                                    style="min-width: 3rem; min-height: 3rem; display: flex; align-items: center; justify-content: center; background: rgb(232, 237, 231); clip-path: polygon(10% 0px, 100% 0px, 100% 20%, 100% 90%, 90% 100%, 20% 100%, 0px 100%, 0px 10%); padding: 3px; font-size: 1.6em; font-weight: 800;">
+                                                    {{$text}}</div>
+                                            </div>
+                                        </div>
+                                    </characteristics>
+                                </profiles>
+                                <div class="flex flex-wrap items-center gap-2"
+                                    style="margin-top: 16px; text-shadow: rgb(0, 0, 0) 0px 0px 5px;">
+                                    <div style="white-space: nowrap;">{{name}}</div>
+                                    <div style="font-size: 0.7em;">
+                                        <div style="white-space: pre-wrap">{{options}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </entry>
+                    </div>
+                </div>
+            </div>
+            <div class="border-b-2 border-t-0 border-var(--primary-color) sm:border-l-2 sm:border-r-2"
+                style="display: flex; background-color: rgb(223, 224, 226);">
+                <div class="flex-1.2 pt-5"
+                    style="border-right: 2px solid var(--primary-color); position: relative; padding-bottom: 40px; display: flex; flex-direction: column;">
+                    <table cellspacing="0" class="weapons-table" style="width: 100%;">
+                        <thead>
+                            <profiles include="ranged weapons" max="1">
+                                <tr style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                                    <th class="w-2em">
+                                        <div style="display: flex; min-width: 0.7em; justify-content: center;"><img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAJJSURBVDhPtVRbTxpBGB3Qxmd+RmvShMe+81L6C0z60r70F/S1iZWHXmy4SDSAhSKNBBpCtVqboiataWJTY0ShrQpyaUK3IJcuC6vuwunsZDUlRFlsepLZ2Zk558y3s9985H9Ap/bn4qHTCaPRSAwGA8nmMuT2zVs9NT0xHX6FsiRDBJDMZaBOXw42z3PEUwfg6g3w7TY4vo56S0bt5BhLax/6N595PYffNLKC0MDHrTg+xeMs0rmVGNYT2+w9xXEYtVq1mU/4Z9Cgongm2yH4Xiicjd2hWdQpJ1up9DZ96nKDa4pIZvNd5LFJZ8ecxeFgmyfy3dwObOzto3x00nt3FZFYjEU87nZ3a0btdozZHUhzRaxtbmk2VZAplbCZSsHinOjUbdBJ5fCV9jnxlW2gLl0IXyQCgWoqssz6lwtvmE6vPCRJUjpyLLfJ9eGrxGQysfFFcAWDMJvNRJJlMjQwQLUyqVQqbI2ZiqJIdnb3yNCgniS+7ZIbw9d63pp7IyO6QCBAeJ4nh7Ua4YU60V8ZVFf/wnY2h3y5qvlMbV4v+1H+aPR8jZJSCml9J6nJuNpq0RRs9uZGV1bZbZpdWOwge0Khs/GDZ0+QKZdRo9d3fNqjKQASXHzLEjtdOoTjhR/ecBicIMDqcWF+dZl+TQtKKj2emtJmeIro+2UUGyIOfpVYqh3RlisVUahVWbV6REuiSu0foaV3zLQqSUj/LMBis13e7BRWnw8/6rTsUeMv+3uaDDVV8clwCDpqJzQb5P6du/9e+fsHIX8AQcajpvRRPZkAAAAASUVORK5CYII=" />
+                                        </div>
+                                    </th>
+                                    <th style="text-align: left;">{{typeName}}</th>
+                                    <characteristics exclude="keywords">
+                                        <th class="w-5%">{{name}}</th>
+                                    </characteristics>
+                                </tr>
+                            </profiles>
+                        </thead>
+                        <tbody>
+                            <profiles include="ranged weapons">
+                                <tr class="noBorderTop">
+                                    <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
+                                    <td style="text-align: left;">
+                                        <div
+                                            style="display: flex; align-items: center; flex-wrap: wrap; gap: 0px 4px; line-height: 1.05;">
+                                            <span>{{name}}</span>
+                                            <characteristics include="keywords" max="1">
+                                                <span if="$text"
+                                                    style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;">
+                                                    [<span>{{$text}}</span>]
+                                                </span>
+                                            </characteristics>
+                                        </div>
+                                    </td>
+                                    <characteristics exclude="keywords">
+                                        <td class="align-middle">{{$text}}</td>
+                                    </characteristics>
+                                </tr>
+                            </profiles>
+                            <profiles include="ranged weapons" max="1">
+                                <tr class="emptyRow">
+                                    <td style="border-top: none;"></td>
+                                    <td colspan="7"></td>
+                                </tr>
+                            </profiles>
+
+                        </tbody>
+                        <thead>
+                            <profiles include="melee weapons" max="1">
+                                <tr style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                                    <th class="w-2em">
+                                        <div style="display: flex; min-width: 0.7em; justify-content: center;"><img
+                                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAASCAYAAAC0EpUuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAH0SURBVDhPvVN/b9JQFH1o/I/MxG/A1+AzGhN/xrglE4i4odtwxmQF5hSyRQPKzDInaGxDCBmtdB2s7aNQjpdHQ1KhBf3Dk7y+9+695/S9k3fZf8Vq5jm85QwePUviycZGYH4uyrUaTAAnDXmG+DCxDt3huKK8dHi4WDixswOLim0amnkl5vLZqY+oqG30Kd4xbXCa5bYaLLxdKODSdUVhU7+YEG0Lj5MJH6lUKcOmOtNxYZgcvYGLnjuaL9zQdRLh0HomDO5AaZ/j/trq3OL9Ugl614Q1GAlxnfexncv5a8+5TT45wsfxCQc0DMsKvFahWMTQqxuPlnEprFrLZATn2uQTYRRj12ndaLZYsXTELMti5shF6uULn3j12xni8Tir/5BZ9fiEdS3Obt1cEblIJCLmKTTbFn/0tgITfzvT2Oab18LzL/XaNPZKyotTJrNZHzcQ98jTytdTdEdD7Fc+QtY1FD4cLUdehF8Djgty8d3xp6UEhaeLMPbqBjkei8W8SDhCRd9Xq5A7HRTyb1mUlKPRFTbuJC/998jkJKhOH1v5vE+k/L2O3r8Ibx0coENdk9zdnUtWDAPNkHc8gyw9bI0ENyUplPRZUdDiHHdTqXDxO9Tn6nCI9N7eUqf4SSdWqUG8bTAepNPLX4tw++n6H/WM/Qb5yZZZuC/34QAAAABJRU5ErkJggg==" />
+                                        </div>
+                                    </th>
+                                    <th style="text-align: left;">{{typeName}}</th>
+                                    <characteristics exclude="keywords">
+                                        <th class="w-5%">{{name}}</th>
+                                    </characteristics>
+                                </tr>
+                            </profiles>
+                        </thead>
+                        <tbody>
+                            <profiles include="melee weapons">
+                                <tr class="noBorderTop">
+                                    <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
+                                    <td style="text-align: left;">
+                                        <div
+                                            style="display: flex; align-items: center; flex-wrap: wrap; gap: 0px 4px; line-height: 1.05;">
+                                            <span>{{name}}</span>
+                                            <characteristics include="keywords" max="1">
+                                                <span if="$text"
+                                                    style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;">
+                                                    [<span>{{$text}}</span>]
+                                                </span>
+                                            </characteristics>
+                                        </div>
+                                    </td>
+                                    <characteristics exclude="keywords">
+                                        <td class="align-middle">{{$text}}</td>
+                                    </characteristics>
+                                </tr>
+                            </profiles>
+                            <profiles include="melee weapons" max="1">
+                                <tr class="emptyRow">
+                                    <td style="border-top: none;"></td>
+                                    <td colspan="7"></td>
+                                </tr>
+                            </profiles>
+                        </tbody>
+                        <thead>
+                            <profiles include="transport" max="1">
+                                <tr style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                                    <th></th>
+                                    <th colspan="7" style="text-align: left;">{{typeName}}</th>
+                                </tr>
+                            </profiles>
+                        </thead>
+                        <tbody>
+                            <profiles include="transport">
+                                <tr>
+                                    <td></td>
+                                    <td colspan="7"
+                                        style="font-size: 0.9em; line-height: 1.4; text-align: left; padding-top: 4px; padding-bottom: 4px;">
+                                        <span style="font-weight: 700;">{{name}}</span>
+                                        <characteristics><span>{{$text}}</span></characteristics>
+                                    </td>
+                                </tr>
+                            </profiles>
+                        </tbody>
+                    </table>
+                    <div style="flex: 1 1 0%;"></div>
+                    <table cellspacing="0" class="weapons-table" style="width: 100%;">
+                        <tbody></tbody>
+                    </table>
+                    <div
+                        style="position: absolute; right: -2px; bottom: -16px; padding: 0px 42px 0px 8px; display: flex; align-items: center; background-color: rgb(188, 188, 190); border: 2px solid var(--primary-color); width: calc(100% - 0.9rem); background-size: contain; min-height: 54px; gap: 3px;">
+                        <span style="font-size: 1.1em;">KEYWORDS:</span>
+                        <secondaries>
+                            <filter field="name" type="match" value="faction: .*" flags="i" inverted="true">
+                                <span class="split"
+                                    style="font-size: 1em; font-weight: 800; white-space: nowrap;">{{name}}</span>
+                            </filter>
+                        </secondaries>
+                    </div>
+                </div>
+                <div
+                    class=" relative max-w-400px flex-1 p-1 pb-50pxpt-5 print:p-20px sm:p-2 sm:pb-50px sm:pt-5 sm:print:p-20px sm:print:pb-50px md:p-20px md:pb-50px md:pt-5 md:print:p-20px md:print:pb-50px">
+                    <div
+                        style="font-size: 1.1em; padding: 1px 6px; background-color: var(--primary-color); color: rgb(255, 255, 255); font-weight: 600; min-height: 27px; display: flex; align-items: center;">
+                        ABILITIES</div>
+                    <div
+                        style="padding: 5px 2px; gap: 3px; border-bottom: 1px dotted rgb(158, 159, 161); line-height: 1.3; display: flex; flex-wrap: wrap;">
+                        <span style="font-size: 0.8em;">RULES: </span>
+                        <rules>
+                            <span class="split"
+                                style="white-space: nowrap; font-size: 0.8em; font-weight: 700;">{{name}}</span>
+                        </rules>
+                    </div>
+                    <div
+                        style="display: flex; flex-direction: column; gap: 8px; padding: 4px 2px; border-bottom: 1px dotted rgb(158, 159, 161);">
+                        <profiles include="abilities" split="\n">
+                            <div style="font-size: 0.8em; line-height: 1.4;">
+                                <span style="font-weight: 700;">{{name}}</span>: <characteristics><span>{{$text}}</span>
+                                </characteristics>
+                            </div>
+                        </profiles>
+                    </div>
+                    <div
+                        style="position: absolute; left: 0px; bottom: -16px; padding: 0px 4px 0px 42px; display: flex; justify-content: center; flex-direction: column; background: url(&quot;https://nilsueter.github.io/fancyscribe/assets/factionBackground-70f943c3.png&quot;) 0% 0% / contain; color: rgb(255, 255, 255); border-top-color: ; border-top-style: ; border-top-width: ; border-right-color: ; border-right-style: ; border-right-width: ; border-bottom-color: ; border-bottom-style: ; border-bottom-width: ; border-left: none; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; width: calc(100% - 0.9rem); min-height: 54px;">
+                        <span style="font-size: 0.9em; line-height: 1.3;">FACTION KEYWORDS:</span>
+                        <secondaries>
+                            <filter field="name" type="match" value="faction: .*" flags="i">
+                                <span class="split"
+                                    style="font-size: 0.9em; font-weight: 600; white-space: nowrap;">{{name}}</span>
+                            </filter>
+                        </secondaries>
+                    </div>
+                    <div
+                        style="position: absolute; left: -28px; bottom: -16px; width: 54px; height: 54px; transform: rotate(-45deg); border: 2px solid var(--primary-color); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: center center rgb(188, 188, 190); min-height: 75px; min-width: 76px; transform: rotate(45deg);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </units>
+    <style>
+        html {
+            --primary-color: #206173;
+            --primary-color-transparent: #20617360;
+        }
+
+        *,
+        :before,
+        :after {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: #e5e7eb
+        }
+
+        :before,
+        :after {
+            --tw-content: ""
+        }
+
+        html {
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -moz-tab-size: 4;
+            -o-tab-size: 4;
+            tab-size: 4;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+            font-feature-settings: normal;
+            font-variation-settings: normal
+        }
+
+        body {
+            margin: 0;
+            line-height: inherit
+        }
+
+        hr {
+            height: 0;
+            color: inherit;
+            border-top-width: 1px
+        }
+
+        abbr:where([title]) {
+            -webkit-text-decoration: underline dotted;
+            text-decoration: underline dotted
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: inherit;
+            font-weight: inherit
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+
+        b,
+        strong {
+            font-weight: bolder
+        }
+
+        code,
+        kbd,
+        samp,
+        pre {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+            font-size: 1em
+        }
+
+        small {
+            font-size: 80%
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        table {
+            text-indent: 0;
+            border-color: inherit;
+            border-collapse: collapse
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            font-family: inherit;
+            font-feature-settings: inherit;
+            font-variation-settings: inherit;
+            font-size: 100%;
+            font-weight: inherit;
+            line-height: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0
+        }
+
+        button,
+        select {
+            text-transform: none
+        }
+
+        button,
+        [type=button],
+        [type=reset],
+        [type=submit] {
+            -webkit-appearance: button;
+            background-color: transparent;
+            background-image: none
+        }
+
+        :-moz-focusring {
+            outline: auto
+        }
+
+        :-moz-ui-invalid {
+            box-shadow: none
+        }
+
+        progress {
+            vertical-align: baseline
+        }
+
+        ::-webkit-inner-spin-button,
+        ::-webkit-outer-spin-button {
+            height: auto
+        }
+
+        [type=search] {
+            -webkit-appearance: textfield;
+            outline-offset: -2px
+        }
+
+        ::-webkit-search-decoration {
+            -webkit-appearance: none
+        }
+
+        ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            font: inherit
+        }
+
+        summary {
+            display: list-item
+        }
+
+        blockquote,
+        dl,
+        dd,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        hr,
+        figure,
+        p,
+        pre {
+            margin: 0
+        }
+
+        fieldset {
+            margin: 0;
+            padding: 0
+        }
+
+        legend {
+            padding: 0
+        }
+
+        ol,
+        ul,
+        menu {
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        dialog {
+            padding: 0
+        }
+
+        textarea {
+            resize: vertical
+        }
+
+        input::-moz-placeholder,
+        textarea::-moz-placeholder {
+            opacity: 1;
+            color: #9ca3af
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            opacity: 1;
+            color: #9ca3af
+        }
+
+        button,
+        [role=button] {
+            cursor: pointer
+        }
+
+        :disabled {
+            cursor: default
+        }
+
+        img,
+        svg,
+        video,
+        canvas,
+        audio,
+        iframe,
+        embed,
+        object {
+            display: block;
+            vertical-align: middle
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            height: auto
+        }
+
+        [hidden] {
+            display: none
+        }
+
+        :root {
+            font-family: Noto Sans, sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            font-weight: 400;
+            font-size: 13px;
+            color-scheme: light dark;
+            color: #111113;
+            background-color: #fff;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+            --size-20: 20px;
+            --size-24: 24px;
+            --size-32: 32px
+        }
+
+        @font-face {
+            font-family: ConduitITCStd;
+            src: url(&quot;https://nilsueter.github.io/fancyscribe/fonts/ConduitITCStd ExtraBold.woff2&quot;) format("woff2");
+            font-weight: 800
+        }
+
+        @font-face {
+            font-family: ConduitITCStd;
+            src: url(&quot;https://nilsueter.github.io/fancyscribe/fonts/ConduitITCStd Bold.woff2&quot;) format("woff2");
+            font-weight: 700
+        }
+
+        * {
+            box-sizing: border-box;
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact
+        }
+
+        a {
+            font-weight: 500;
+            color: #646cff;
+            text-decoration: inherit
+        }
+
+        a:hover {
+            color: #535bf2
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh
+        }
+
+        h1 {
+            font-size: 3.2em;
+            line-height: 1.1
+        }
+
+        button,
+        .button {
+            background-color: #f0f0f0;
+            color: #111113;
+            border-radius: 8px;
+            border: 2px solid #999;
+            padding: .6em 1.2em;
+            font-size: 1em;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: border-color .25s
+        }
+
+        button:hover,
+        .button:hover {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color-transparent)
+        }
+
+        button:focus,
+        button:focus-visible,
+        .button:focus,
+        .button:focus-visible {
+            outline: 4px auto -webkit-focus-ring-color
+        }
+
+        .body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: var(--size-24) var(--size-20);
+            max-width: 1150px;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px var(--size-20);
+            background-color: var(--primary-color);
+            width: 100%;
+            color: #fff;
+            font-size: 1.7em;
+            font-weight: 800
+        }
+
+        .subheader {
+            font-size: 1rem;
+            font-weight: 600
+        }
+
+        .rosterUpload {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 24px;
+            width: 100%;
+            height: 450px;
+            border: 10px solid #999;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color .25s, border .25s, font-size .25s, background-color .25s
+        }
+
+        .rosterUpload:hover {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color-transparent);
+            font-size: 2rem
+        }
+
+        .rosterUploaded,
+        .rosterUploaded:hover {
+            height: auto;
+            border-width: 2px;
+            font-size: 1rem;
+            border-radius: 8px
+        }
+
+        .weapons-table th {
+            font-size: 1.1em;
+            padding: 2px .4rem;
+            height: 27px;
+            font-weight: 600
+        }
+
+        .weapons-table td {
+            padding: 1px .4rem;
+            border-top: 1px dotted #9e9fa1;
+            text-align: center
+        }
+
+        .noBorderTop td {
+            border-top: none
+        }
+
+        .emptyRow {
+            height: 22.5px
+        }
+
+        .rowOtherColor {
+            background-color: #d0d1d3
+        }
+
+        .avoid-page-break {
+            position: relative;
+            page-break-inside: avoid;
+            -moz-column-break-inside: avoid;
+            break-inside: avoid
+        }
+
+        .page-break:not(.print-display-none) {
+            page-break-after: page;
+            -moz-column-break-after: page;
+            break-after: page
+        }
+
+        @media print {
+
+            .print-display-none,
+            .print-display-none * {
+                display: none !important
+            }
+
+            #root {
+                min-width: 1000px
+            }
+
+            .body {
+                padding: 0;
+                display: block;
+                max-width: none
+            }
+        }
+
+        @media screen and (max-width: 800px) {
+            :root {
+                font-size: 11px;
+                --size-20: 8px;
+                --size-24: 12px;
+                --size-32: 16px
+            }
+        }
+
+        @media screen and (max-width: 640px) {
+            :root {
+                font-size: 9px;
+                line-height: 1.3;
+                --size-20: 8px;
+                --size-24: 12px;
+                --size-32: 16px
+            }
+
+            .body {
+                padding-left: 0;
+                padding-right: 0
+            }
+
+            .weapons-table th {
+                font-size: .9em;
+                padding: 2px .2rem
+            }
+
+            .weapons-table td {
+                font-size: .95em;
+                padding: 1px .2rem
+            }
+        }
+
+        *,
+        :before,
+        :after {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / .5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia:
+        }
+
+        ::backdrop {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / .5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia:
+        }
+
+        .visible {
+            visibility: visible
+        }
+
+        .absolute {
+            position: absolute
+        }
+
+        .relative {
+            position: relative
+        }
+
+        .right--4px {
+            right: -4px
+        }
+
+        .right-1px {
+            right: 1px
+        }
+
+        .top--4px {
+            top: -4px
+        }
+
+        .top-2px {
+            top: 2px
+        }
+
+        .flex {
+            display: flex
+        }
+
+        .table {
+            display: table
+        }
+
+        .contents {
+            display: contents
+        }
+
+        .hidden {
+            display: none
+        }
+
+        .min-h-15rem {
+            min-height: 15rem
+        }
+
+        .w-2em {
+            width: 2em
+        }
+
+        .w-5\% {
+            width: 5%
+        }
+
+        .max-w-400px {
+            max-width: 400px
+        }
+
+        .max-w-95vw {
+            max-width: 95vw
+        }
+
+        .flex-1 {
+            flex: 1 1 0%
+        }
+
+        .flex-1\\.2 {
+            flex: 1.2
+        }
+
+        .transform {
+            transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap
+        }
+
+        .items-center {
+            align-items: center
+        }
+
+        .justify-center {
+            justify-content: center
+        }
+
+        .gap-1 {
+            gap: .25rem
+        }
+
+        .gap-2 {
+            gap: .5rem
+        }
+
+        .whitespace-nowrap {
+            white-space: nowrap
+        }
+
+        .rounded-full {
+            border-radius: 9999px
+        }
+
+        .rounded-sm {
+            border-radius: .125rem
+        }
+
+        .border {
+            border-width: 1px
+        }
+
+        .border-0 {
+            border-width: 0px
+        }
+
+        .border-b-2 {
+            border-bottom-width: 2px
+        }
+
+        .border-t-0 {
+            border-top-width: 0px
+        }
+
+        .border-var\\(--primary-color\\) {
+            border-color: var(--primary-color)
+        }
+
+        .border-gray-400 {
+            --tw-border-opacity: 1;
+            border-color: rgb(156 163 175 / var(--tw-border-opacity))
+        }
+
+        .bg-red-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(220 38 38 / var(--tw-bg-opacity))
+        }
+
+        .fill-white {
+            fill: #fff
+        }
+
+        .p-1 {
+            padding: .25rem
+        }
+
+        .p-2px {
+            padding: 2px
+        }
+
+        .pb-4 {
+            padding-bottom: 1rem
+        }
+
+        .pb-50px {
+            padding-bottom: 50px
+        }
+
+        .pt-5 {
+            padding-top: 1.25rem
+        }
+
+        .align-middle {
+            vertical-align: middle
+        }
+
+        .text-sm {
+            font-size: .875rem;
+            line-height: 1.25rem
+        }
+
+        .uppercase {
+            text-transform: uppercase
+        }
+
+        .filter {
+            filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+        }
+
+        .transition {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+            transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+            transition-duration: .15s
+        }
+
+        .duration-150 {
+            transition-duration: .15s
+        }
+
+        .ease-in-out {
+            transition-timing-function: cubic-bezier(.4, 0, .2, 1)
+        }
+
+        .hover\\:bg-red-800:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(153 27 27 / var(--tw-bg-opacity))
+        }
+
+        .focus\\:outline-none:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px
+        }
+
+        @media print {
+            .print\:p-20px {
+                padding: 20px
+            }
+        }
+
+        @media (min-width: 640px) {
+            .sm\\:border-l-2 {
+                border-left-width: 2px
+            }
+
+            .sm\\:border-r-2 {
+                border-right-width: 2px
+            }
+
+            .sm\\:p-2 {
+                padding: .5rem
+            }
+
+            .sm\\:pb-50px {
+                padding-bottom: 50px
+            }
+
+            .sm\\:pt-5 {
+                padding-top: 1.25rem
+            }
+
+            @media print {
+                .sm\\:print\\:p-20px {
+                    padding: 20px
+                }
+
+                .sm\\:print\\:pb-50px {
+                    padding-bottom: 50px
+                }
+            }
+        }
+
+        @media (min-width: 768px) {
+            .md\\:p-20px {
+                padding: 20px
+            }
+
+            .md\\:pb-50px {
+                padding-bottom: 50px
+            }
+
+            .md\\:pt-5 {
+                padding-top: 1.25rem
+            }
+
+            @media print {
+                .md\\:print\\:p-20px {
+                    padding: 20px
+                }
+
+                .md\\:print\\:pb-50px {
+                    padding-bottom: 50px
+                }
+            }
+        }
+
+        .split::after {
+            content: ", ";
+            font-family: inherit;
+        }
+
+        .split:last-of-type::after {
+            content: ""
+        }
+    </style>
+</template>
