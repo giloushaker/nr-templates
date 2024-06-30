@@ -32,7 +32,7 @@ Results in (for each matching profile):
 
 # Common
 All elements have these fields/values.  
-Values: `name`,
+Values: `name`,  
 `first`: Indicates if this is the first element in a list  
 `last`: Indicates if this is the last element in a list  
 `odd`: Indicates if this is an odd element in a list  
