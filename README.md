@@ -30,12 +30,59 @@ Results in (for each matching profile):
 <span>Example</span>
 ```
 
-# Forces
-# Units
-# Entry
-# Characteristics
-# Profiles
-# Rules
-# Costs
-# Secondaries
-# Filter / If
+# Common
+All elements have these fields/values.  
+Values: `name`,
+`first`: Indicates if this is the first element in a list  
+`last`: Indicates if this is the last element in a list  
+`odd`: Indicates if this is an odd element in a list  
+`even`: Indicates if this is an even element in a list  
+`length`: The length of the containing list  
+`index`: The (zero-based) position of the element in its containing list  
+
+# `<forces>`
+Values `options`, `hidden`  
+Lists: `units`, `entries`, `costs`  
+# `<units>`
+Values:`primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
+Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`  
+# `<entries>`
+Values: `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
+Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`  
+# `<profiles>`
+Values:  `hidden`, `typeName`, `typeId`, `page`, `group`,  
+Lists: `characteristics`  
+# `<characteristics>`
+Values: `value`, `originalValue`, `typeId`  
+# `<rules>`
+Values: `description`, `hidden`, `page`  
+# `<costs>`
+Values: `value`, `typeId`  
+# `<secondaries>`
+
+
+# `<if>`
+This node and its child will be not be rendered if it does not match a condition  
+Types:
+`equals`: `field` is equal to `value`  
+`not-equals`: `field` is not equal to `value`  
+`match`: `field` matches the regex in `value`; flags can be added in `flags`  
+`not-match`:  `field` does not match the regex in `value`; flags can be added in `flags`  
+`has-profile`:  `field` (or the current element) has a profile with typeName in `value` (case insensitive, separate by `,`)  
+`has-not-profile`:  `field` (or the current element) does not have a profile with typeName in `value` (case insensitive, separate by `,`)  
+`not`: `field` is falsy  
+(no type): `field` is truthy
+
+If the field is `length`, these types are also supported: `greater`, `atleast`, `less`, `atmost`, `equals`, `not-equals`
+
+Example:
+```xml
+<entries>
+  <if type="has-profile" value="model,stats">
+    ...
+  </if>
+</entries>
+```
+
+
+
