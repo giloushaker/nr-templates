@@ -51,6 +51,7 @@ Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`
 Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`  
 Attributes:  
 `exclude-primary-categories`: exclude units with matching primary category (case insensitive, separate by `,`)  
+`dedupe`: set to "true" to dedupe similar units  
 ### `<entries>`
 Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
 Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`
