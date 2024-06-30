@@ -77,7 +77,7 @@ Attributes:
 ### `<costs>`
 Values: `name`, `value`, `typeId`  
 ### `<secondaries>`
-Values: `name`,
+Values: `name`
 
 
 ### `<if>`
