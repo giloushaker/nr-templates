@@ -62,7 +62,7 @@ Values: `value`, `typeId`
 
 
 # `<if>`
-This node and its child will be not be rendered if it does not match a condition  
+This node and its child will only be rendered if it matches a condition  
 Types:
 `equals`: `field` is equal to `value`  
 `not-equals`: `field` is not equal to `value`  
