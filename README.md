@@ -63,7 +63,7 @@ Values: `value`, `typeId`
 
 # `<if>`
 This node and its child will only be rendered if it matches a condition  
-Types:
+Types:  
 `equals`: `field` is equal to `value`  
 `not-equals`: `field` is not equal to `value`  
 `match`: `field` matches the regex in `value`; flags can be added in `flags`  
