@@ -31,8 +31,7 @@ Results in (for each matching profile):
 ```
 
 # Common
-All elements have these fields/values.  
-Values: `name`,  
+All elements have these fields/values:  
 `first`: Indicates if this is the first element in a list  
 `last`: Indicates if this is the last element in a list  
 `odd`: Indicates if this is an odd element in a list  
@@ -45,23 +44,23 @@ Values: `name`,
 All "list elements" support the `max` attribute. (`max="1"` is useful for headers)  
 
 ### `<forces>`
-Values `options`, `hidden`  
+Values `name`, `options`, `hidden`  
 Lists: `units`, `entries`, `costs`  
 ### `<units>`
-Values:`primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
+Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
 Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`  
 Attributes:  
 `exclude-primary-categories`: exclude units with matching primary category (case insensitive, separate by `,`)  
 ### `<entries>`
-Values: `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
+Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
 Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`
 ### `<rules>`
-Values: `description`, `hidden`, `page`  
+Values: `name`, `description`, `hidden`, `page`  
 Attributes:  
 `exclude-entry-type`: exclude profiles from entries with matching type (case insensitive, separate by `,`)  
 `exclude-entries-with-profile`: exclude profiles from entries containing a matching profile type (case insensitive, separate by `,`)  
 ### `<profiles>`
-Values:  `hidden`, `typeName`, `typeId`, `page`, `group`,  
+Values:  `name`, `hidden`, `typeName`, `typeId`, `page`, `group`,  
 Lists: `characteristics`  
 Attributes:  
 `include`: include matching typeNames (case insensitive, separate by `,`)  
@@ -70,14 +69,15 @@ Attributes:
 `exclude-entries-with-profile`:  exclude profiles from entries containing a matching profile type (case insensitive, separate by `,`)  
 `grouped`: creates a group for each profile type, use `<items>` to render each profile within the group  
 ### `<characteristics>`
-Values: `value`, `originalValue`, `typeId`  
+Values: `name`, `value`, `originalValue`, `typeId`  
 Lists: `characteristics`  
 Attributes:  
 `include`: include matching typeNames (case insensitive, separate by `,`)  
 `exclude`: exclude matching typeNames (case insensitive, separate by `,`)  
 ### `<costs>`
-Values: `value`, `typeId`  
+Values: `name`, `value`, `typeId`  
 ### `<secondaries>`
+Values: `name`,
 
 
 ### `<if>`
