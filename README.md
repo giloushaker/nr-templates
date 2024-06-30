@@ -41,6 +41,9 @@ Values: `name`,
 `index`: The (zero-based) position of the element in its containing list  
 
 ## List Elements
+
+All "list elements" support the `max` attribute. (`max="1"` is useful for headers)  
+
 ### `<forces>`
 Values `options`, `hidden`  
 Lists: `units`, `entries`, `costs`  
