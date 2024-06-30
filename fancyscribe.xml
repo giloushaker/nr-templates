@@ -25,7 +25,7 @@
           </div>
           <div style="display: flex; flex-direction: column; gap: 6px; z-index: 1; position: relative;">
             <entries>
-              <filter type="has-profile" value="model,unit,stats">
+              <if type="has-profile" value="model,unit,stats">
                 <div style="display: flex; gap: 1.2rem;">
                   <profiles include="model,unit,stats">
                     <characteristics>
@@ -40,15 +40,22 @@
                     </characteristics>
                   </profiles>
                   <div class="flex flex-wrap items-center gap-2" style="margin-top: 16px; text-shadow: rgb(0, 0, 0) 0px 0px 5px;">
-                    <filter field="length" type=">" value="1">
-                      <div style="white-space: nowrap;">{{name}}</div>
-                    </filter>
+                    <if type="greater" field="amount" value="1">
+                      <span>
+                        <span>{{amount}}</span>x
+                      </span>
+                    </if>
+                    <if field="length" type=">" value="1">
+                    <div>
+                      <span style="white-space: nowrap;">{{name}}</span>
+                      </div>
+                    </if>
                     <div style="font-size: 0.7em;">
                       <div style="white-space: pre-wrap">{{options}}</div>
                     </div>
                   </div>
                 </div>
-              </filter>
+              </if>
             </entries>
           </div>
         </div>
@@ -58,7 +65,7 @@
           <table cellspacing="0" class="weapons-table" style="width: 100%;">
             <thead>
               <profiles include="ranged weapons" max="1">
-                <tr style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
                   <th class="w-2em">
                     <div style="display: flex; min-width: 0.7em; justify-content: center;">
                       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAJJSURBVDhPtVRbTxpBGB3Qxmd+RmvShMe+81L6C0z60r70F/S1iZWHXmy4SDSAhSKNBBpCtVqboiataWJTY0ShrQpyaUK3IJcuC6vuwunsZDUlRFlsepLZ2Zk558y3s9985H9Ap/bn4qHTCaPRSAwGA8nmMuT2zVs9NT0xHX6FsiRDBJDMZaBOXw42z3PEUwfg6g3w7TY4vo56S0bt5BhLax/6N595PYffNLKC0MDHrTg+xeMs0rmVGNYT2+w9xXEYtVq1mU/4Z9Cgongm2yH4Xiicjd2hWdQpJ1up9DZ96nKDa4pIZvNd5LFJZ8ecxeFgmyfy3dwObOzto3x00nt3FZFYjEU87nZ3a0btdozZHUhzRaxtbmk2VZAplbCZSsHinOjUbdBJ5fCV9jnxlW2gLl0IXyQCgWoqssz6lwtvmE6vPCRJUjpyLLfJ9eGrxGQysfFFcAWDMJvNRJJlMjQwQLUyqVQqbI2ZiqJIdnb3yNCgniS+7ZIbw9d63pp7IyO6QCBAeJ4nh7Ua4YU60V8ZVFf/wnY2h3y5qvlMbV4v+1H+aPR8jZJSCml9J6nJuNpq0RRs9uZGV1bZbZpdWOwge0Khs/GDZ0+QKZdRo9d3fNqjKQASXHzLEjtdOoTjhR/ecBicIMDqcWF+dZl+TQtKKj2emtJmeIro+2UUGyIOfpVYqh3RlisVUahVWbV6REuiSu0foaV3zLQqSUj/LMBis13e7BRWnw8/6rTsUeMv+3uaDDVV8clwCDpqJzQb5P6du/9e+fsHIX8AQcajpvRRPZkAAAAASUVORK5CYII=" />
@@ -79,9 +86,11 @@
                     <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0px 4px; line-height: 1.05;">
                       <span>{{name}}</span>
                       <characteristics include="keywords" max="1">
-                        <filter type="not-match" value="^\s*-\s*$" field="$text">
-                          <span if="$text" style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;"> [ <span>{{$text}}</span>] </span>
-                        </filter>
+                        <if type="not-match" value="^\s*-\s*$" field="$text">
+                          <span if="$text" style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;">
+                          [<span>{{$text}}</span>] 
+                          </span>
+                        </if>
                       </characteristics>
                     </div>
                   </td>
@@ -99,7 +108,7 @@
             </tbody>
             <thead>
               <profiles include="melee weapons, weapon, weapons" max="1">
-                <tr style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
                   <th class="w-2em">
                     <div style="display: flex; min-width: 0.7em; justify-content: center;">
                       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAASCAYAAAC0EpUuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAH0SURBVDhPvVN/b9JQFH1o/I/MxG/A1+AzGhN/xrglE4i4odtwxmQF5hSyRQPKzDInaGxDCBmtdB2s7aNQjpdHQ1KhBf3Dk7y+9+695/S9k3fZf8Vq5jm85QwePUviycZGYH4uyrUaTAAnDXmG+DCxDt3huKK8dHi4WDixswOLim0amnkl5vLZqY+oqG30Kd4xbXCa5bYaLLxdKODSdUVhU7+YEG0Lj5MJH6lUKcOmOtNxYZgcvYGLnjuaL9zQdRLh0HomDO5AaZ/j/trq3OL9Ugl614Q1GAlxnfexncv5a8+5TT45wsfxCQc0DMsKvFahWMTQqxuPlnEprFrLZATn2uQTYRRj12ndaLZYsXTELMti5shF6uULn3j12xni8Tir/5BZ9fiEdS3Obt1cEblIJCLmKTTbFn/0tgITfzvT2Oab18LzL/XaNPZKyotTJrNZHzcQ98jTytdTdEdD7Fc+QtY1FD4cLUdehF8Djgty8d3xp6UEhaeLMPbqBjkei8W8SDhCRd9Xq5A7HRTyb1mUlKPRFTbuJC/998jkJKhOH1v5vE+k/L2O3r8Ibx0coENdk9zdnUtWDAPNkHc8gyw9bI0ENyUplPRZUdDiHHdTqXDxO9Tn6nCI9N7eUqf4SSdWqUG8bTAepNPLX4tw++n6H/WM/Qb5yZZZuC/34QAAAABJRU5ErkJggg==" />
@@ -120,9 +129,11 @@
                     <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0px 4px; line-height: 1.05;">
                       <span>{{name}}</span>
                       <characteristics include="keywords" max="1">
-                        <filter type="not-match" value="^\s*-\s*$" field="$text">
-                          <span if="$text" style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;"> [ <span>{{$text}}</span>] </span>
-                        </filter>
+                        <if type="not-match" value="^\s*-\s*$" field="$text">
+                          <span if="$text" style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;"> 
+                          [<span>{{$text}}</span>]
+                          </span>
+                        </if>
                       </characteristics>
                     </div>
                   </td>
@@ -141,7 +152,7 @@
             <profiles grouped="true" exclude="ranged weapons, melee weapons, weapon, weapons, unit, stats, model, rules, abilities, special rule">
               <thead>
                 <items max="1">
-                  <tr style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                  <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
                     <th></th>
                     <th colspan="7" style="text-align: left;">{{typeName}}</th>
                   </tr>
@@ -168,9 +179,9 @@
           <div style="position: absolute; right: -2px; bottom: -16px; padding: 0px 42px 0px 8px; display: flex; align-items: center; background-color: rgb(188, 188, 190); border: 2px solid var(--primary-color); width: calc(100% - 0.9rem); background-size: contain; min-height: 54px; gap: 3px;">
             <span style="font-size: 1.1em;">KEYWORDS:</span>
             <secondaries>
-              <filter field="name" type="not-match" value="faction: .*" flags="i">
+              <if field="name" type="not-match" value="faction: .*" flags="i">
                 <span class="split" style="font-size: 1em; font-weight: 800; white-space: nowrap;">{{name}}</span>
-              </filter>
+              </if>
             </secondaries>
           </div>
         </div>
@@ -197,9 +208,9 @@
           <div style="position: absolute; left: 0px; bottom: -16px; padding: 0px 4px 0px 42px; display: flex; justify-content: center; flex-direction: column; background: url(&quot;https://nilsueter.github.io/fancyscribe/assets/factionBackground-70f943c3.png&quot;) 0% 0% / contain; color: rgb(255, 255, 255); border-top-color: ; border-top-style: ; border-top-width: ; border-right-color: ; border-right-style: ; border-right-width: ; border-bottom-color: ; border-bottom-style: ; border-bottom-width: ; border-left: none; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; width: calc(100% - 0.9rem); min-height: 54px;">
             <span style="font-size: 0.9em; line-height: 1.3;">FACTION KEYWORDS:</span>
             <secondaries>
-              <filter field="name" type="match" value="faction: .*" flags="i">
+              <if field="name" type="match" value="faction: .*" flags="i">
                 <span class="split" style="font-size: 0.9em; font-weight: 600; white-space: nowrap;">{{name}}</span>
-              </filter>
+              </if>
             </secondaries>
           </div>
           <div style="position: absolute; left: -28px; bottom: -16px; width: 54px; height: 54px; transform: rotate(-45deg); border: 2px solid var(--primary-color); overflow: hidden; display: flex; align-items: center; justify-content: center;">
@@ -210,6 +221,8 @@
     </div>
   </units>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap');
+
     html {
       --primary-color: #206173;
       --primary-color-transparent: #20617360;
