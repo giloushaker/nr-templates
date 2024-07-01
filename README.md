@@ -95,9 +95,9 @@ Types:
 `not`: `field` is falsy  
 (no type): `field` is truthy
 
-If the field is `length`, these types are also supported: `greater`, `atleast`, `less`, `atmost`, `equals`, `not-equals`
+If the field is `length` or `amount`, these types are also supported: `greater`, `atleast`, `less`, `atmost`, `equals`, `not-equals`
 
-Example:
+Examples:
 ```xml
 <entries>
   <if type="has-profile" value="model,stats">
@@ -105,6 +105,31 @@ Example:
   </if>
 </entries>
 ```
+```xml
+<profiles>
+  <span>{{name}}</span>
+  <characteristics>
+  <if field="value" type="match" value="^[-\s]*$">
+    
+  </if>
+  <if field="value" type="match" value="^[-\s]*$">
+    
+  </if>
+  </characteristics>
+</entries>
+```
+
+Todo:
+- [ ] OR conditions
+- [ ] `<else>`
+- [ ] `<else-if>`
+- [ ] attribute that generates a "dont print this card" checkbox (would also allow users to print one per page)
+- [ ] attribute that generates a "move up" and "move down" button
+- [ ] mongodb aggregation like way to query the roster
+- [ ] variables that are defined by the template and can be provided by the user/gameSystem and used in template / css
+- [ ] string manipulation (not sure how to do it, maybe allow scripting?)
+- [ ] markdown support for profiles
+
 
 
 
