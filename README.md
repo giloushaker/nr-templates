@@ -97,7 +97,8 @@ Types:
 
 If the field is `length` or `amount`, these types are also supported: `greater`, `atleast`, `less`, `atmost`, `equals`, `not-equals`
 
-Examples:
+### Examples:
+Filter out entries without model or stats profiles
 ```xml
 <entries>
   <if type="has-profile" value="model,stats">
@@ -105,18 +106,16 @@ Examples:
   </if>
 </entries>
 ```
+Render nothing for characteristics that are empty or only have a -
 ```xml
-<profiles>
-  <span>{{name}}</span>
-  <characteristics>
-  <if field="value" type="match" value="^[-\s]*$">
-    
-  </if>
-  <if field="value" type="match" value="^[-\s]*$">
-    
-  </if>
-  </characteristics>
-</entries>
+<characteristics>
+   <if field="value" type="match" value="^[-\s]*$">
+     <span></span>
+   </if>
+   <if field="value" type="not-match" value="^[-\s]*$">
+     <span>{{value}}</span>
+   </if>
+</characteristics>
 ```
 
 Todo:
