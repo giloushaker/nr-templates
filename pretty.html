@@ -1,0 +1,567 @@
+<template>
+  <div class="preview">
+    <div parent="root">
+      <div class="section cards">
+        <units dedupe="true" exclude-primary-categories="configuration">
+          <div class="unit card-wrapper">
+            <table class="section card movable">
+              <thead>
+                <tr class="section card-header">
+                  <td>
+                    <span class="costs">
+                      <costs>
+                        <span class="cost">
+                          <span>{{ cost.value }}</span>
+                          <span>{{ cost.name }}</span>
+                        </span>
+                      </costs>
+                    </span>
+                    <if field="customName">
+                      <span class="custom-name">{{customName}}</span>
+                    </if>
+                    <span class="name">{{name}}</span>
+                    <if field="dupeCount" type=">" value="1">
+                      <span class="count">{{dupeCount}}</span>
+                    </if>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <table class="section card-models group">
+                      <models max="1">
+                        <tr class="header model profile">
+                          <td class="section cell nowrap header">
+                            <span class="header name">Models</span>
+                          </td>
+                          <td class="section cell header">
+                            <span class="header options">Options</span>
+                          </td>
+                        </tr>
+                      </models>
+                      <models>
+                        <tr class="model profile">
+                          <td class="section cell nowrap">
+                            <span class="count">{{dupeCount}}</span>x
+                            <span class="name">{{name}}</span>
+                          </td>
+                          <td class="section cell">
+                            <span class="options">{{options}}</span>
+                          </td>
+                        </tr>
+                      </models>
+                    </table>
+                  </td>
+                </tr>
+                <tr class="section profile-row profiles group">
+                  <td>
+                    <profiles grouped="true">
+                      <table class="profile-group group">
+                        <items max="1">
+                          <tr class="header profile">
+                            <td class="header name cell">
+                              <span>{{typeName}}</span>
+                              <if field="group">
+                                <span>(<span>{{group}}</span>)</span>
+                              </if>
+                            </td>
+                            <characteristics>
+                              <td class="header characteristic small cell data">
+                                <span class="header value">{{name}}</span>
+                              </td>
+                            </characteristics>
+                          </tr>
+                        </items>
+                        <items>
+                          <tr class="section profile row">
+                            <td class="name cell">{{name}}</td>
+                            <characteristics>
+                              <td class="characteristic small cell data">
+                                <span>{{value}}</span>
+                              </td>
+                            </characteristics>
+                          </tr>
+                        </items>
+                      </table>
+                    </profiles>
+                  </td>
+                </tr>
+                <!-- <tr class="section card-units card-row group" v-if="nested_units(unit).length">
+              <td>
+                <span class="header secondary cell">
+                  <span class="header name">Units</span>
+                </span>
+                <div class="secondaries cell">
+                  <span class="secondary" v-for="nested_unit of nested_units(unit)">
+                    <span class="name">{{ nested_unit.getAmount() }}x {{ nested_unit.getName() }}</span>
+                  </span>
+                </div>
+              </td>
+            </tr> -->
+                <!-- <tr class="section card-rules card-row">
+              <td>
+                <div class="profiles profile-row profiles group" v-for="group of shortProfiles(unit)">
+                  <span class="header secondary cell">
+                    <span class="name nowrap">{{ group[0].typeName }}</span>
+                  </span>
+                  <span class="secondaries cell">
+                    <span class="name" v-for="profile in group">{{ profile.name }}</span>
+                  </span>
+                </div>
+              </td>
+            </tr> -->
+                <tr class="section card-keywords card-row group">
+                  <td>
+                    <span class="header secondary cell">
+                      <span class="header name">Categories</span>
+                    </span>
+                    <div class="secondaries cell">
+                      <secondaries>
+                        <span class="secondary"><span class="name">{{name}}</span></span>
+                      </secondaries>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </units>
+      </div>
+    </div>
+  </div>
+  <style>
+    @charset "UTF-8";
+
+    table,
+    .table {
+      border-collapse: collapse;
+    }
+
+    @font-face {
+      font-family: "Tahoma";
+      src: url("/Tahoma.ttf") format(truetype);
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Tahoma";
+      src: url("https://www.newrecruit.eu/TahomaBold.ttf") format(truetype);
+      font-weight: bold;
+      font-style: normal;
+      font-variant: normal;
+    }
+
+    html {
+      font-family: "Tahoma";
+      background-color: white;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0);
+      color: rgb(70, 70, 70);
+    }
+
+    .card .cost,
+    .table .cost {
+      margin-left: 6px;
+    }
+
+    .card .cost-value-0,
+    .table .cost-value-0 {
+      display: none;
+    }
+
+    .cost-type {
+      margin-left: 1px;
+    }
+
+    .roster-header {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    a {
+      text-decoration: none;
+      color: unset;
+    }
+
+    .force-catalogue {
+      color: gray;
+    }
+
+    .forces .force {
+      margin-bottom: 20px;
+      -moz-column-break-inside: avoid;
+      break-inside: avoid;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    @media not print {
+      .forces .force {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .forces .custom-name {
+      font-weight: bold;
+    }
+
+    .options+.profile-group {
+      margin-top: 10px;
+    }
+
+    .options-profiles-group-header,
+    .unit-categories-header {
+      font-weight: bold;
+      content: ": ";
+    }
+
+    .options-profiles-group-header::after,
+    .unit-categories-header::after {
+      content: ": ";
+    }
+
+    .options-profiles-name:not(:last-child)::after {
+      content: ", ";
+      white-space: break-spaces;
+    }
+
+    .unit-category-name:not(:last-child)::after {
+      content: ", ";
+      white-space: break-spaces;
+    }
+
+    .options-profiles-name,
+    .unit-category-name {
+      display: inline-block;
+    }
+
+    .section:empty {
+      display: none;
+    }
+
+    .section.table .costs {
+      margin-left: 4px;
+    }
+
+    .section.table .cell:not(.header) {
+      text-align: left;
+      vertical-align: middle;
+      padding: 5px;
+      border: 1px solid lightgrey;
+    }
+
+    .section.table> :nth-child(even) {
+      background-color: rgba(51, 40, 40, 0.05);
+    }
+
+    .section.table .header.cell {
+      border-bottom: 2px solid black;
+      padding-right: 8px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-family: "Constantia";
+    }
+
+    .section.roster-header .costs {
+      margin-left: 4px;
+    }
+
+    .section.roster-header .force {
+      display: table;
+    }
+
+    .section.config .costs {
+      margin-left: 4px;
+    }
+
+    .section.config .unit::before {
+      content: "• ";
+    }
+
+    .section.config .unit .name::after {
+      content: ": ";
+    }
+
+    .header.cell {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .unit {
+      width: min(1000px, 100%);
+    }
+
+    .t9aprofile {
+      margin-left: 10px;
+    }
+
+    .card:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: lightslategray;
+      clip-path: polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px), 0 12px, 2px 12.83px, 2px calc(100% - 12px - 0.83px), 12.83px calc(100% - 2px), calc(100% - 12px - 0.83px) calc(100% - 2px), calc(100% - 2px) calc(100% - 12px - 0.83px), calc(100% - 2px) 12.83px, calc(100% - 12px - 0.83px) 2px, 12.83px 2px, 2px 12.83px);
+    }
+
+    .card {
+      clip-path: polygon(0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px, 100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px));
+      border-bottom: 2px solid lightslategray;
+      width: 100%;
+    }
+
+    .card-wrapper {
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: small;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      -moz-column-break-inside: avoid;
+      break-inside: avoid;
+      margin-top: 10px;
+      border-collapse: collapse;
+      display: table;
+    }
+
+    .profile>.cell {
+      padding: 2px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .profile>.cell:not(.header) {
+      border-left: 1px solid #e5e5e5;
+      border-right: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      border-top: none;
+      /* white-space: break-spaces; */
+    }
+
+    .profile.header * .cell {
+      white-space: nowrap;
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid slategray;
+      border-bottom: none;
+      /* border-bottom: 1px solid slategray; */
+    }
+
+    .profiles> :first-child {
+      border-top: none;
+    }
+
+    .profiles> :first-child>.row {
+      border-top: none;
+    }
+
+    .profiles> :first-child>.row>.cell {
+      border-top: none;
+    }
+
+    .row {
+      page-break-inside: avoid;
+    }
+
+    .card-row {
+      text-align: left;
+    }
+
+    .card-row .card-models .options::before {
+      content: ": (";
+    }
+
+    .card-row .card-models .options::after {
+      content: ")";
+    }
+
+    .card-row .card-models .models {
+      padding-bottom: 5px;
+    }
+
+    .card-row .header.cell {
+      padding: 5px;
+      padding-left: 10px;
+      background-color: rgba(0, 0, 0, 0.1);
+      height: 100%;
+    }
+
+    .card-row .cell {
+      display: table-cell;
+    }
+
+    .card-row .cell:not(.header) {
+      border-left: 1px solid lightslategray;
+      vertical-align: middle;
+    }
+
+    .card-row .cell:not(.header)>span:not(:last-child)::after {
+      content: ",";
+    }
+
+    .card-row .cell:not(.header)>* {
+      margin-left: 5px;
+      display: inline-block;
+    }
+
+    .card-header {
+      padding: 3px;
+      background-color: slategray;
+      position: relative;
+      text-align: center;
+    }
+
+    .card-header .count {
+      color: white;
+      position: absolute;
+      right: 15px;
+      font-family: "Georgia";
+    }
+
+    .card-header .count::before {
+      content: "x";
+    }
+
+    .card-header .name {
+      color: white;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: Arial;
+    }
+
+    .card-header .custom-name {
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      font-family: Arial;
+    }
+
+    .card-header .costs {
+      color: white;
+      position: absolute;
+      text-transform: uppercase;
+      left: 15px;
+    }
+
+    .card-header .costs .cost-type {
+      margin-left: 3px;
+    }
+
+    .profile .name {
+      white-space: nowrap;
+    }
+
+    .group {
+      width: 100%;
+      border-top: 1px solid slategray;
+    }
+
+    .roster-rules {
+      margin-top: 20px;
+    }
+
+    .section.roster-rules .rule-name,
+    .section.unit-rules .rule-name {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .section.roster-rules .rule-text,
+    .section.unit-rules .rule-text {
+      white-space: pre-wrap;
+      white-space-collapse: preserve-breaks;
+      text-wrap: wrap;
+    }
+
+    .section.roster-rules .force-name,
+    .section.unit-rules .force-name {
+      font-size: 24px;
+    }
+
+    .section.unit-rules .header {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .section.roster-rules .roster-rules-header {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .section.roster-rules .force {
+      margin-top: 10px;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .rule-definitions,
+    .rule-definition {
+      page-break-inside: avoid;
+      margin-top: 10px;
+    }
+
+    .page-break-avoid {
+      page-break-inside: avoid;
+    }
+
+    .on-next-page {
+      page-break-before: always;
+    }
+
+    td {
+      padding: 0;
+    }
+
+    .data {
+      font-size: calc(var(--fontSize, 16px) - 2px) !important;
+    }
+
+    .data ul {
+      margin: 0;
+      padding: 0;
+      margin-left: 16px;
+      list-style-position: outside;
+      margin-bottom: -16px;
+    }
+
+    .data li {
+      margin-top: -16px;
+    }
+
+    .data li:before {
+      content: "";
+      margin-left: -0.4rem;
+    }
+
+    .data p {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+
+    .data del {
+      margin: 0;
+      padding: 0;
+      display: inline;
+    }
+
+    .note {
+      color: gray;
+      white-space: pre-wrap;
+    }
+
+    .data * td {
+      border: 1px solid gray;
+      padding: 2px;
+    }
+
+    .data * th {
+      font-weight: bold;
+    }
+  </style>
+</template>
