@@ -30,7 +30,7 @@ Results in (for each matching profile):
 <span>Example</span>
 ```
 
-Note that text nodes currently get deleted if they are directly nested in a "list element" or `<if>`, to fix that you need to wrap the text with a <span> or any other html element.
+Note that text nodes currently get deleted if they are directly nested in a "list element" or `<if>`, to fix that you need to wrap the text with a `<span>` or any other html element.
 
 # Common
 All elements have these fields/values:  
