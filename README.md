@@ -62,6 +62,7 @@ Values: `name`, `description`, `hidden`, `page`
 Attributes:  
 `exclude-entry-type`: exclude profiles from entries with matching type (case insensitive, separate by `,`)  
 `exclude-entries-with-profile`: exclude profiles from entries containing a matching profile type (case insensitive, separate by `,`)  
+`recursive`: defaults to `true`, if `false`, only returns the rules directly from the current entry  
 ### `<profiles>`
 Values:  `name`, `hidden`, `typeName`, `typeId`, `page`, `group`,  
 Lists: `characteristics`  
@@ -71,6 +72,7 @@ Attributes:
 `exclude-entry-type`: exclude profiles from entries with matching type (case insensitive, separate by `,`)  
 `exclude-entries-with-profile`:  exclude profiles from entries containing a matching profile type (case insensitive, separate by `,`)  
 `grouped`: creates a group for each profile type, use `<items>` to render each profile within the group  
+`recursive`: defaults to `true`, if `false`, only returns the profiles directly from the current entry  
 ### `<characteristics>`
 Values: `name`, `value`, `originalValue`, `typeId`  
 Lists: `characteristics`  
