@@ -75,7 +75,6 @@ Attributes:
 `recursive`: if `false`, only returns the profiles directly from the current entry  
 ### `<characteristics>`
 Values: `name`, `value`, `originalValue`, `typeId`  
-Lists: `characteristics`  
 Attributes:  
 `include`: include matching typeNames (case insensitive, separate by `,`)  
 `exclude`: exclude matching typeNames (case insensitive, separate by `,`)  
