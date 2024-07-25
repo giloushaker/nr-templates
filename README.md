@@ -19,7 +19,7 @@ Will be expanded to
 ```
 
 2. Replacing Placeholders
-Within XML nodes, any text wrapped in {{...}} will be replaced with the corresponding value. For example:
+Within nodes textContent or Attributes, any text wrapped in {{...}} will be replaced with the corresponding value. For example:
 ```xml
 <profiles>
   <span>{{name}}</span>
@@ -86,7 +86,7 @@ Values: `name`
 
 
 ### `<if>`
-This node and its child will only be rendered if it matches a condition  
+This node's childs will only be rendered if it matches a condition, `<or>` and `<and>` may be nested within an `<if>` for more complex logic
 Types:  
 `equals`: `field` is equal to `value`  
 `not-equals`: `field` is not equal to `value`  
@@ -103,7 +103,8 @@ If the field is `length` or `amount`, these types are also supported: `greater`,
 Filter out entries without model or stats profiles
 ```xml
 <entries>
-  <if type="has-profile" value="model,stats">
+  <if type="has-profile" value="model">
+    <or type="has-profile" value="stats">
     ...
   </if>
 </entries>
@@ -137,9 +138,8 @@ Render nothing for characteristics that are empty or only have a -
 ### Card
 `type="card"`: adds a 'dont print this card' checkbox and support for 'one card per page' option
 
-
 # Todo:
-- [ ] OR conditions
+- [x] `<and>`, `<or>`
 - [ ] `<else>`
 - [ ] `<else-if>`
 - [x] attribute that generates a "dont print this card" checkbox (would also allow users to print one per page)
