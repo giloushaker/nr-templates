@@ -121,7 +121,7 @@ Render nothing for characteristics that are empty or only have a -
 ```
 
 # Special Attributes
-### Markdown )
+### Markdown
 `type="markdown"`: renders the content as markdown, intended for characteristic & rule content 
 
 #### Example usage:
@@ -129,7 +129,7 @@ Render nothing for characteristics that are empty or only have a -
 <profiles>
  <characteristics>
   <span type="markdown">{{$text}}</span>
- </characteristics
+ </characteristics>
 </profiles>
 ```
 
