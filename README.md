@@ -46,16 +46,16 @@ All elements have these fields/values:
 All "list elements" support the `max` attribute. (`max="1"` is useful for headers)  
 
 ### `<forces>`
-Values `name`, `options`, `hidden`  
+Values `name`, `options`, `hidden`, `primaryCatalogue`    
 Lists: `units`, `entries`, `costs`  
 ### `<units>`
-Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
+Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`, `primaryCatalogue`  
 Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`  
 Attributes:  
 `exclude-primary-categories`: exclude units with matching primary category (case insensitive, separate by `,`)  
 `dedupe`: set to "true" to dedupe similar units  
 ### `<entries>`
-Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`  
+Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`, `primaryCatalogue`    
 Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`
 ### `<rules>`
 Values: `name`, `description`, `hidden`, `page`  
