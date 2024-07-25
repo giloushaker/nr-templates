@@ -137,7 +137,7 @@ Render nothing for characteristics that are empty or only have a -
 `type="card"`: adds a 'dont print this card' checkbox and support for 'one card per page' option
 
 
-Todo:
+# Todo:
 - [ ] OR conditions
 - [ ] `<else>`
 - [ ] `<else-if>`
