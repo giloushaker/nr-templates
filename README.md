@@ -122,7 +122,8 @@ Render nothing for characteristics that are empty or only have a -
 
 # Special Attributes
 ### Markdown
-`type="markdown"`: renders the content as markdown, intended for characteristic & rule content 
+`type="markdown"`: renders the content as markdown, intended for characteristic & rule content, may cause issues if node has non-text child nodes
+
 
 #### Example usage:
 ```xml
