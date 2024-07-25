@@ -67,7 +67,7 @@
         <div class="flex-1.2 pt-5" style="border-right: 2px solid var(--primary-color); position: relative; padding-bottom: 40px; display: flex; flex-direction: column;">
           <table cellspacing="0" class="weapons-table" style="width: 100%;">
             <thead>
-              <profiles include="ranged weapons" max="1">
+              <profiles include="ranged weapons, ranged weapon" max="1">
                 <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
                   <th class="w-2em">
                     <div style="display: flex; min-width: 0.7em; justify-content: center;">
@@ -82,7 +82,7 @@
               </profiles>
             </thead>
             <tbody>
-              <profiles include="ranged weapons">
+              <profiles include="ranged weapons, ranged weapon">
                 <tr>
                   <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
                   <td style="text-align: left;">
@@ -110,7 +110,7 @@
                 </if>
                 </characteristics>
               </profiles>
-              <profiles include="ranged weapons" max="1">
+              <profiles include="ranged weapons, ranged weapon" max="1">
                 <tr class="emptyRow">
                   <td style="border-top: none;"></td>
                   <td colspan="7"></td>
@@ -118,7 +118,7 @@
               </profiles>
             </tbody>
             <thead>
-              <profiles include="melee weapons, weapon, weapons" max="1">
+              <profiles include="melee weapons, melee weapon, weapon, weapons" max="1">
                 <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
                   <th class="w-2em">
                     <div style="display: flex; min-width: 0.7em; justify-content: center;">
@@ -133,7 +133,7 @@
               </profiles>
             </thead>
             <tbody>
-              <profiles include="melee weapons, weapon, weapons">
+              <profiles include="melee weapons, melee weapon, weapon, weapons">
                 <tr>
                   <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
                   <td style="text-align: left;">
@@ -161,14 +161,14 @@
                   </if>
                   </characteristics>
               </profiles>
-              <profiles include="melee weapons, weapon, weapons" max="1">
+              <profiles include="melee weapons, melee weapon, weapon, weapons" max="1">
                 <tr class="emptyRow">
                   <td style="border-top: none;"></td>
                   <td colspan="7"></td>
                 </tr>
               </profiles>
             </tbody>
-            <profiles grouped="true" exclude="ranged weapons, melee weapons, weapon, weapons, unit, stats, model, rules, abilities, special rule">
+            <profiles grouped="true" exclude="ranged weapons, ranged weapon, melee weapons, melee weapon, weapon, weapons, unit, stats, model, rules, abilities, special rule">
               <thead>
                 <items max="1">
                   <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
@@ -215,10 +215,10 @@
           <div style="font-size: 1.1em; padding: 1px 6px; background-color: var(--primary-color); color: rgb(255, 255, 255); font-weight: 600; min-height: 27px; display: flex; align-items: center;"> ABILITIES </div>
           <div style="padding: 5px 2px; gap: 3px; border-bottom: 1px dotted rgb(158, 159, 161); line-height: 1.3; display: flex; flex-wrap: wrap;">
             <span style="font-size: 0.8em;">RULES: </span>
-            <rules exclude-entries-with-profile="ranged weapons, melee weapons, weapons, weapon">
+            <rules exclude-entries-with-profile="ranged weapons, ranged weapon, melee weapons, melee weapon, weapons, weapon">
               <span class="split" style="white-space: nowrap; font-size: 0.8em; font-weight: 700;">{{name}}</span>
             </rules>
-            <profiles exclude-entries-with-profile="ranged weapons, melee weapons, weapons, weapon" include="special rule">
+            <profiles exclude-entries-with-profile="ranged weapons, ranged weapon, melee weapons, melee weapon, weapons, weapon" include="special rule">
               <span class="split" style="white-space: nowrap; font-size: 0.8em; font-weight: 700;">{{name}}</span>
             </profiles>
           </div>
@@ -391,6 +391,16 @@
     line-height: 1.1
   }
 
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit
+  }
+
+  a:hover {
+    color: #535bf2
+  }
+    
   .weapons-table th {
     font-size: 1.1em;
     padding: 2px .4rem;
