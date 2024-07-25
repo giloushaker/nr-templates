@@ -120,16 +120,33 @@ Render nothing for characteristics that are empty or only have a -
 </characteristics>
 ```
 
+# Special Attributes
+### Markdown )
+`type="markdown"`: renders the content as markdown, intended for characteristic & rule content 
+
+#### Example usage:
+```xml
+<profiles>
+ <characteristics>
+  <span type="markdown">{{$text}}</span>
+ </characteristics
+</profiles>
+```
+
+### Card
+`type="card"`: adds a 'dont print this card' checkbox and support for 'one card per page' option
+
+
 Todo:
 - [ ] OR conditions
 - [ ] `<else>`
 - [ ] `<else-if>`
-- [ ] attribute that generates a "dont print this card" checkbox (would also allow users to print one per page)
+- [x] attribute that generates a "dont print this card" checkbox (would also allow users to print one per page)
 - [ ] attribute that generates a "move up" and "move down" button
 - [ ] mongodb aggregation like way to query the roster
 - [ ] variables that are defined by the template and can be provided by the user/gameSystem and used in template / css
 - [ ] string manipulation (not sure how to do it, maybe allow scripting?)
-- [ ] markdown support for profiles
+- [x] markdown support for profiles
 
 
 
