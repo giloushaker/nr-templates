@@ -35,7 +35,7 @@
                       <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="font-size: 0.9em; font-weight: 800;">{{name}}</div>
                         <div style="color: var(--primary-color); padding: 2px; background: var(--primary-color); clip-path: polygon(12% 0px, 100% 0px, 100% 20%, 100% 88%, 88% 100%, 20% 100%, 0px 100%, 0px 12%);">
-                          <div style="min-width: 3rem; min-height: 3rem; display: flex; align-items: center; justify-content: center; background: rgb(232, 237, 231); clip-path: polygon(10% 0px, 100% 0px, 100% 20%, 100% 90%, 90% 100%, 20% 100%, 0px 100%, 0px 10%); padding: 3px; font-size: 1.6em; font-weight: 800;">
+                          <div type="markdown" style="min-width: 3rem; min-height: 3rem; display: flex; align-items: center; justify-content: center; background: rgb(232, 237, 231); clip-path: polygon(10% 0px, 100% 0px, 100% 20%, 100% 90%, 90% 100%, 20% 100%, 0px 100%, 0px 10%); padding: 3px; font-size: 1.6em; font-weight: 800;">
                             {{$text}}
                           </div>
                         </div>
@@ -91,21 +91,21 @@
                       <characteristics include="keywords, special rules" max="1">
                         <if type="not-match" value="^\s*-\s*$" field="$text">
                           <span if="$text" style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;">
-                          [<span>{{$text}}</span>] 
+                          [<span type="markdown">{{$text}}</span>] 
                           </span>
                         </if>
                       </characteristics>
                     </div>
                   </td>
                   <characteristics exclude="keywords, special rules">
-                    <td class="align-middle">{{$text}}</td>
+                    <td class="align-middle" type="markdown">{{$text}}</td>
                   </characteristics>
                 </tr>
                 <characteristics include="abilities,notes,note,description">
                 <if field="$text" type="not-match"  value="^[-\s]*$">
                 <tr class="noBorderTop">
                   <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
-                  <td colspan="7" style="text-align: left; font-size: 0.9em; padding-top: 0px; padding-bottom: 1px; line-height: 1.4;">{{$text}}</td>
+                  <td colspan="7" style="text-align: left; font-size: 0.9em; padding-top: 0px; padding-bottom: 1px; line-height: 1.4;" type="markdown">{{$text}}</td>
                 </tr>
                 </if>
                 </characteristics>
@@ -142,21 +142,21 @@
                       <characteristics include="keywords,special rules" max="1">
                         <if type="not-match" value="^\s*-\s*$" field="$text">
                           <span if="$text" style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;"> 
-                          [<span>{{$text}}</span>]
+                          [<span type="markdown">{{$text}}</span>]
                           </span>
                         </if>
                       </characteristics>
                     </div>
                   </td>
                   <characteristics exclude="keywords,special rules,abilities,notes,note,description">
-                    <td class="align-middle">{{$text}}</td>
+                    <td class="align-middle" type="markdown">{{$text}}</td>
                   </characteristics>
                   </tr>
                   <characteristics include="abilities,notes,note,description">
                   <if field="$text" type="not-match"  value="^[-\s]*$">
                   <tr class="noBorderTop">
                     <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
-                    <td colspan="7" style="text-align: left; font-size: 0.9em; padding-top: 0px; padding-bottom: 1px; line-height: 1.4;">{{$text}}</td>
+                    <td colspan="7" style="text-align: left; font-size: 0.9em; padding-top: 0px; padding-bottom: 1px; line-height: 1.4;" type="markdown">{{$text}}</td>
                   </tr>
                   </if>
                   </characteristics>
@@ -168,11 +168,13 @@
                 </tr>
               </profiles>
             </tbody>
-            <profiles grouped="true" exclude="ranged weapons, ranged weapon, melee weapons, melee weapon, weapon, weapons, unit, stats, model, rules, abilities, special rule">
+          </table>
+          <table>
+           <profiles grouped="true" exclude="ranged weapons, ranged weapon, melee weapons, melee weapon, weapon, weapons, unit, stats, model, rules, abilities, special rule">
               <thead>
                 <items max="1">
                   <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
-                    <th></th>
+                    <th class="w-2em"></th>
                     <th colspan="7" style="text-align: left;">{{typeName}}</th>
                   </tr>
                 </items>
@@ -180,10 +182,17 @@
               <tbody>
                 <items>
                   <tr>
-                    <td></td>
-                    <td colspan="7" style="font-size: 0.9em; line-height: 1.4; text-align: left; padding-top: 4px; padding-bottom: 4px;">
+                    <td class="w-2em"></td>
+                    <td colspan="7" style="font-size: 1em; line-height: 1.4; text-align: left; padding-top: 4px; padding-bottom: 4px;">
                       <span style="font-weight: 700;">{{name}}</span>: <characteristics>
-                        <span>{{$text}}</span>
+                        <if field="$text"> 
+                          <if field="length" type="greater" value="1">
+                            <div style="margin-left: 4px;"><span style="font-weight: bold; font-size: 0.8em; ">{{name}}</span>: <span type="markdown">{{$text}}</span></div>
+                          </if>
+                          <if field="length" type="atmost" value="1">
+                            <span type="markdown">{{$text}}</span>
+                          </if>
+                        </if>
                       </characteristics>
                     </td>
                   </tr>
@@ -226,7 +235,7 @@
             <profiles include="abilities" split="\n">
               <div style="font-size: 0.8em; line-height: 1.4;">
                 <span style="font-weight: 700;">{{name}}</span>: <characteristics>
-                  <span>{{$text}}</span>
+                  <span type="markdown">{{$text}}</span>
                 </characteristics>
               </div>
             </profiles>
@@ -247,492 +256,3 @@
     </div>
   </units>
 </template>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
-  html {
-    --primary-color: #206173;
-    --primary-color-transparent: #20617360;
-  }
-
-  html {
-    line-height: 1.5;
-    -webkit-text-size-adjust: 100%;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
-    font-feature-settings: normal;
-    font-variation-settings: normal
-  }
-
-  body {
-    margin: 0;
-    line-height: inherit
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: inherit;
-    font-weight: inherit
-  }
-  b,
-  strong {
-    font-weight: bolder
-  }
-
-  small {
-    font-size: 80%
-  }
-
-  table {
-    text-indent: 0;
-    border-color: inherit;
-    border-collapse: collapse
-  }
-
-  blockquote,
-  dl,
-  dd,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  hr,
-  figure,
-  p,
-  pre {
-    margin: 0
-  }
-
-  ol,
-  ul,
-  menu {
-    list-style: none;
-    margin: 0;
-    padding: 0
-  }
-
-  :disabled {
-    cursor: default
-  }
-
-  img,
-  svg,
-  video,
-  canvas,
-  audio,
-  iframe,
-  embed,
-  object {
-    display: block;
-    vertical-align: middle
-  }
-
-  img,
-  video {
-    max-width: 100%;
-    height: auto
-  }
-
-  [hidden] {
-    display: none
-  }
-
-  :root {
-    font-family: Noto Sans, sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-    font-size: 13px;
-    color-scheme: light dark;
-    color: #111113;
-    background-color: #fff;
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    --size-20: 20px;
-    --size-24: 24px;
-    --size-32: 32px
-  }
-
-  @font-face {
-    font-family: ConduitITCStd;
-    src: url("https://nilsueter.github.io/fancyscribe/fonts/ConduitITCStd ExtraBold.woff2") format("woff2");
-    font-weight: 800
-  }
-
-  @font-face {
-    font-family: ConduitITCStd;
-    src: url("https://nilsueter.github.io/fancyscribe/fonts/ConduitITCStd Bold.woff2") format("woff2");
-    font-weight: 700
-  }
-
-  * {
-    box-sizing: border-box;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact
-  }
-
-  body {
-    margin: 0;
-    min-height: 100vh
-  }
-
-  h1 {
-    font-size: 3.2em;
-    line-height: 1.1
-  }
-
-  a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit
-  }
-
-  a:hover {
-    color: #535bf2
-  }
-    
-  .weapons-table th {
-    font-size: 1.1em;
-    padding: 2px .4rem;
-    height: 27px;
-    font-weight: 600
-  }
-
-  .weapons-table td {
-    padding: 1px .4rem;
-    border-top: 1px dotted #9e9fa1;
-    text-align: center
-  }
-
-  .noBorderTop td {
-    border-top: none
-  }
-
-  .emptyRow {
-    height: 22.5px
-  }
-
-
-  .avoid-page-break {
-    position: relative;
-    page-break-inside: avoid;
-    -moz-column-break-inside: avoid;
-    break-inside: avoid
-  }
-
-  .page-break:not(.print-display-none) {
-    page-break-after: page;
-    -moz-column-break-after: page;
-    break-after: page
-  }
-
-  @media print {
-    .print-display-none,
-    .print-display-none * {
-      display: none !important
-    }
-
-    #root {
-      min-width: 1000px
-    }
-
-    .body {
-      padding: 0;
-      display: block;
-      max-width: none
-    }
-  }
-
-  @media screen and (max-width: 800px) {
-    :root {
-      font-size: 11px;
-      --size-20: 8px;
-      --size-24: 12px;
-      --size-32: 16px
-    }
-  }
-
-  @media screen and (max-width: 640px) {
-    :root {
-      font-size: 9px;
-      line-height: 1.3;
-      --size-20: 8px;
-      --size-24: 12px;
-      --size-32: 16px
-    }
-
-    .body {
-      padding-left: 0;
-      padding-right: 0
-    }
-
-    .weapons-table th {
-      font-size: .9em;
-      padding: 2px .2rem
-    }
-
-    .weapons-table td {
-      font-size: .95em;
-      padding: 1px .2rem
-    }
-  }
-
-  .visible {
-    visibility: visible
-  }
-
-  .absolute {
-    position: absolute
-  }
-
-  .relative {
-    position: relative
-  }
-
-  .right--4px {
-    right: -4px
-  }
-
-  .right-1px {
-    right: 1px
-  }
-
-  .top--4px {
-    top: -4px
-  }
-
-  .top-2px {
-    top: 2px
-  }
-
-  .flex {
-    display: flex
-  }
-
-  .table {
-    display: table
-  }
-
-  .contents {
-    display: contents
-  }
-
-  .hidden {
-    display: none
-  }
-
-  .min-h-15rem {
-    min-height: 15rem
-  }
-
-  .w-2em {
-    width: 2em
-  }
-
-  .w-5\% {
-    width: 5%
-  }
-
-  .max-w-400px {
-    max-width: 400px
-  }
-
-  .max-w-95vw {
-    max-width: 95vw
-  }
-
-  .flex-1 {
-    flex: 1 1 0%
-  }
-
-  .flex-1\\.2 {
-    flex: 1.2
-  }
-
-  .transform {
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-  }
-
-  .flex-wrap {
-    flex-wrap: wrap
-  }
-
-  .items-center {
-    align-items: center
-  }
-
-  .justify-center {
-    justify-content: center
-  }
-
-  .gap-1 {
-    gap: .25rem
-  }
-
-  .gap-2 {
-    gap: .5rem
-  }
-
-  .whitespace-nowrap {
-    white-space: nowrap
-  }
-
-  .rounded-full {
-    border-radius: 9999px
-  }
-
-  .rounded-sm {
-    border-radius: .125rem
-  }
-
-  .border {
-    border-width: 1px
-  }
-
-  .border-0 {
-    border-width: 0px
-  }
-
-  .border-b-2 {
-    border-bottom-width: 2px
-  }
-
-  .border-t-0 {
-    border-top-width: 0px
-  }
-
-  .border-var\\(--primary-color\\) {
-    border-color: var(--primary-color)
-  }
-
-  .border-gray-400 {
-    --tw-border-opacity: 1;
-    border-color: rgb(156 163 175 / var(--tw-border-opacity))
-  }
-
-  .p-1 {
-    padding: .25rem
-  }
-
-  .p-2px {
-    padding: 2px
-  }
-
-  .pb-4 {
-    padding-bottom: 1rem
-  }
-
-  .pb-50px {
-    padding-bottom: 50px
-  }
-
-  .pt-5 {
-    padding-top: 1.25rem
-  }
-
-  .align-middle {
-    vertical-align: middle
-  }
-
-  .text-sm {
-    font-size: .875rem;
-    line-height: 1.25rem
-  }
-
-  .uppercase {
-    text-transform: uppercase
-  }
-
-  @media print {
-    .print\:p-20px {
-      padding: 20px
-    }
-  }
-
-  @media (min-width: 640px) {
-    .sm\\:border-l-2 {
-      border-left-width: 2px
-    }
-
-    .sm\\:border-r-2 {
-      border-right-width: 2px
-    }
-
-    .sm\\:p-2 {
-      padding: .5rem
-    }
-
-    .sm\\:pb-50px {
-      padding-bottom: 50px
-    }
-
-    .sm\\:pt-5 {
-      padding-top: 1.25rem
-    }
-
-    @media print {
-      .sm\\:print\\:p-20px {
-        padding: 20px
-      }
-
-      .sm\\:print\\:pb-50px {
-        padding-bottom: 50px
-      }
-    }
-  }
-
-  @media (min-width: 768px) {
-    .md\\:p-20px {
-      padding: 20px
-    }
-
-    .md\\:pb-50px {
-      padding-bottom: 50px
-    }
-
-    .md\\:pt-5 {
-      padding-top: 1.25rem
-    }
-
-    @media print {
-      .md\\:print\\:p-20px {
-        padding: 20px
-      }
-
-      .md\\:print\\:pb-50px {
-        padding-bottom: 50px
-      }
-    }
-  }
-
-  .split::after {
-    content: ",";
-    margin-right: 4px;
-    font-family: inherit;
-  }
-
-  .split:last-of-type::after {
-    content: "";
-    margin-right: unset;
-
-  }
-
-  .hide-if-empty:not(:has(div, span)) {
-    display: none !important;
-  }
-  @media print {
-    html {
-      zoom: 0.7;
-    }
-  }
-</style>
