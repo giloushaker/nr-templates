@@ -145,6 +145,7 @@ Render nothing for characteristics that are empty or only have a -
 - [ ] variables that are defined by the template and can be provided by the user/gameSystem and used in template / css
 - [ ] string manipulation (not sure how to do it, maybe allow scripting?)
 - [x] markdown support for profiles
+- [ ] a way to get the length of a 'list element' from outside of it, current workaround is to use conditional display:none css
 
 
 
