@@ -83,7 +83,7 @@ Values: `name`
 
 
 ### `<if>`
-This node's childs will only be rendered if it matches a condition, `<or>` and `<and>` may be nested within an `<if>` for more complex logic
+This node's childs will only be rendered if it matches a condition, `<or>` and `<and>` may be nested within an `<if>` for more complex logic.  
 Types:  
 `equals`: `field` is equal to `value`  
 `not-equals`: `field` is not equal to `value`  
