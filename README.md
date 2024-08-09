@@ -18,7 +18,7 @@ Will be expanded to
 <div>{{name}}</div>
 ```
 
-2. Replacing Placeholders
+2. Replacing Placeholders  
 Within nodes textContent or Attributes, any text wrapped in {{...}} will be replaced with the corresponding value. For example:
 ```xml
 <profiles>
