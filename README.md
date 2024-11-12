@@ -19,7 +19,7 @@ Will be expanded to
 ```
 
 2. Replacing Placeholders  
-Within nodes textContent or Attributes, any text wrapped in {{...}} will be replaced with the corresponding value. For example:
+Text within XML nodes or attributes surrounded by {{...}} will be replaced with the corresponding value. For example:
 ```xml
 <profiles>
   <span>{{name}}</span>
