@@ -82,7 +82,7 @@ Values: `name`, `value`, `typeId`
 Values: `name`
 
 
-### `<if>`
+### `<if>`, `<else-if>`, `<else>`
 This node's childs will only be rendered if it matches a condition, `<or>` and `<and>` may be nested within an `<if>` for more complex logic.  
 Types:  
 `equals`: `field` is equal to `value`  
@@ -137,10 +137,10 @@ Render nothing for characteristics that are empty or only have a -
 
 # Todo:
 - [x] `<and>`, `<or>`
-- [ ] `<else>`
-- [ ] `<else-if>`
+- [x] `<else>`
+- [x] `<else-if>`
 - [x] attribute that generates a "dont print this card" checkbox (would also allow users to print one per page)
-- [ ] attribute that generates a "move up" and "move down" button
+- [x] attribute that generates a "move up" and "move down" button
 - [ ] mongodb aggregation like way to query the roster
 - [ ] variables that are defined by the template and can be provided by the user/gameSystem and used in template / css
 - [ ] string manipulation (not sure how to do it, maybe allow scripting?)
