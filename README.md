@@ -141,11 +141,9 @@ Render nothing for characteristics that are empty or only have a -
 - [x] `<else-if>`
 - [x] attribute that generates a "dont print this card" checkbox (would also allow users to print one per page)
 - [x] attribute that generates a "move up" and "move down" button
-- [ ] mongodb aggregation like way to query the roster
-- [ ] variables that are defined by the template and can be provided by the user/gameSystem and used in template / css
-- [ ] string manipulation (not sure how to do it, maybe allow scripting?)
+- [ ] scripting
+- [ ] user defined variables
 - [x] markdown support for profiles
-- [ ] a way to get the length of a 'list element' from outside of it, current workaround is to use conditional display:none css
 
 
 
