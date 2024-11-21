@@ -133,7 +133,11 @@ Render nothing for characteristics that are empty or only have a -
 ```
 
 ### Card
-`type="card"`: adds a 'dont print this card' checkbox and support for 'one card per page' option
+`type="card"`: adds a 'dont print this card' checkbox and 'move up' / 'move down' buttons
+
+# Special Classes
+`class="print-display-none"`: hide the corresponding element when printing  
+`class="removable"`: allows the user to hide this element when printing by clicking on it
 
 # Todo:
 - [x] `<and>`, `<or>`
