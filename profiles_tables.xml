@@ -1,0 +1,101 @@
+<template>      
+<set name="ruleProfiles" value="special rule"/>
+<!-- Rules -->
+<profiles skip-forces="false" grouped="true" sort="true" amount="false">
+  <div type="card">
+  <table>
+  <items max="1">
+    <tr>
+      <th>{{typeName}}</th>
+      <characteristics> 
+        <if field="length" type="not-equals" value="1">
+        <th>{{name}}</th> 
+        </if>
+      </characteristics>
+    </tr>
+  </items>
+  <items>
+    <tr class="removable">
+      <characteristics>
+        <if field="length" type="equals" value="1">
+          <td class="name">
+            <span class="profile-name">{{item.name}}</span>
+            <span class="data" type="markdown">{{value}}</span>
+          </td>
+        </if>
+      </characteristics>
+      <else>
+        <td class="name">
+          <span class="profile-name">{{item.name}}</span>
+        </td>
+        <characteristics> 
+          <td class="data" type="markdown">{{value}}</td> 
+        </characteristics>
+      </else>
+    </tr>
+  </items>
+  </table>
+  </div>
+</profiles>
+</template>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+ol,ul,menu {
+  margin: 0;
+  padding-left: 18px;
+  margin-bottom: -18px;
+}
+th, td {
+  text-align: left;
+  border: 1px solid #32435560;
+  padding: 3px 5px;
+}
+th {
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: #324355;
+  color: white;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 8px;
+  background-color: rgb(238, 238, 240);
+  border: 2px solid #324355;
+  margin-bottom: 12px;
+}
+.name {
+  font-weight: 600;
+}
+.data {
+  font-weight: 400;
+}
+.profile-name:has(+.data)::after {
+  content: ": ";
+}
+.profile-name {
+  white-space: nowrap;
+}
+html {
+  font-family: Noto Sans, sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 13px;
+  color-scheme: light dark;
+  color: #111113;
+  background-color: #fff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+* {
+  box-sizing: border-box;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact
+}
+body { 
+  margin: 10px;  
+} 
+</style>
