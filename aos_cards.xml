@@ -1,0 +1,420 @@
+<template>
+  <units dedupe="true" exclude-primary-categories="configuration,army composition,reference">
+    <div class="avoid-page-break" style="font-weight: 500; margin-bottom: 32px; padding: 2%" type="card">
+      <div class="card" style="padding-bottom: 1px">
+        <div class="header">
+          <entries>
+            <if type="has-profile" value="model,unit,stats">
+              <profiles include="model,unit,stats" recursive="false">
+              <div class="statWheel" style="z-index:1">
+                <div class="statWheelStats">
+                <characteristics>
+                  <div class="statwheelEntry">
+                    <div class="statLabel">{{name}}</div>
+                    <div class="stat">
+                      {{$text}}
+                    </div>
+                  </div>
+                </characteristics>
+                </div>
+              </div>
+              </profiles>
+              <div class="titleWrap">
+                <div class="titleCard">
+                  <div class="title">{{name}}</div>
+                </div>
+              </div>
+            </if>
+          </entries>
+        </div>
+        <!--body-->
+        <table cellspacing="0" class="weapons-table">
+          <thead>
+            <profiles include="ranged weapon" max="1">
+              <tr style="background-color: cadetblue;">
+                <th>Ranged Weapons</th>
+                <characteristics>
+                  <th>{{name}}</th>
+                </characteristics>
+              </tr>
+            </profiles>
+          </thead>
+          <tbody>
+            <profiles include="ranged weapon">
+              <tr>
+                <td><span>{{name}}</span></td>
+                <characteristics include="rng,atk,hit,wnd,rnd,dmg,ability">
+                  <td>
+                    <span type="markdown">{{$text}}</span>
+                  </td>
+                </characteristics>
+              </tr>
+            </profiles>
+          </tbody>
+          <thead>
+            <profiles include="melee weapon" max="1">
+              <tr style="background-color: cadetblue;">
+                <th>Melee Weapons</th>
+                <th class="placeholder"/>
+                <characteristics>
+                  <th>{{name}}</th>
+                </characteristics>
+              </tr>
+            </profiles>
+          </thead>
+          <tbody>
+            <profiles include="melee weapon">
+              <tr>
+                <td><span>{{name}}</span></td>
+                <td class="placeholder"/>
+
+                <characteristics include="atk,hit,wnd,rnd,dmg,ability">
+                  <td>
+                    <span type="markdown">{{$text}}</span>
+                  </td>
+                </characteristics>
+              </tr>
+            </profiles>
+          </tbody>
+        </table>
+        <div class="hide-if-empty ability-section">
+          <profiles include="ability (passive),ability (activated),ability (command),ability (spell), ability (prayer)" split="">
+            <div class="ability-box">
+              <characteristics include="casting value">
+                <div class="cast icon">
+                  <img src="https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/images/casting.png" alt="" />
+                  <div>{{$text}}</div>
+                </div>
+
+              </characteristics>
+              <characteristics include="chanting value">
+                <div class="chant icon">
+                  <img src="https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/images/chanting.png" alt="" />
+                  <div>{{$text}}</div>
+                </div>
+              </characteristics>
+
+              <characteristics include="cost">
+                <div class="command icon">
+                  <img src="https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/images/command.png" alt="" />
+                  <div>{{$text}}</div>
+                </div>
+
+              </characteristics>
+              <characteristics include="timing">
+                <div colspan="2" style="background-color: black; color: white; padding: 3px 10px;">
+                  <span type="markdown">{{$text}}</span>
+                </div>
+              </characteristics>
+              <if type="equals" field="typeName" value="Ability (Passive)">
+                <div colspan="2" style="background-color: black; color: white; padding: 3px 10px;">Passive</div>
+              </if>
+              <div style="border: 1px solid black; border-top: none; margin: 0px 5px;">
+                <div style="padding: 2px 8px;">
+                  <div style="text-transform: uppercase;">
+                    <strong>{{name}}</strong>
+                  </div>
+                  <characteristics include="declare,used by,effect">
+                  <if field="$text">
+                    <div>
+                      <span><strong>{{name}}</strong>: </span><span type="markdown">{{$text}}</span>
+                    </div>
+                  </if>
+                  </characteristics>
+                </div>
+                <characteristics include="keywords">
+                  <if field="$text">
+                    <div style="border-top: 1px solid black;">
+                      <span style="width:10%; background-color: black; color: white; padding-left: 10px; padding-right: 10px;">
+                        Keywords
+                      </span>
+                      <span >
+                        <span type="markdown" style="padding-left: 10px;">{{$text}}</span>
+                      </span>
+                    </div>
+                  </if>
+                </characteristics>
+              </div>
+            </div>
+          </profiles>
+        </div>
+        <div class="keyword-box">
+          <div style="margin:0; color:white; background:cadetblue; padding:10px; display:inline;">KEYWORDS</div>
+          <div class="keywords">
+            <secondaries>
+              <if field="name" type="not-match" value="Regimental Leader">
+                <span type="markdown" class="split"
+                  style="font-size: 1em; font-weight: 800; white-space: nowrap;">{{name}}<if field="last" type="not">,
+                  </if></span>
+
+              </if>
+            </secondaries>
+          </div>
+        </div>
+      </div>
+    </div>
+  </units>
+</template>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+html {
+  font-family: Noto Sans, sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color-scheme: light dark;
+  color: #111113;
+  background-color: #fff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+.header {
+  height: 155px;
+}
+.titleWrap {
+  padding-bottom: 30px;
+  padding-top: 20px;
+  padding-right: 30px;
+  padding-left: 80px;
+  height: 100%;
+}
+.titleCard {
+  height: 100%;
+  background: cadetblue;
+  display: flex;
+  clip-path: polygon(
+      1% 2%,
+      3.5% 0.1%,
+      8.9% 3.7%,
+      16.2% 2.2%,
+      19.7% 0.8%,
+      24.7% 3%,
+      31.2% 0%,
+      35.9% 3.3%,
+      40.6% 1.5%,
+      47.1% 2.8%,
+      49.9% 1%,
+      53.8% 3.5%,
+      62.2% 0.4%,
+      67.3% 2.2%,
+      70.3% 0.3%,
+      75.8% 1.4%,
+      78.5% 2.7%,
+      84% 3.6%,
+      91.1% 0.5%,
+      93.6% 3.4%,
+      97.3% 0.3%,
+      100% 0%,
+      100% 100%,
+      0% 100%
+  );
+}
+.title {
+  margin: auto;
+  display: inline-block;
+  font-size: xx-large;
+  text-align: center;
+  padding-left: 40px;
+  color: white;
+}
+
+.statWheel {
+  left: 30px;
+  position: absolute;
+  background-image: url("https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/images/statwheel.png") ;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 150px;
+  width: 150px;
+
+  .statwheelEntry {
+    position: absolute;
+    text-align: center;
+    height: auto;
+    color: white;
+    .statLabel {
+      font-size: 10px;
+    }
+
+    .stat {
+      font-size: 12px;
+    }
+  }
+
+  .statwheelEntry:nth-child(1) {
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .statwheelEntry:nth-child(3) {
+    right: 0%;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .statwheelEntry:nth-child(2) {
+    left: 0%;
+    right: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .statwheelEntry:nth-child(4) {
+    bottom: 14%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+
+.weapons-table {
+  th, td {
+    border: 1px solid cadetblue;
+  }
+    
+  td:has(+.placeholder) {
+    border-right: none;
+  }
+  td:first-child {
+    border-left: none;
+  }
+      
+  td:last-child {
+    border-right: none;
+  }
+
+  td.placeholder {
+    border-left: none;
+    border-right: none;
+  }
+        
+  border-collapse: collapse;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+}
+
+.ability-section {
+  gap: 8px;
+  margin: 20px;
+  width: calc(100% - 40px);
+  column-count: 2;
+  column-gap: 10px;
+}
+
+@media screen and (max-width: 950px) {
+  column-count: 1;
+}
+
+.ability-box {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  /* Firefox is dumb */
+  break-inside: avoid;
+  padding: 0;
+  height: min-content;
+  position: relative;
+  margin-bottom: 15px;
+
+  th,
+  td {
+    border: none;
+    text-align: left;
+  }
+}
+
+
+.icon {
+  position: absolute;
+  right: 0px;    
+  transform: translateX(calc(50% - 5px));
+  width: auto;
+  height: auto;
+  span,div {
+      display: block;
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      top: calc(45%);
+      right: calc(50%);
+      transform: translateY(-50%) translateX(50%);
+      height: auto;
+  }
+}
+
+.cast {
+
+  &.icon {
+    top: -10px;
+  }
+  img {
+    height: 40px;
+  }
+  span,div {
+    background-color: black;
+    border-radius: 50%;
+    width: auto;
+    padding: 3px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+  }
+}
+
+.chant {
+  &.icon {
+    top: -15px;
+  }
+  img {
+    height: 53px;
+  }
+  span, div {
+    color: white;
+  }
+}
+
+.command {
+  &.icon {
+    top: -15px;
+  }
+  img {
+    height: 50px;
+  }
+  span, div {
+    color: black;
+    font-weight: bold;
+    font-size: 15px;
+  }
+}
+
+.keyword-box {
+  .keywords {
+    margin: 10px;
+    display: inline;
+    text-align: center;
+    width: 100%
+  }
+
+  border: 1px solid cadetblue;
+  display: flex;
+  padding: 0;
+  width:90%;
+  margin: 5%;
+}
+
+.titleCard {
+  background-size: auto 100%;
+}
+.card {
+  background-repeat: repeat-y;
+  background-size: 100% auto;
+  border: 1px solid black;
+}
+</style>
