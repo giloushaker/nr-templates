@@ -89,10 +89,10 @@ Types:
 `not-equals`: `field` is not equal to `value`  
 `match`: `field` matches the regex in `value`; flags can be added in `flags`  
 `not-match`:  `field` does not match the regex in `value`; flags can be added in `flags`  
-`has-profile`:  `field` (or the current element) has a profile with typeName in `value` (case insensitive, separate by `,`), supports `recursive` attribute set to `true`
-`has-not-profile`:  `field` (or the current element) does not have a profile with typeName in `value` (case insensitive, separate by `,`), supports `recursive` attribute set to `true`
+`has-profile`:  `field` (or the current element) has a profile with typeName in `value` (case insensitive, separate by `,`), supports `recursive` attribute set to `true`  
+`has-not-profile`:  `field` (or the current element) does not have a profile with typeName in `value` (case insensitive, separate by `,`), supports `recursive` attribute set to `true`  
 `not`: `field` is falsy  
-(no type): `field` is truthy
+(no type): `field` is truthy  
 
 If the field is `length` or `amount`, these types are also supported: `greater`, `atleast`, `less`, `atmost`, `equals`, `not-equals`
 
