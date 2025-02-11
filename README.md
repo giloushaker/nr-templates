@@ -3,7 +3,7 @@ The XML processing involves two main steps: expanding nodes and replacing placeh
 
 1. Expanding Nodes  
 XML nodes such as `<forces>...</forces>`, `<units>...</units>`, and `<profiles>...</profiles>` are expanded by replacing them with their child elements. This process is repeated for each of the matching objects, effectively generating multiple sets of the child elements.
-For example: This XML with a roster that contains 2:
+For example: This XML with a roster that contains 2 units:
 ```xml
 <units>
   <div>Unit</div>
