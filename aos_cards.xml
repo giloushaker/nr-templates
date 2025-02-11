@@ -1,8 +1,13 @@
 <template>
+  <setting id="titleBackgroundGraphics" label="Title Background Graphics" type="checkbox" default="true" />
+  <setting id="cardBackgroundGraphics" label="Card Background Graphics" type="checkbox" default="true" />
   <units dedupe="true" exclude-primary-categories="configuration,army composition,reference">
-    <div class="avoid-page-break" style="font-weight: 500; margin-bottom: 32px; padding: 2%" type="card">
+    <div class="avoid-page-break" style="font-weight: 500; margin-bottom: 32px; padding: 2%" type="card" catalogue="{{catalogue}}">
       <div class="card" style="padding-bottom: 1px">
-        <div class="header">
+        <if field="settings.cardBackgroundGraphics.state" type="equals" value="true">
+          <append-attribute name="class" value="bg" />
+        </if>
+        <div class="card-header">
           <entries>
             <if type="has-profile" value="model,unit,stats">
               <profiles include="model,unit,stats" recursive="false">
@@ -29,12 +34,12 @@
         </div>
         <!--body-->
         <table cellspacing="0" class="weapons-table">
-          <thead>
+          <thead style="color: white">
             <profiles include="ranged weapon" max="1">
-              <tr style="background-color: cadetblue;">
-                <th>Ranged Weapons</th>
+              <tr style="background-color: var(--primary-color, cadetblue);">
+                <td>Ranged Weapons</td>
                 <characteristics>
-                  <th>{{name}}</th>
+                  <td>{{name}}</td>
                 </characteristics>
               </tr>
             </profiles>
@@ -51,13 +56,13 @@
               </tr>
             </profiles>
           </tbody>
-          <thead>
+          <thead style="color: white">
             <profiles include="melee weapon" max="1">
-              <tr style="background-color: cadetblue;">
-                <th>Melee Weapons</th>
-                <th class="placeholder"/>
+              <tr style="background-color: var(--primary-color, cadetblue);">
+                <td>Melee Weapons</td>
+                <td class="placeholder"/>
                 <characteristics>
-                  <th>{{name}}</th>
+                  <td>{{name}}</td>
                 </characteristics>
               </tr>
             </profiles>
@@ -102,12 +107,29 @@
 
               </characteristics>
               <characteristics include="timing">
-                <div colspan="2" style="background-color: black; color: white; padding: 3px 10px;">
+                <if field="$text">
+                  <set-attribute name="timing" value="{{$text}}" in=".ability-box"/>
+                </if>
+                <div class="header" style="color: white; padding: 3px 10px;">
+                  <if field="settings.titleBackgroundGraphics.state" type="equals" value="true">
+                    <append-attribute name="class" value="bg"/>
+                  </if>
                   <span type="markdown">{{$text}}</span>
                 </div>
               </characteristics>
               <if type="equals" field="typeName" value="Ability (Passive)">
-                <div colspan="2" style="background-color: black; color: white; padding: 3px 10px;">Passive</div>
+                  <characteristics include="effect">
+                  <if field="$text">
+                    <set-attribute name="timing" value="{{$text}}" in=".ability-box"/>
+                  </if>
+                  </characteristics>
+
+                <div class="header passive" style="color: white; padding: 3px 10px;" timing="Passive">
+                  <if field="settings.titleBackgroundGraphics.state" type="equals" value="true">
+                    <append-attribute name="class" value="bg"/>
+                  </if>
+                  <span>Passive</span>
+                </div>
               </if>
               <div style="border: 1px solid black; border-top: none; margin: 0px 5px;">
                 <div style="padding: 2px 8px;">
@@ -125,7 +147,7 @@
                 <characteristics include="keywords">
                   <if field="$text">
                     <div style="border-top: 1px solid black;">
-                      <span style="width:10%; background-color: black; color: white; padding-left: 10px; padding-right: 10px;">
+                      <span class="header" style="width:10%; color: white; padding-left: 10px; padding-right: 10px;">
                         Keywords
                       </span>
                       <span >
@@ -139,7 +161,7 @@
           </profiles>
         </div>
         <div class="keyword-box">
-          <div style="margin:0; color:white; background:cadetblue; padding:10px; display:inline;">KEYWORDS</div>
+          <div style="margin:0; color:white; background: var(--primary-color, cadetblue); padding:10px; display:inline;">KEYWORDS</div>
           <div class="keywords">
             <secondaries>
               <if field="name" type="not-match" value="Regimental Leader">
@@ -156,21 +178,21 @@
   </units>
 </template>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import "https://cdn.jsdelivr.net/npm/notosans-fontface@1.3.0/css/notosans-fontface.min.css";
+
 html {
-  font-family: Noto Sans, sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans', sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 13px;
   color-scheme: light dark;
   color: #111113;
   background-color: #fff;
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-.header {
+.card-header {
   height: 155px;
 }
 .titleWrap {
@@ -182,34 +204,12 @@ html {
 }
 .titleCard {
   height: 100%;
-  background: cadetblue;
   display: flex;
-  clip-path: polygon(
-      1% 2%,
-      3.5% 0.1%,
-      8.9% 3.7%,
-      16.2% 2.2%,
-      19.7% 0.8%,
-      24.7% 3%,
-      31.2% 0%,
-      35.9% 3.3%,
-      40.6% 1.5%,
-      47.1% 2.8%,
-      49.9% 1%,
-      53.8% 3.5%,
-      62.2% 0.4%,
-      67.3% 2.2%,
-      70.3% 0.3%,
-      75.8% 1.4%,
-      78.5% 2.7%,
-      84% 3.6%,
-      91.1% 0.5%,
-      93.6% 3.4%,
-      97.3% 0.3%,
-      100% 0%,
-      100% 100%,
-      0% 100%
-  );
+  background-image: url(https://raw.githubusercontent.com/giloushaker/nr-templates/refs/heads/main/assets/backgrounds/aos-title.png);
+  background-color: color-mix(in srgb, var(--primary-color, cadetblue) 75%, transparent);
+  background-blend-mode: darken;
+  background-size: 100% auto;
+  clip-path: polygon(0.2% 2.7%, 0.7% 0.1%, 1.8% 5%, 3.2% 3%, 3.9% 1.1%, 4.9% 4.1%, 6.2% 0%, 10% 1.4%, 12.4% 0.5%, 13.5% 3%, 14.1% 0.4%, 15.2% 1.9%, 15.7% 3.6%, 16.1% 4.9%, 18.2% 0.7%, 18.7% 4.6%, 19.5% 0.4%, 20.2% 2.7%, 20.7% 0.1%, 21.8% 5%, 23.2% 3%, 23.9% 1.1%, 24.9% 4.1%, 26.2% 0%, 30% 1.4%, 32.4% 0.5%, 33.5% 3%, 34.1% 0.4%, 35.2% 1.9%, 35.7% 3.6%, 36.1% 4.9%, 38.2% 0.7%, 38.7% 4.6%, 39.5% 0.4%, 40.2% 2.7%, 40.7% 0.1%, 41.8% 5%, 43.2% 3%, 43.9% 1.1%, 44.9% 4.1%, 46.2% 0%, 50% 1.4%, 52.4% 0.5%, 53.5% 3%, 54.1% 0.4%, 55.2% 1.9%, 55.7% 3.6%, 56.1% 4.9%, 58.2% 0.7%, 58.7% 4.6%, 59.5% 0.4%, 60.2% 2.7%, 60.7% 0.1%, 61.8% 5%, 63.2% 3%, 63.9% 1.1%, 64.9% 4.1%, 66.2% 0%, 70% 1.4%, 72.4% 0.5%, 73.5% 3%, 74.1% 0.4%, 75.2% 1.9%, 75.7% 3.6%, 76.1% 4.9%, 78.2% 0.7%, 78.7% 4.6%, 79.5% 0.4%, 80.2% 2.7%, 80.7% 0.1%, 81.8% 5%, 83.2% 3%, 83.9% 1.1%, 84.9% 4.1%, 86.2% 0%, 90% 1.4%, 92.4% 0.5%, 93.5% 3%, 94.1% 0.4%, 95.2% 1.9%, 95.7% 3.6%, 96.1% 4.9%, 98.2% 0.7%, 98.7% 4.6%, 99.5% 0.4%, 100% 10%, 100% 90%, 99.5% 99.6%, 98.7% 95.4%, 98.2% 99.3%, 96.1% 95.1%, 95.7% 96.4%, 95.2% 98.1%, 94.1% 99.6%, 93.5% 97%, 92.4% 99.5%, 90% 98.7%, 86.2% 100%, 84.9% 96%, 83.9% 98.9%, 83.2% 97%, 81.8% 95%, 80.7% 99.9%, 80.2% 97.3%, 79.5% 99.6%, 78.7% 95.4%, 78.2% 99.3%, 76.1% 95.1%, 75.7% 96.4%, 75.2% 98.1%, 74.1% 99.6%, 73.5% 97%, 72.4% 99.5%, 70% 98.7%, 66.2% 100%, 64.9% 96%, 63.9% 98.9%, 63.2% 97%, 61.8% 95%, 60.7% 99.9%, 60.2% 97.3%, 59.5% 99.6%, 58.7% 95.4%, 58.2% 99.3%, 56.1% 95.1%, 55.7% 96.4%, 55.2% 98.1%, 54.1% 99.6%, 53.5% 97%, 52.4% 99.5%, 50% 98.7%, 46.2% 100%, 44.9% 96%, 43.9% 98.9%, 43.2% 97%, 41.8% 95%, 40.7% 99.9%, 40.2% 97.3%, 39.5% 99.6%, 38.7% 95.4%, 38.2% 99.3%, 36.1% 95.1%, 35.7% 96.4%, 35.2% 98.1%, 34.1% 99.6%, 33.5% 97%, 32.4% 99.5%, 30% 98.7%, 26.2% 100%, 24.9% 96%, 23.9% 98.9%, 23.2% 97%, 21.8% 95%, 20.7% 99.9%, 20.2% 97.3%, 19.5% 99.6%, 18.7% 95.4%, 18.2% 99.3%, 16.1% 95.1%, 15.7% 96.4%, 15.2% 98.1%, 14.1% 99.6%, 13.5% 97%, 12.4% 99.5%, 10% 98.7%, 6.2% 100%, 4.9% 96%, 3.9% 98.9%, 3.2% 97%, 1.8% 95%, 0.7% 99.9%, 0.2% 97.3%, 0% 100%, 0% 0%);
 }
 .title {
   margin: auto;
@@ -272,8 +272,8 @@ html {
 
 
 .weapons-table {
-  th, td {
-    border: 1px solid cadetblue;
+  td, td {
+    border: 1px solid var(--primary-color, cadetblue);
   }
     
   td:has(+.placeholder) {
@@ -323,7 +323,7 @@ html {
   position: relative;
   margin-bottom: 15px;
 
-  th,
+  td,
   td {
     border: none;
     text-align: left;
@@ -334,7 +334,7 @@ html {
 .icon {
   position: absolute;
   right: 0px;    
-  transform: translateX(calc(50% - 5px));
+  transform: translateX(calc(50% - var(--offset-x, 5px))) translateY(var(--offset-y, 0px));
   width: auto;
   height: auto;
   span,div {
@@ -350,10 +350,9 @@ html {
 }
 
 .cast {
+  --offset-y: -10px;
+  --offset-x: 12px;
 
-  &.icon {
-    top: -10px;
-  }
   img {
     height: 40px;
   }
@@ -369,9 +368,7 @@ html {
 }
 
 .chant {
-  &.icon {
-    top: -15px;
-  }
+  --offset-y: -15px;
   img {
     height: 53px;
   }
@@ -381,9 +378,7 @@ html {
 }
 
 .command {
-  &.icon {
-    top: -15px;
-  }
+  --offset-y: -15px;
   img {
     height: 50px;
   }
@@ -402,19 +397,136 @@ html {
     width: 100%
   }
 
-  border: 1px solid cadetblue;
+  border: 1px solid var(--primary-color, cadetblue);
   display: flex;
   padding: 0;
   width:90%;
   margin: 5%;
 }
 
-.titleCard {
-  background-size: auto 100%;
+.header:not(.bg) {
+  background-color:  var(--ability-color, black);
 }
-.card {
+.header.bg {
+  background-image: url('https://raw.githubusercontent.com/giloushaker/nr-templates/refs/heads/main/assets/backgrounds/aos-header-highres.png');
+  background-color: color-mix(in srgb, var(--ability-color, black) 85%, transparent);
+  background-blend-mode: darken;
+}
+.card.bg {
+  background-image: url('https://raw.githubusercontent.com/giloushaker/nr-templates/refs/heads/main/assets/backgrounds/aos-highres.png');
   background-repeat: repeat-y;
   background-size: 100% auto;
+  background-color: color-mix(in srgb, var(--primary-color) 7.5%, transparent);
+  background-blend-mode: darken;
+}
+.card {
   border: 1px solid black;
+}
+</style>
+<style>
+[catalogue*="Beasts of Chaos" i] {
+  --primary-color: #2E2211
+}
+[catalogue*="Blades of Khorne" i] {
+  --primary-color: #901515
+}
+[catalogue*="Bonesplitterz" i] {
+  --primary-color: #416051
+}
+[catalogue*="Cities of Sigmar" i] {
+  --primary-color: #40061D
+}
+[catalogue*="Daughters of Khaine" i] {
+  --primary-color: #531E2F
+}
+[catalogue*="Disciples of Tzeentch" i] {
+  --primary-color: #007087
+}
+[catalogue*="Flesh-eater Courts" i] {
+  --primary-color: #480911
+}
+[catalogue*="Fyreslayers" i] {
+  --primary-color: #922B0E
+}
+[catalogue*="Gloomspite Gitz" i] {
+  --primary-color: #365B4B
+}
+[catalogue*="Hedonites of Slaanesh" i] {
+  --primary-color: #531540
+}
+[catalogue*="Idoneth Deepkin" i] {
+  --primary-color: #004543
+}
+[catalogue*="Ironjawz" i] {
+  --primary-color: #365B4B
+}
+[catalogue*="Kruleboyz" i] {
+  --primary-color: #365B4B
+}
+[catalogue*="Orruk Warclans" i] {
+  --primary-color: #365B4B
+}
+[catalogue*="Kharadron Overlords" i] {
+  --primary-color: #69473A
+}
+[catalogue*="Lumineth Realm-lords" i] {
+  --primary-color: #004C65
+}
+[catalogue*="Maggotkin of Nurgle" i] {
+  --primary-color: #48540B
+}
+[catalogue*="Nighthaunt" i] {
+  --primary-color: #315749
+}
+[catalogue*="Ogor Mawtribes" i] {
+  --primary-color: #434F4D
+}
+[catalogue*="Ossiarch Bonereapers" i] {
+  --primary-color: #355748
+}
+[catalogue*="Seraphon" i] {
+  --primary-color: #2A757D
+}
+[catalogue*="Skaven" i] {
+  --primary-color: #585036
+}
+[catalogue*="Slaves to Darkness" i] {
+  --primary-color: #2E0B08
+}
+[catalogue*="Sons of Behemat" i] {
+  --primary-color: #462F34
+}
+[catalogue*="Soulblight Gravelords" i] {
+  --primary-color: #460000
+}
+[catalogue*="Stormcast Eternals" i] {
+  --primary-color: #72702C
+}
+[catalogue*="Sylvaneth" i] {
+  --primary-color: #496646
+  }
+[catalogue*="Regiments of Renown" i] {
+  --primary-color: #7B0000
+}
+[timing~="Start"i] {
+  --ability-color: black
+}
+[timing~="Hero"i]{
+  --ability-color: #917701
+}
+[timing~="Movement" i]{
+  --ability-color: #999999
+}
+[timing~="Charge"i]{
+  --ability-color: #BA702F
+}
+[timing~="Combat"i]{
+  --ability-color: #7d0000
+}
+[timing~="End"i]{
+  --ability-color: #6B4781
+}
+[timing~="Shooting" i]{
+  --ability-color: #004059
 }
 </style>
