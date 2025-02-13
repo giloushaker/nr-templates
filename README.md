@@ -148,6 +148,7 @@ Render nothing for characteristics that are empty or only have a -
 - [ ] scripting
 - [ ] user defined variables
 - [x] markdown support for profiles
+- [ ]  abiity to reuse logic
 
 
 
