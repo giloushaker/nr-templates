@@ -4,14 +4,14 @@
   <units dedupe="true">
     <entries>
       <if field="type" type="equals" value="unit">
-        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Campaign Progress|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault)*$" />
+        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault)*$" />
         <div class="avoid-page-break" type="card" catalogue="{{catalogue}}">
           <div class="card">
             <if field="settings.cardBackgroundGraphics.state" type="equals" value="true">
               <append-attribute name="class" value="bg" />
             </if>
             <div class="card-header">
-              <if field="name" type="match" value="^(.+ Lore|Battle Traits.+?|campaign Progress|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault)*$"><span class="section-header">{{name}}</span></if>
+              <if field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault)*$"><span class="section-header">{{name}}</span></if>
               <if field="name" type="not-equals" value="Manifestation Lore">
                 <entries>
                   <if type="has-profile" value="model,unit,stats,manifestation">
