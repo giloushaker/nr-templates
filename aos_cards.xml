@@ -597,8 +597,12 @@
       height: 15px;
       fill: currentColor;
       vertical-align: text-bottom;
-    }
 
+      &:has(use[href="#icon"]) {
+        width: 0;
+        height: 0;
+      }
+    }
     span[style*="small-caps"] {
       font-weight: 900;
     }
