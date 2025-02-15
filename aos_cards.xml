@@ -283,6 +283,20 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+
+    column-count: 1;
+    column-gap:0
+
+    @media screen and (min-width: 1400px) {
+      column-count: 2;
+    }
+
+    @media screen and (min-width: 1950px) {
+      column-count: 3;
+    }
+    @media screen and (min-width: 2600px) {
+      column-count: 4;
+    }
   }
 
   .avoid-page-break {
