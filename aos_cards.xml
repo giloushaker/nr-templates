@@ -745,10 +745,8 @@ html {
 
 .header.bg {
   background-image: url("https://raw.githubusercontent.com/giloushaker/nr-templates/refs/heads/main/assets/backgrounds/aos-header-highres.png");
-  background-color: color-mix(in srgb,
-      var(--ability-color, black) 100%,
-      transparent);
-  background-blend-mode: soft-light;
+  background-color: color-mix(in srgb, var(--ability-color, black) 85%, transparent);
+  background-blend-mode: multiply;
   clip-path: var(--jagged-edges-header);
 }
 
