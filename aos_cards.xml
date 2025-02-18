@@ -4,7 +4,7 @@
   <units dedupe="true">
     <entries>
       <if field="type" type="equals" value="unit">
-        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Reference|Regiment of Renown.+?)*$" />
+        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$" />
         <div class="avoid-page-break" type="card" catalogue="{{catalogue}}">
           <div class="card">
             <if field="settings.cardBackgroundGraphics.state" type="equals" value="true">
@@ -770,161 +770,161 @@ html {
 </style>
 <style>
 [catalogue*="Beasts of Chaos"i] {
-  --primary-color: #2e2211;
+  --primary-color: #2e2211
 }
 
 [catalogue*="Blades of Khorne"i] {
-  --primary-color: #901515;
+  --primary-color: #901515
 }
 
 [catalogue*="Bonesplitterz"i] {
-  --primary-color: #375b4b;
+  --primary-color: #375b4b
 }
 
 [catalogue*="Cities of Sigmar"i] {
-  --primary-color: #40061d;
+  --primary-color: #40061d
 }
 
 [catalogue*="Daughters of Khaine"i] {
-  --primary-color: #531e2f;
+  --primary-color: #531e2f
 }
 
 [catalogue*="Disciples of Tzeentch"i] {
-  --primary-color: #007087;
+  --primary-color: #007087
 }
 
 [catalogue*="Flesh-eater Courts"i] {
-  --primary-color: #480911;
+  --primary-color: #480911
 }
 
 [catalogue*="Fyreslayers"i] {
-  --primary-color: #922b0e;
+  --primary-color: #922b0e
 }
 
 [catalogue*="Gloomspite Gitz"i] {
-  --primary-color: #365b4b;
+  --primary-color: #365b4b
 }
 
 [catalogue*="Hedonites of Slaanesh"i] {
-  --primary-color: #531540;
+  --primary-color: #531540
 }
 
 [catalogue*="Idoneth Deepkin"i] {
-  --primary-color: #004543;
+  --primary-color: #004543
 }
 
 [catalogue*="Ironjawz"i] {
-  --primary-color: #375b4b;
+  --primary-color: #375b4b
 }
 
 [catalogue*="Kruleboyz"i] {
-  --primary-color: #375b4b;
+  --primary-color: #375b4b
 }
 
 [catalogue*="Orruk Warclans"i] {
-  --primary-color: #375b4b;
+  --primary-color: #375b4b
 }
 
 [catalogue*="Kharadron Overlords"i] {
-  --primary-color: #69473a;
+  --primary-color: #69473a
 }
 
 [catalogue*="Lumineth Realm-lords"i] {
-  --primary-color: #004c65;
+  --primary-color: #004c65
 }
 
 [catalogue*="Maggotkin of Nurgle"i] {
-  --primary-color: #48540b;
+  --primary-color: #48540b
 }
 
 [catalogue*="Nighthaunt"i] {
-  --primary-color: #315749;
+  --primary-color: #315749
 }
 
 [catalogue*="Ogor Mawtribes"i] {
-  --primary-color: #434f4d;
+  --primary-color: #434f4d
 }
 
 [catalogue*="Ossiarch Bonereapers"i] {
-  --primary-color: #355748;
+  --primary-color: #355748
 }
 
 [catalogue*="Seraphon"i] {
-  --primary-color: #2a757d;
+  --primary-color: #2a757d
 }
 
 [catalogue*="Skaven"i] {
-  --primary-color: #585036;
+  --primary-color: #585036
 }
 
 [catalogue*="Slaves to Darkness"i] {
-  --primary-color: #2e0b08;
+  --primary-color: #2e0b08
 }
 
 [catalogue*="Sons of Behemat"i] {
-  --primary-color: #462f34;
+  --primary-color: #462f34
 }
 
 [catalogue*="Soulblight Gravelords"i] {
-  --primary-color: #460000;
+  --primary-color: #460000
 }
 
 [catalogue*="Stormcast Eternals"i] {
-  --primary-color: #72702c;
+  --primary-color: #72702c
 }
 
 [catalogue*="Sylvaneth"i] {
-  --primary-color: #496646;
+  --primary-color: #496646
 }
 
 [catalogue*="Regiments of Renown"i] {
-  --primary-color: #7b0000;
+  --primary-color: #7b0000
 }
 
 [color="Black"],
 [timing~="Start"i] {
-  --ability-color: black;
+  --ability-color: black
 }
 
 [color="Brown"],
 [color="Yellow"],
 [timing~="Hero"i],
 [timing~="Rally"i] {
-  --ability-color: #a88d2f;
+  --ability-color: #a88d2f
 }
 
 [color="Gray"],
 [color="Grey"],
 [timing~="Movement"i],
 [timing*="Redeploy"i] {
-  --ability-color: #808285;
+  --ability-color: #808285
 }
 
 [color="Orange"],
 [timing~="Charge"i] {
-  --ability-color: #ca6722;
+  --ability-color: #ca6722
 }
 
 [color="Red"],
 [timing~="Combat"i],
 [timing~="Champion"i] {
-  --ability-color: #8b0018;
+  --ability-color: #8b0018
 }
 
 [color="Purple"],
 [timing~="End"i],
 [timing~="Standard"i],
 [timing~="Trophy"i] {
-  --ability-color: #5d367d;
+  --ability-color: #5d367d
 }
 
 [color="Blue"],
 [timing~="Shooting"i],
 [timing~="Guarded"i] {
-  --ability-color: #00526d;
+  --ability-color: #00526d
 }
 
 [color="Green"] {
-  --ability-color: #365419;
+  --ability-color: #365419
 }
 </style>
