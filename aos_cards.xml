@@ -4,14 +4,14 @@
   <units dedupe="true">
     <entries>
       <if field="type" type="equals" value="unit">
-        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault)*$" />
+        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$" />
         <div class="avoid-page-break" type="card" catalogue="{{catalogue}}">
           <div class="card">
             <if field="settings.cardBackgroundGraphics.state" type="equals" value="true">
               <append-attribute name="class" value="bg" />
             </if>
             <div class="card-header">
-              <if field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault)*$"><span class="section-header">{{name}}</span></if>
+              <if field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$"><span class="section-header">{{name}}</span></if>
               <if field="name" type="not-equals" value="Manifestation Lore">
                 <entries>
                   <if type="has-profile" value="model,unit,stats,manifestation">
@@ -19,9 +19,7 @@
                       <if field="name" type="match" value="^WARD \((\d\+)\)$">
                         <set name="wardValue" value="{{name}}" fn="match" regex1=".?(\d\+)." index="1" />
                         <div class="ward">
-                          <span>
-                            {{wardValue}}
-                          </span>
+                          <span>{{wardValue}}</span>
                         </div>
                       </if>
                     </secondaries>
@@ -100,9 +98,9 @@
                 <thead>
                   <profiles include="ranged weapon" max="1">
                     <tr>
-                      <td>Ranged Weapons</td>
+                      <td><span>Ranged Weapons</span></td>
                       <characteristics>
-                        <td>{{name}}</td>
+                        <td><span>{{name}}</span></td>
                       </characteristics>
                     </tr>
                   </profiles>
@@ -122,10 +120,10 @@
                 <thead>
                   <profiles include="melee weapon" max="1">
                     <tr>
-                      <td>Melee Weapons</td>
+                      <td><span>Melee Weapons</span></td>
                       <td class="placeholder" />
                       <characteristics>
-                        <td>{{name}}</td>
+                        <td><span>{{name}}</span></td>
                       </characteristics>
                     </tr>
                   </profiles>
@@ -324,10 +322,7 @@ html {
 }
 
 .titleWrap {
-  padding-bottom: 30px;
-  padding-top: 20px;
-  padding-right: 30px;
-  padding-left: 80px;
+  padding: 20px 30px 30px 80px;
   height: 100%;
 }
 
@@ -346,7 +341,7 @@ html {
   font-size: xx-large;
   text-align: center;
   padding-left: 80px;
-  padding-right: 10px;
+  padding-right: 20px;
   color: white;
   text-transform: uppercase;
   height: 110px;
@@ -359,7 +354,7 @@ html {
   top: 44px;
   position: absolute;
   aspect-ratio: 1;
-  z-index: 2;
+  z-index: 1;
   display: grid;
   grid-template-columns: 34px;
   grid-template-rows: 34px;
@@ -487,6 +482,10 @@ html {
 }
 
 .weapons-table {
+  td > * {
+    vertical-align: sub;
+    vertical-align: -webkit-baseline-middle;
+  }
 
   td,
   td {
@@ -743,10 +742,12 @@ html {
   background-color: var(--ability-color, black);
   color: white;
   padding: 5px 10px 3px;
+  font-weight: 500;
 }
 
 .header.bg {
   background-image: url("https://raw.githubusercontent.com/giloushaker/nr-templates/refs/heads/main/assets/backgrounds/aos-header-highres.png");
+  background-size: auto 100%;
   background-color: color-mix(in srgb, var(--ability-color, black) 85%, transparent);
   background-blend-mode: multiply;
   clip-path: var(--jagged-edges-header);
@@ -769,7 +770,7 @@ html {
 </style>
 <style>
 [catalogue*="Beasts of Chaos"i] {
-  --primary-color: #2E2211
+  --primary-color: #2e2211
 }
 
 [catalogue*="Blades of Khorne"i] {
@@ -777,15 +778,15 @@ html {
 }
 
 [catalogue*="Bonesplitterz"i] {
-  --primary-color: #416051
+  --primary-color: #375b4b
 }
 
 [catalogue*="Cities of Sigmar"i] {
-  --primary-color: #40061D
+  --primary-color: #40061d
 }
 
 [catalogue*="Daughters of Khaine"i] {
-  --primary-color: #531E2F
+  --primary-color: #531e2f
 }
 
 [catalogue*="Disciples of Tzeentch"i] {
@@ -797,11 +798,11 @@ html {
 }
 
 [catalogue*="Fyreslayers"i] {
-  --primary-color: #922B0E
+  --primary-color: #922b0e
 }
 
 [catalogue*="Gloomspite Gitz"i] {
-  --primary-color: #365B4B
+  --primary-color: #365b4b
 }
 
 [catalogue*="Hedonites of Slaanesh"i] {
@@ -813,27 +814,27 @@ html {
 }
 
 [catalogue*="Ironjawz"i] {
-  --primary-color: #365B4B
+  --primary-color: #375b4b
 }
 
 [catalogue*="Kruleboyz"i] {
-  --primary-color: #365B4B
+  --primary-color: #375b4b
 }
 
 [catalogue*="Orruk Warclans"i] {
-  --primary-color: #365B4B
+  --primary-color: #375b4b
 }
 
 [catalogue*="Kharadron Overlords"i] {
-  --primary-color: #69473A
+  --primary-color: #69473a
 }
 
 [catalogue*="Lumineth Realm-lords"i] {
-  --primary-color: #004C65
+  --primary-color: #004c65
 }
 
 [catalogue*="Maggotkin of Nurgle"i] {
-  --primary-color: #48540B
+  --primary-color: #48540b
 }
 
 [catalogue*="Nighthaunt"i] {
@@ -841,7 +842,7 @@ html {
 }
 
 [catalogue*="Ogor Mawtribes"i] {
-  --primary-color: #434F4D
+  --primary-color: #434f4d
 }
 
 [catalogue*="Ossiarch Bonereapers"i] {
@@ -849,7 +850,7 @@ html {
 }
 
 [catalogue*="Seraphon"i] {
-  --primary-color: #2A757D
+  --primary-color: #2a757d
 }
 
 [catalogue*="Skaven"i] {
@@ -857,11 +858,11 @@ html {
 }
 
 [catalogue*="Slaves to Darkness"i] {
-  --primary-color: #2E0B08
+  --primary-color: #2e0b08
 }
 
 [catalogue*="Sons of Behemat"i] {
-  --primary-color: #462F34
+  --primary-color: #462f34
 }
 
 [catalogue*="Soulblight Gravelords"i] {
@@ -869,7 +870,7 @@ html {
 }
 
 [catalogue*="Stormcast Eternals"i] {
-  --primary-color: #72702C
+  --primary-color: #72702c
 }
 
 [catalogue*="Sylvaneth"i] {
@@ -877,7 +878,7 @@ html {
 }
 
 [catalogue*="Regiments of Renown"i] {
-  --primary-color: #7B0000
+  --primary-color: #7b0000
 }
 
 [color="Black"],
@@ -889,41 +890,41 @@ html {
 [color="Yellow"],
 [timing~="Hero"i],
 [timing~="Rally"i] {
-  --ability-color: #917701
+  --ability-color: #a88d2f
 }
 
 [color="Gray"],
 [color="Grey"],
 [timing~="Movement"i],
 [timing*="Redeploy"i] {
-  --ability-color: #616161
+  --ability-color: #808285
 }
 
 [color="Orange"],
 [timing~="Charge"i] {
-  --ability-color: #a34d14
+  --ability-color: #ca6722
 }
 
 [color="Red"],
 [timing~="Combat"i],
 [timing~="Champion"i] {
-  --ability-color: #7d0000
+  --ability-color: #8b0018
 }
 
 [color="Purple"],
 [timing~="End"i],
 [timing~="Standard"i],
 [timing~="Trophy"i] {
-  --ability-color: #6B4781
+  --ability-color: #5d367d
 }
 
 [color="Blue"],
 [timing~="Shooting"i],
 [timing~="Guarded"i] {
-  --ability-color: #0d3457
+  --ability-color: #00526d
 }
 
 [color="Green"] {
-  --ability-color: #3d5b26
+  --ability-color: #365419
 }
 </style>
