@@ -321,6 +321,10 @@ html {
   display: none;
 }
 
+.card-header {
+    position: relative;
+}
+
 .titleWrap {
   padding: 20px 30px 30px 80px;
   height: 100%;
@@ -350,11 +354,11 @@ html {
 }
 
 .ward {
-  left: 145px;
-  top: 44px;
+  left: 115px;
+  top: 3px;
   position: absolute;
   aspect-ratio: 1;
-  z-index: 2;
+  z-index: 1;
   display: grid;
   grid-template-columns: 34px;
   grid-template-rows: 34px;
@@ -386,7 +390,6 @@ html {
 }
 
 .statWheel {
-  left: 30px;
   position: absolute;
   background-image: url("https://raw.githubusercontent.com/BSData/age-of-sigmar-4th/main/images/statwheel.png");
   background-repeat: no-repeat;
@@ -767,8 +770,6 @@ html {
   border: 1px solid black;
   padding-bottom: 1px;
 }
-</style>
-<style>
 [catalogue*="Beasts of Chaos"i] {
   --primary-color: #2e2211
 }
