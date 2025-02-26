@@ -63,15 +63,16 @@ Attributes:
 `recursive`: if `false`, only returns the rules directly from the current entry  
 ### `<profiles>`
 Values:  `name`, `hidden`, `typeName`, `typeId`, `page`, `group`,  
-Lists: `characteristics`  
+Lists: `characteristics`, `attributes`  
 Attributes:  
 `include`: include matching typeNames (case insensitive, separate by `,`)  
 `exclude`: exclude matching typeNames (case insensitive, separate by `,`)  
+`include-rules`: if `true` rules will be converted to the same format as profiles and included
 `exclude-entry-type`: exclude profiles from entries with matching type (case insensitive, separate by `,`)  
 `exclude-entries-with-profile`:  exclude profiles from entries containing a matching profile type (case insensitive, separate by `,`)  
-`grouped`: creates a group for each profile type, use `<items>` to render each profile within the group  
+`grouped`: if `true` creates a group for each profile type, use `<items>` to render each profile within the group  
 `recursive`: if `false`, only returns the profiles directly from the current entry  
-### `<characteristics>`
+### `<characteristics>`, `<attributes>`
 Values: `name`, `value`, `originalValue`, `typeId`  
 Attributes:  
 `include`: include matching typeNames (case insensitive, separate by `,`)  
@@ -120,7 +121,25 @@ Render nothing for characteristics that are empty or only have a -
 
 # Special Attributes
 ### Markdown
-`type="markdown"`: renders the content as markdown, intended for characteristic & rule content, may cause issues if node has non-text child nodes
+`type="markdown"`: renders the content as markdown, intended for characteristic & rule content, may cause issues if node has non-text child nodes  
+
+### `<set-attribute>`, `<append-attribute>`
+Assigns a value to a parent nodes attribute  
+Attributes:  
+  `name`: the name of the attribute  
+  `value`: the value to set  
+  `in`: specify the parent(s) to affect, using a css selector  
+  `join`: the join string if appending, defaults to a space
+
+### `<set>`,
+Assigns a value to a variable  
+Attributes:  
+  `name`: the name of the attribute  
+  `value`: the value to set  
+  `fn`: (optional) a function to call, supports:  `toLowerCase`, `toUpperCase`, `trim`, `replace`, `replaceAll`, `match`, `matchAll`, `find`, `startswith`, `endswith`, `split`, `includes`, `add`, `minus`, `multiply`, `divide`, `typeof`
+  `string` or `number` or `regex`: followed by a number to specify a call argument, eg `<set fn="match" regex1=".*"/>` is equivalent to `.match(/.*/)`
+  `index`: the index of the return value to use, usefull for regex match
+  
 
 
 #### Example usage:
