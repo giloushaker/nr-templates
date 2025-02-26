@@ -132,9 +132,11 @@ Assigns a value to a variable
 Attributes:  
   `name`: the name of the attribute  
   `value`: the value to set  
-  `fn`: (optional) a function to call, supports:  `toLowerCase`, `toUpperCase`, `trim`, `replace`, `replaceAll`, `match`, `matchAll`, `find`, `startswith`, `endswith`, `split`, `includes`, `add`, `minus`, `multiply`, `divide`, `typeof`
-  `string` or `number` or `regex`: followed by a number to specify a call argument, eg `<set fn="match" regex1=".*"/>` is equivalent to `.match(/.*/)`
-  `index`: the index of the return value to use, usefull for regex match
+  `fn`: (optional) a function to call, supports:  
+    `toLowerCase`, `toUpperCase`, `trim`, `replace`, `replaceAll`, `match`, `matchAll`, `find`, `startswith`, `endswith`, `split`, `includes`,  
+    `add`, `minus`, `multiply`, `divide`, `typeof`  
+  `string` or `number` or `regex`: followed by a number to specify a call argument, eg `<set fn="match" regex1=".*"/>` is equivalent to `.match(/.*/)`  
+  `index`: the index of the return value to use, usefull for regex match  
 
 # Special Attributes
 ### Markdown
