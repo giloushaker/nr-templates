@@ -1,6 +1,6 @@
 <template>
   <setting id="includeModels" label="Models" type="checkbox" default="true" />
-  <set name="ruleProfiles" value="special rule,rule,rules"/>
+  <set name="ruleProfiles" value="special rule,rule,rules,command"/>
 
   <div class="section cards">
     <units dedupe="true">
@@ -73,7 +73,7 @@
           </entries>
           <tr class="section profile-row profiles group">
             <td>
-              <profiles grouped="true">
+              <profiles grouped="true" exclude="{{ruleProfiles}}">
                 <table class="profile-group group removable">
                   <items max="1">
                     <tr class="header profile">
@@ -104,18 +104,22 @@
               </profiles>
             </td>
           </tr>
-          <!-- <tr class="section card-rules card-row">
-              <td>
-                <div class="profiles profile-row profiles group" v-for="group of shortProfiles(unit)">
-                  <span class="header secondary cell">
-                    <span class="name nowrap">{{ group[0].typeName }}</span>
-                  </span>
-                  <span class="secondaries cell">
-                    <span class="name" v-for="profile in group">{{ profile.name }}</span>
-                  </span>
-                </div>
-              </td>
-            </tr> -->
+          <tr class="section card-rules card-row">
+            <td>
+              <profiles include-rules="true" grouped="true" include="{{ruleProfiles}}">
+              <div class="profiles profile-row profiles group">
+                <span class="header secondary cell">
+                  <items max="1">
+                  <span class="name nowrap">{{typeName}}</span>
+                  </items>
+                </span>
+                <span class="secondaries cell">
+                  <items><span class="name">{{name}}</span></items>
+                </span>
+              </div>
+              </profiles>
+            </td>
+          </tr>
           <tr class="section card-keywords card-row group">
             <td>
               <span class="header secondary cell">
@@ -134,6 +138,7 @@
     </units>
      <!-- Rules -->
     <if type="has-rule" recursive="true">
+      <or type="has-profile" recursive="true" value="{{ruleProfiles}}" />
     <div type="card">
       <div class="rules">
         <forces>
