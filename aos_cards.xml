@@ -1,6 +1,7 @@
 <template>
   <setting id="titleBackgroundGraphics" label="Title Background Graphics" type="checkbox" default="true" />
   <setting id="cardBackgroundGraphics" label="Card Background Graphics" type="checkbox" default="true" />
+  <setting id="customWarscrollNames" label="Original warscroll names (when using Custom Names)" type="checkbox" default="false" />
   <units dedupe="true">
     <entries>
       <if field="type" type="equals" value="unit">
@@ -52,7 +53,7 @@
                     </profiles>
                     <div class="titleWrap">
                       <div class="titleCard">
-                        <div class="title">{{name}}</div>
+                        <div class="title"><if field="customName">{{customName}}<if field="settings.customWarscrollNames.state" type="equals" value="true"><div class="subtitle">{{name}}</div></if></if><else>{{name}}</else></div>
                       </div>
                     </div>
                   </if>
@@ -341,7 +342,6 @@ html {
 
 .title {
   margin: auto;
-  display: inline-block;
   font-size: xx-large;
   text-align: center;
   padding-left: 80px;
@@ -350,7 +350,13 @@ html {
   text-transform: uppercase;
   height: 110px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+}
+
+.subtitle {
+  font-size: large;
 }
 
 .ward {
