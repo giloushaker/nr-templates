@@ -3,7 +3,7 @@ The XML processing involves two main steps: expanding nodes and replacing placeh
 
 1. Expanding Nodes  
 XML nodes such as `<forces>...</forces>`, `<units>...</units>`, and `<profiles>...</profiles>` are expanded by replacing them with their child elements. This process is repeated for each of the matching objects, effectively generating multiple sets of the child elements.
-For example: This XML with a roster that contains 2 units:
+For example: This XML with a roster that contains 2 units named Orc:
 ```xml
 <units>
   <div>Unit</div>
@@ -19,15 +19,13 @@ Will be expanded to
 ```
 
 2. Replacing Placeholders  
-Text within XML nodes or attributes surrounded by {{...}} will be replaced with the corresponding value. For example:
-```xml
-<profiles>
-  <span>{{name}}</span>
-</profiles>
-```
-Results in (for each matching profile):
+Text within XML nodes or attributes surrounded by {{...}} will be replaced with the corresponding value.
+Results in:
 ```html
-<span>Example</span>
+<div>Unit</div>
+<div>Orc</div>
+<div>Unit</div>
+<div>Orc</div>
 ```
 
 # Common
