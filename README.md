@@ -139,7 +139,7 @@ Attributes:
 ### `<groupBy>`  
 Group multiple elements that have something in common  
 Elements rendered within must have a `<by>` element whose string content will be used to group.  
-Groups can then be rendered using `<group>` and `<items>` within  
+Groups can then be rendered using `<groups>` and then `<items>` within  
 
 ### Examples:  
 Group models by their characteristics to only display the stats once if multiple models have the same stats  
@@ -155,33 +155,34 @@ Group models by their characteristics to only display the stats once if multiple
             </if>
         </entries>
 
-        <group>
+        <groups>
             <!-- Model Stats -->
             <items max="1">
-            <profiles include="{{unitProfiles}}" recursive="false">
+                <profiles include="{{unitProfiles}}" recursive="false">
                 <characteristics exclude="{{hideCharacteristics}}">
                     <div class="modelCharacteristic">
                         <div>{{name}}</div>
                         <div>{{$text}}</div>
                     </div>
                 </characteristics>
-            </profiles>
+                </profiles>
             </items>
             <div class="model" style="display: flex; gap: 1.2rem;">
-            <items>
-                <!-- Model Name & Options -->
-                <div>
-                    <span>{{amount}}x</span>
-                    <span class="model-name">{{name}}</span>
-                    <div style="font-size: 0.7em;">
-                        <div style="white-space: pre-wrap" class="model-options">{{options}}</div>
+                <items>
+                    <div>
+                        <span>{{amount}}x</span>
+                        <span class="model-name">{{name}}</span>
+                        <div class="model-options">{{options}}</div>
                     </div>
-                </div>
-            </items>
+                </items>
             </div>
-        </group>
+        </groups>
     </groupBy>
 ```
+
+### `<dedupe>`  
+Dedupes child nodes
+
 
 # Special Attributes
 ### Markdown
