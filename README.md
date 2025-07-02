@@ -1,3 +1,5 @@
+If you need help creating a template or want one added to the default list feel free to ask in [Discord](https://discord.gg/cCtqGbugwb)  
+
 # How it works
 The XML processing involves two main steps: expanding nodes and replacing placeholders.
 
