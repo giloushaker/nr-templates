@@ -1,0 +1,141 @@
+<template>
+  <stratagems>
+    <div class="container avoid-page-break ">
+      <div class="name">{{ stratagem.name }}</div>
+      <div class="stratagem">
+        <div class="type">{{ stratagem.type }}</div>
+        <div class="description" type="html">{{stratagem.description}}</div>
+        <div class="strDiamondWrapWrap">
+          <div class="strDiamondWrap">
+            <div class="strDiamond">
+              <div class="strCP">{{ stratagem.cp_cost }}CP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </stratagems>
+</template>
+<style>
+  @charset "UTF-8";
+  @import url('https://cdn.jsdelivr.net/npm/notosans-fontface@1.3.0/css/notosans-fontface.min.css');
+
+  html {
+    font-family: 'Noto Sans', sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    background-color: white;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0);
+    color: rgb(70, 70, 70);
+  }
+
+  .container {
+    padding-left: 16px;
+    margin-bottom: 20px;
+  }
+
+  .stratagem {
+    border-top: 3px solid;
+    border-left: 28px solid;
+    border-top-left-radius: 5px;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .type {
+    margin-top: px;
+    border-bottom: 2px dotted $box_border;
+  }
+
+  .description {
+    border-bottom: 2px dotted $box_border;
+    padding-bottom: px;
+  }
+
+  :deep([bluefont]) {
+    color: $blue;
+  }
+
+  :deep(.kwb2) {
+    font-weight: bold;
+  }
+
+  .strDiamond {
+    background: white;
+    font-weight: bold;
+    border: 3px solid;
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(45deg);
+  }
+
+  .strDiamondWrapWrap {
+    width: 45px;
+    display: flex;
+    flex-direction: column;
+    margin-left: -37px;
+    margin-top: -32px;
+    position: absolute;
+    top: 8px;
+    left: 0;
+  }
+
+  .strName {
+    margin-left: 69px;
+    font-size: 1.54em;
+    font-family:
+      ConduitITC,
+      charcoal,
+      arial black;
+    font-weight: bold;
+    color: inherit;
+    line-height: normal;
+  }
+
+  .stratagemIcon {
+    margin: -2px 0 0 0;
+    width: 33px;
+    height: 33px;
+    transform: rotate(-45deg);
+  }
+
+  .strAny {
+    background-image: url(https://www.wahapedia.ru/wh40ked/img/stratAny.png);
+  }
+
+  .strShooting {
+    background-image: url(https://www.wahapedia.ru/wh40ked/img/stratShooting.png);
+  }
+
+  .strDiamondWrap {
+    margin-top: 18px;
+  }
+
+  .strCP {
+    font-size: 20px;
+    transform: rotate(-45deg);
+  }
+
+  .name {
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 50px;
+  }
+
+  .type {
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-bottom: px;
+  }
+
+  .avoid-page-break {
+    position: relative;
+    page-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    break-inside: avoid
+  }
+</style>
