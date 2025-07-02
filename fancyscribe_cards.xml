@@ -1,410 +1,494 @@
 <template>
-  <p style="padding: 10px" class="print-display-none"> 
-    Inspired by <a href="https://nilsueter.github.io/fancyscribe/" target="_blank"><b>FancyScribe</b></a> 
-  </p>
-
-  <set name="unitProfiles" value="model,unit,stats,vehicle,ship"/>
-  <set name="hideCharacteristics" value="troop type,unit size,unit type,access points,type"/>
-  <set name="ruleProfiles" value="special rule,rule,rules"/>
-  <set name="dataProfiles" value="ranged weapons,ranged weapon,psychic weapon,melee weapons,melee weapon,weapons,weapon,spell,load"/>
-  <set name="abilityProfiles" value="abilities,ability (passive),ability (activated),ability (spell),ability (command),ability (prayer),psychic power,wargear item"/>
-  <set name="hideProfiles" value="base"/>
-  <set name="infoCharacteristics" value="abilities,notes,note,description,effect,details"/>
-  <set name="inlineCharacteristics" value="keywords,special rules,ability,number,special">
-    <if field="system.name" type="equals" value="Horus Heresy (2022)">
-      <append-attribute name="value" value="type" join=","/>
+<p style="padding: 10px" class="print-display-none">
+    Inspired by <a href="https://nilsueter.github.io/fancyscribe/" target="_blank"><b>FancyScribe</b></a>
+</p>
+<setting id="expandRules" label="Expand Rules" type="checkbox" default="false" />
+<set name="ruleProfiles" value="special rule,rule,rules" />
+<set name="unitProfiles" value="model,unit,stats,vehicle,ship" />
+<set name="hideCharacteristics" value="troop type,unit size,unit type,access points,type" />
+<set name="dataProfiles"
+    value="ranged weapons,ranged weapon,psychic weapon,melee weapons,melee weapon,weapons,magic weapons,maguc weapon,weapon,spell,load" />
+<set name="abilityProfiles"
+    value="abilities,ability (passive),ability (activated),ability (spell),ability (command),ability (prayer),psychic power,wargear item">
+    <if field="settings.expandRules.state" type="equals" value="true">
+        <append-attribute name="value" value="special rule,rule,rules" join="," />
     </if>
-  </set>
+</set>
+<set name="hideProfiles" value="base" />
+<set name="infoCharacteristics" value="abilities,notes,note,description,effect,details" />
+<set name="inlineCharacteristics" value="keywords,special rules,ability,number,special">
+    <if field="system.name" type="equals" value="Horus Heresy (2022)">
+        <append-attribute name="value" value="type" join="," />
+    </if>
+</set>
 
-  <units dedupe="true">
-  <if type="has-profile" value="{{unitProfiles}}" recursive="true"> 
-    <div class="avoid-page-break" style="margin-bottom: 52px;" type="card" catalogue="{{catalogue}}">
-      <div class="min-h-15rem" style="padding: 24px 0px; background: linear-gradient(90deg, rgb(20, 21, 25) 0%, rgb(48, 57, 62) 45%, rgb(73, 74, 79) 100%); color: rgb(255, 255, 255); position: relative;">
-        <!-- Header Section -->
-        <div style="padding: 4px 16px; color: rgb(255, 255, 255); position: relative; margin-left: 1.3rem;">
+<units dedupe="true">
+    <if type="has-profile" value="{{unitProfiles}}" recursive="true">
+        <div class="avoid-page-break" style="margin-bottom: 52px;" type="card" catalogue="{{catalogue}}">
+            <div class="min-h-15rem"
+                style="padding: 24px 0px; background: linear-gradient(90deg, rgb(20, 21, 25) 0%, rgb(48, 57, 62) 45%, rgb(73, 74, 79) 100%); color: rgb(255, 255, 255); position: relative;">
+                <!-- Header Section -->
+                <div style="padding: 4px 16px; color: rgb(255, 255, 255); position: relative; margin-left: 1.3rem;">
 
-          <!--  Title Background Graphic -->
-          <div style="position: absolute; left: 0px; top: 0px; width: 100%; display: flex;">
-            <div style="background-color: var(--primary-color-transparent); height: 80px; min-width: 33%;"></div>
-            <div style="height: 80px; display: flex; flex-direction: column;">
-              <div style="background-color: var(--primary-color-transparent); height: 40px;"></div>
-              <svg height="40" width="100" viewBox="0 0 100 40" style="fill: var(--primary-color-transparent);">
-                <path d="m0 0h100c-32 0-68 40-100 40z"></path>
-              </svg>
-            </div>
-            <div style="flex: 10 1 0%; background-color: var(--primary-color-transparent); height: 40px;"></div>
-          </div>
-
-          
-          <!--  Unit Name & Costs -->
-          <div style="font-family: ConduitITCStd; font-size: 2.5em; letter-spacing: 0.1px; line-height: 1; font-weight: 800; text-transform: uppercase; z-index: 1; position: relative; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
-            <span>{{name}}</span>
-            <costs>
-              <span style="text-transform: initial; font-size: 1.2rem;">
-                <span>{{value}}</span>
-                <span>{{name}}</span>
-              </span>
-            </costs>
-          </div>
-
-
-          <!-- Models -->
-          <div style="display: flex; flex-direction: column; gap: 6px; z-index: 1; position: relative;">
-            <entries>
-              <if type="has-profile" value="{{unitProfiles}}">
-                <div class="model" style="display: flex; gap: 1.2rem;">
-                
-                  <!-- Model Stats -->
-                  <profiles include="{{unitProfiles}}" recursive="false">
-                    <characteristics exclude="{{hideCharacteristics}}">
-                      <div class="modelCharacteristic" style="display: flex; flex-direction: column; align-items: center;">
-                        <div style="font-size: 0.9em; font-weight: 800;">{{name}}</div>
-                        <div style="color: var(--primary-color); padding: 2px; background: var(--primary-color); clip-path: polygon(12% 0px, 100% 0px, 100% 20%, 100% 88%, 88% 100%, 20% 100%, 0px 100%, 0px 12%);">
-                          <div style="min-width: 3rem; min-height: 3rem; display: flex; align-items: center; justify-content: center; background: rgb(232, 237, 231); clip-path: polygon(10% 0px, 100% 0px, 100% 20%, 100% 90%, 90% 100%, 20% 100%, 0px 100%, 0px 10%); padding: 3px; font-size: 1.6em; font-weight: 800;">
-                            {{$text}}
-                          </div>
+                    <!--  Title Background Graphic -->
+                    <div style="position: absolute; left: 0px; top: 0px; width: 100%; display: flex;">
+                        <div
+                            style="background-color: var(--primary-color-transparent); height: 80px; min-width: 33%;">
                         </div>
-                      </div>
-                    </characteristics>
-                  </profiles>
+                        <div style="height: 80px; display: flex; flex-direction: column;">
+                            <div style="background-color: var(--primary-color-transparent); height: 40px;"></div>
+                            <svg height="40" width="100" viewBox="0 0 100 40"
+                                style="fill: var(--primary-color-transparent);">
+                                <path d="m0 0h100c-32 0-68 40-100 40z"></path>
+                            </svg>
+                        </div>
+                        <div
+                            style="flex: 10 1 0%; background-color: var(--primary-color-transparent); height: 40px;">
+                        </div>
+                    </div>
 
-                  <!-- Model Name & Options -->
-                  <div class="flex flex-wrap items-center gap-2" style="margin-top: 16px; text-shadow: rgb(0, 0, 0) 0px 0px 5px;">
-                    <if type="greater" field="amount" value="1">
-                      <span>
-                        <span>{{amount}}</span>x
-                      </span>
-                    </if>
-                    <if field="length" type=">" value="1" debug="true">
-                    <div>
-                      <span style="white-space: nowrap;">{{name}}</span>
-                    </div>
-                    </if>
-                    <div style="font-size: 0.7em;">
-                      <div style="white-space: pre-wrap">{{options}}</div>
-                    </div>
-                  </div>
-                </div>
-              </if>
-            </entries>
-          </div>
-        </div>
-      </div>
-      <div class="border-b-2 border-t-0 border-var(--primary-color) sm:border-l-2 sm:border-r-2" style="display: flex; background-color: rgb(223, 224, 226);">
-        
-        <!-- Left Section -->
-        <div class="flex-1.2 pt-5" style="border-right: 2px solid var(--primary-color); position: relative; padding-bottom: 40px; display: flex; flex-direction: column;">
-           
-          <!-- Data Profiles -->
-          <profiles grouped="true" include="{{dataProfiles}}">
-            <table cellspacing="0" class="weapons-table" style="width: 100%;">
-              <thead>
-                <items max="1">
-                  <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
-                    <th style="max-width: 32px; min-width: 32px; width: 0%;">
-                      <div style="display: flex; width: 100%; justify-content: center;">
-                        <img class="profile-icon" typeName="{{typeName}}" style="max-width: 20px;" src="" />
-                      </div>
-                    </th>
-                    <th style="text-align: left;" class="row-header">
-                    <span>{{typeName}}</span>
-                    <if field="group"><span style="font-weight: normal; text-transform: none;">({{group}})</span></if>
-                    </th>
-                    
-                    <characteristics exclude="{{inlineCharacteristics}},{{infoCharacteristics}}">
-                      <th class="data-cell">{{name}}</th>
-                    </characteristics>
-                  </tr>
-                </items>
-              </thead>
-              <tbody>
-                <items>
-                  <tr>
-                    <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
-                    <td style="text-align: left;">
-                      <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0px 4px; line-height: 1.05;">
+
+                    <!--  Unit Name & Costs -->
+                    <div
+                        style="font-family: ConduitITCStd; font-size: 2.5em; letter-spacing: 0.1px; line-height: 1; font-weight: 800; text-transform: uppercase; z-index: 1; position: relative; display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
                         <span>{{name}}</span>
-
-                        <!-- Inlined after name Characteristics -->
-                        <characteristics include="{{inlineCharacteristics}}" max="1">
-                          <if type="not-match" value="^\s*-\s*$" field="$text">
-                            <span if="$text" style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;">
-                            [<span type="markdown">{{$text}}</span>] 
+                        <costs>
+                            <span style="text-transform: initial; font-size: 1.2rem;">
+                                <span>{{value}}</span>
+                                <span>{{name}}</span>
                             </span>
-                          </if>
-                        </characteristics>
+                        </costs>
+                    </div>
 
-                      </div>
-                    </td>
-                    <characteristics exclude="{{inlineCharacteristics}},{{infoCharacteristics}}">
-                      <td class="align-middle" type="markdown">{{$text}}</td>
+
+                    <!-- Models -->
+                    <div style="display: flex; flex-diration: column; gap: 6px; z-index: 1; position: relative;">
+                    <groupBy>
+                        <entries>
+                            <if type="has-profile" value="{{unitProfiles}}">
+                                <by>
+                                    <profiles include="{{unitProfiles}}" recursive="false">
+                                        <characteristics exclude="{{hideCharacteristics}}">{{name}}{{$text}}</characteristics>
+                                    </profiles>
+                                </by>
+                            </if>
+                        </entries>
+
+                        <groups>
+                            <div style="display: flex; gap: 6px; z-index: 1; position: relative;">
+                            <!-- Model Stats -->
+                            <items max="1">
+                            <profiles include="{{unitProfiles}}" recursive="false">
+                                <characteristics exclude="{{hideCharacteristics}}">
+                                    <div class="modelCharacteristic"
+                                        style="display: flex; flex-direction: column; align-items: center;">
+                                        <div style="font-size: 0.9em; font-weight: 800;">{{name}}</div>
+                                        <div
+                                            style="color: var(--primary-color); padding: 2px; background: var(--primary-color); clip-path: polygon(12% 0px, 100% 0px, 100% 20%, 100% 88%, 88% 100%, 20% 100%, 0px 100%, 0px 12%);">
+                                            <div
+                                                style="min-width: 3rem; min-height: 3rem; display: flex; align-items: center; justify-content: center; background: rgb(232, 237, 231); clip-path: polygon(10% 0px, 100% 0px, 100% 20%, 100% 90%, 90% 100%, 20% 100%, 0px 100%, 0px 10%); padding: 3px; font-size: 1.6em; font-weight: 800;">
+                                                {{$text}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </characteristics>
+                            </profiles>
+                            </items>
+
+                            <div class="model" style="display: flex; gap: 1.2rem;">
+                            <items>
+                                <!-- Model Name & Options -->
+                                <div class="flex flex-wrap items-center gap-2 model-name-options" style="margin-top: 16px; text-shadow: rgb(0, 0, 0) 0px 0px 5px; display: inline-block">
+                                    <span  style="white-space: nowrap;">
+                                    <if field="amount" type="greater" value="1">
+                                        <span>{{amount}}x</span>
+                                    </if>
+                                    <if field="length" type="greater" value="1">
+                                        <span class="model-name">{{name}}</span>
+                                    </if>
+                                    </span>
+                                    <div style="font-size: 0.7em;">
+                                        <div style="white-space: pre-wrap" class="model-options">{{options}}</div>
+                                    </div>
+                                </div>
+                            </items>
+                            </div>
+                            
+                            </div>
+                        </groups>
+                    </groupBy>
+                    </div>
+                </div>
+            </div>
+            <div class="border-b-2 border-t-0 border-var(--primary-color) sm:border-l-2 sm:border-r-2"
+                style="display: flex; background-color: rgb(223, 224, 226);">
+
+                <!-- Left Section -->
+                <div class="pt-5"
+                    style="width: 65%; border-right: 2px solid var(--primary-color); position: relative; padding-bottom: 40px; display: flex; flex-direction: column;">
+
+                    <!-- Data Profiles -->
+                    <profiles grouped="true" include="{{dataProfiles}}">
+                        <table cellspacing="0" class="weapons-table" style="width: 100%;">
+                            <thead>
+                                <items max="1">
+                                    <tr class="uppercase"
+                                        style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                                        <th style="max-width: 32px; min-width: 32px; width: 0%;">
+                                            <div style="display: flex; width: 100%; justify-content: center;">
+                                                <img class="profile-icon" typeName="{{typeName}}"
+                                                    style="max-width: 20px;" src="" />
+                                            </div>
+                                        </th>
+                                        <th style="text-align: left;" class="row-header">
+                                            <span>{{typeName}}</span>
+                                            <if field="group"><span
+                                                    style="font-weight: normal; text-transform: none;">({{group}})</span>
+                                            </if>
+                                        </th>
+
+                                        <characteristics
+                                            exclude="{{inlineCharacteristics}},{{infoCharacteristics}}">
+                                            <th class="data-cell">{{name}}</th>
+                                        </characteristics>
+                                    </tr>
+                                </items>
+                            </thead>
+                            <tbody>
+                                <items>
+                                    <tr>
+                                        <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
+                                        <td style="text-align: left;">
+                                            <div
+                                                style="display: flex; align-items: center; flex-wrap: wrap; gap: 0px 4px; line-height: 1.05;">
+                                                <span>{{name}}</span>
+
+                                                <!-- Inlined after name Characteristics -->
+                                                <characteristics include="{{inlineCharacteristics}}" max="1">
+                                                    <if type="not-match" value="^\\s*-\\s*$" field="$text">
+                                                        <span if="$text"
+                                                            style="font-size: 0.8em; font-weight: 700; color: var(--primary-color); text-transform: uppercase; line-height: 1.05;">
+                                                            [<span type="markdown">{{$text}}</span>]
+                                                        </span>
+                                                    </if>
+                                                </characteristics>
+
+                                            </div>
+                                        </td>
+                                        <characteristics
+                                            exclude="{{inlineCharacteristics}},{{infoCharacteristics}}">
+                                            <td class="align-middle" type="markdown">{{$text}}</td>
+                                        </characteristics>
+                                    </tr>
+
+                                    <!-- Full row spanning characteristic such as notes -->
+                                    <characteristics include="{{infoCharacteristics}}">
+                                        <if field="$text">
+                                            <if field="$text" type="not-match" value="^[-\\s]*$">
+                                                <tr class="noBorderTop">
+                                                    <td
+                                                        style="border-top: none; background-color: rgb(223, 224, 226);">
+                                                    </td>
+                                                    <td colspan="7" class="row"
+                                                        style="text-align: left; font-size: 0.9em; padding-top: 0px; padding-bottom: 1px; line-height: 1.4;"
+                                                        type="markdown">{{$text}}</td>
+                                                </tr>
+                                            </if>
+                                        </if>
+                                    </characteristics>
+                                </items>
+                                <items max="1">
+                                    <tr class="emptyRow">
+                                        <td style="border-top: none;"></td>
+                                        <td colspan="7"></td>
+                                    </tr>
+                                </items>
+                            </tbody>
+                        </table>
+                    </profiles>
+
+                    <!-- Remaining Misc profiles -->
+                    <profiles grouped="true"
+                        exclude="{{unitProfiles}},{{ruleProfiles}},{{dataProfiles}},{{abilityProfiles}},{{hideProfiles}}">
+                        <table cellspacing="0" style="width: 100%;" class="removable">
+                            <thead>
+                                <items max="1">
+                                    <tr class="uppercase"
+                                        style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
+                                        <th style="width: 32px; min-width: 32px;" />
+                                        <th colspan="7" class="row" style="text-align: left;">{{typeName}}</th>
+                                    </tr>
+                                </items>
+                            </thead>
+                            <tbody>
+                                <items>
+                                    <tr style="border-top: 1px dotted #9e9fa1;" class="removable">
+                                        <td class="w-2em"></td>
+                                        <td colspan="7"
+                                            style="font-size: 1em; line-height: 1.4; text-align: left; padding-top: 4px; padding-bottom: 4px;">
+                                            <span style="font-weight: 700;">{{name}}</span>: <characteristics>
+                                                <if field="$text">
+                                                    <if field="length" type="greater" value="1">
+                                                        <div style="margin-left: 4px;"><span
+                                                                style="font-weight: bold; font-size: 0.8em; ">{{name}}</span>:
+                                                            <span type="markdown">{{$text}}</span>
+                                                        </div>
+                                                    </if>
+                                                    <if field="length" type="atmost" value="1">
+                                                        <span type="markdown">{{$text}}</span>
+                                                    </if>
+                                                </if>
+                                            </characteristics>
+                                        </td>
+                                    </tr>
+                                </items>
+                            </tbody>
+                        </table>
+                    </profiles>
+
+                    <!-- Keywords / Categories -->
+                    <div
+                        style="position: absolute; right: -2px; bottom: -16px; padding: 0px 42px 0px 8px; display: flex; align-items: center; background-color: rgb(188, 188, 190); border: 2px solid var(--primary-color); width: calc(100% - 0.9rem); background-size: contain; min-height: 54px; gap: 3px;">
+                        <span style="font-size: 1.1em;">KEYWORDS:</span>
+                        <div>
+                            <secondaries>
+                                <if field="name" type="not-match" value="faction: .*" flags="i">
+                                    <if field="length" type="atleast" value="5">
+                                        <span class="split rule"
+                                            style="font-size: 0.9em; font-weight: 800; display: inline-block;">{{name}}</span>
+                                    </if>
+                                    <if field="length" type="less" value="5">
+                                        <span class="split rule"
+                                            style="font-size: 1em; font-weight: 800; display: inline-block;">{{name}}</span>
+                                    </if>
+                                </if>
+                            </secondaries>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Section -->
+                <div
+                    class="relative w-full flex-1 p-1 pb-50pxpt-5 print:p-20px sm:p-2 sm:pb-50px sm:pt-5 sm:print:p-20px sm:print:pb-50px md:p-20px md:pb-50px md:pt-5 md:print:p-20px md:print:pb-50px">
+                    <div
+                        style="font-size: 1.1em; padding: 1px 6px; background-color: var(--primary-color); color: rgb(255, 255, 255); font-weight: 600; min-height: 27px; display: flex; align-items: center;">
+                        ABILITIES </div>
+
+                    <!-- Rules -->
+                    <div class="rules-block"
+                        style="padding: 5px 2px; gap: 3px; border-bottom: 1px dotted rgb(158, 159, 161); line-height: 1.3; display: flex; flex-wrap: wrap;">
+                        <span style="font-size: 0.8em;">RULES: </span>
+                        <profiles include-rules="true" exclude-entries-with-profile="{{dataProfiles}}"
+                            exclude="{{abilityProfiles}}" include="{{ruleProfiles}}">
+                            <span class="split rule"
+                                style="white-space: nowrap; font-size: 0.8em; font-weight: 700;">{{name}}</span>
+                        </profiles>
+                    </div>
+
+                    <!-- Ability Profiles -->
+                    <div class="hide-if-empty"
+                        style="display: flex; flex-direction: column; gap: 8px; padding: 4px 2px; border-bottom: 1px dotted rgb(158, 159, 161);">
+                        <profiles include-rules="true" include="{{abilityProfiles}}"
+                            exclude-entries-with-profile="{{dataProfiles}}">
+                            <div class="removable" style="font-size: 0.8em; line-height: 1.4;">
+                                <span class="rule-name" style="font-weight: 700;">{{name}}</span>
+                                <characteristics>
+                                    <if field="$text">
+                                        <if field="length" type="greater" value="1">
+                                            <div class="removable" style="margin-left: 4px;"><span
+                                                    style="font-weight: bold; font-size: 0.8em; ">{{name}}</span>:
+                                                <span type="markdown">{{$text}}</span>
+                                            </div>
+                                        </if>
+                                        <if field="length" type="atmost" value="1">
+                                            <span class="removable" type="markdown">{{$text}}</span>
+                                        </if>
+                                    </if>
+                                </characteristics>
+                            </div>
+                        </profiles>
+                    </div>
+
+                    <!-- Placeholder to prevent text being under keywords -->
+                    <div style="margin-bottom: 50px" />
+
+                    <!-- Faction Keywords/Categories -->
+                    <div class="keywords">
+                        <span style="font-size: 0.9em; line-height: 1.3;">FACTION KEYWORDS:</span>
+                        <secondaries>
+                            <if field="name" type="match" value="faction: .*" flags="i">
+                                <span class="split"
+                                    style="font-size: 0.9em; font-weight: 600; white-space: nowrap;">{{name}}</span>
+                            </if>
+                        </secondaries>
+                    </div>
+
+                    <!-- Faction Icon-->
+                    <div
+                        style="position: absolute; left: -28px; bottom: -16px; width: 54px; height: 54px; transform: rotate(-45deg); border: 2px solid var(--primary-color); overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="background: center center rgb(188, 188, 190); min-height: 75px; min-width: 76px; transform: rotate(45deg);">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </if>
+</units>
+
+<!-- Rules -->
+<if type="has-rule" recursive="true">
+    <div type="card">
+        <div class="rules-list">
+            <forces>
+                <if type="has-rule">
+                    <div class="force removable"><span class="force-name">{{name}}</span> <span
+                            class="force-catalogue">({{catalogue}})</span>
+                        <rules recursive="false">
+                            <div class="rule nested removable">
+                                <span class="rule-name">{{name}}</span>
+                                <span class="rule-desc" type="markdown">{{description}}</span>
+                            </div>
+                        </rules>
+                    </div>
+                </if>
+            </forces>
+            <profiles include-rules="true" include="{{ruleProfiles}}">
+                <div class="rule removable">
+                    <span class="rule-name">{{name}}</span>
+                    <characteristics>
+                        <span class="rule-desc" type="markdown">{{value}}</span>
                     </characteristics>
-                  </tr>
-
-                  <!-- Full row spanning characteristic such as notes -->
-                  <characteristics include="{{infoCharacteristics}}">
-                  <if field="$text">
-                  <if field="$text" type="not-match"  value="^[-\s]*$">
-                    <tr class="noBorderTop">
-                      <td style="border-top: none; background-color: rgb(223, 224, 226);"></td>
-                      <td colspan="7" class="row" style="text-align: left; font-size: 0.9em; padding-top: 0px; padding-bottom: 1px; line-height: 1.4;" type="markdown">{{$text}}</td>
-                    </tr>
-                  </if>
-                  </if>
-                  </characteristics>
-                </items>
-                <items max="1">
-                  <tr class="emptyRow">
-                    <td style="border-top: none;"></td>
-                    <td colspan="7"></td>
-                  </tr>
-                </items>
-              </tbody>
-            </table>
-          </profiles>
-
-          <!-- Remaining Misc profiles -->
-          <profiles grouped="true" exclude="{{unitProfiles}},{{ruleProfiles}},{{dataProfiles}},{{abilityProfiles}},{{hideProfiles}}">
-            <table cellspacing="0" style="width: 100%;" class="removable">
-              <thead>
-                <items max="1">
-                  <tr class="uppercase" style="background-color: var(--primary-color); color: rgb(255, 255, 255);">
-                    <th style="width: 32px; min-width: 32px;"/>
-                    <th colspan="7" class="row" style="text-align: left;">{{typeName}}</th>
-                  </tr>
-                </items>
-              </thead>
-              <tbody>
-                <items>
-                  <tr style="border-top: 1px dotted #9e9fa1;" class="removable">
-                    <td class="w-2em"></td>
-                    <td colspan="7" style="font-size: 1em; line-height: 1.4; text-align: left; padding-top: 4px; padding-bottom: 4px;">
-                      <span style="font-weight: 700;">{{name}}</span>: <characteristics>
-                        <if field="$text"> 
-                          <if field="length" type="greater" value="1">
-                            <div style="margin-left: 4px;"><span style="font-weight: bold; font-size: 0.8em; ">{{name}}</span>: <span type="markdown">{{$text}}</span></div>
-                          </if>
-                          <if field="length" type="atmost" value="1">
-                            <span type="markdown">{{$text}}</span>
-                          </if>
-                        </if>
-                      </characteristics>
-                    </td>
-                  </tr>
-                </items>
-              </tbody>
-            </table>
-          </profiles>
-
-          <!-- Keywords / Categories -->
-          <div style="position: absolute; right: -2px; bottom: -16px; padding: 0px 42px 0px 8px; display: flex; align-items: center; background-color: rgb(188, 188, 190); border: 2px solid var(--primary-color); width: calc(100% - 0.9rem); background-size: contain; min-height: 54px; gap: 3px;">
-            <span style="font-size: 1.1em;">KEYWORDS:</span>
-            <div>
-            <secondaries>
-              <if field="name" type="not-match" value="faction: .*" flags="i">
-                <if field="length" type="atleast" value="5">
-                  <span class="split" style="font-size: 0.9em; font-weight: 800; display: inline-block;">{{name}}</span>
-                </if>
-                <if field="length" type="less" value="5">
-                  <span class="split" style="font-size: 1em; font-weight: 800; display: inline-block;">{{name}}</span>
-                </if>
-              </if>
-            </secondaries>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Section -->
-        <div class="relative max-w-400px flex-1 p-1 pb-50pxpt-5 print:p-20px sm:p-2 sm:pb-50px sm:pt-5 sm:print:p-20px sm:print:pb-50px md:p-20px md:pb-50px md:pt-5 md:print:p-20px md:print:pb-50px">
-          <div style="font-size: 1.1em; padding: 1px 6px; background-color: var(--primary-color); color: rgb(255, 255, 255); font-weight: 600; min-height: 27px; display: flex; align-items: center;"> ABILITIES </div>
-          
-          <!-- Rules -->
-          <div class="rules-block" style="padding: 5px 2px; gap: 3px; border-bottom: 1px dotted rgb(158, 159, 161); line-height: 1.3; display: flex; flex-wrap: wrap;">
-            <span style="font-size: 0.8em;">RULES: </span>
-            <rules exclude-entries-with-profile="{{dataProfiles}}">
-              <span class="split rule" style="white-space: nowrap; font-size: 0.8em; font-weight: 700;">{{name}}</span>
-            </rules>
-            <profiles exclude-entries-with-profile="{{dataProfiles}}" include="{{ruleProfiles}}">
-              <span class="split rule" style="white-space: nowrap; font-size: 0.8em; font-weight: 700;">{{name}}</span>
+                </div>
             </profiles>
-          </div>
-
-          <!-- Ability Profiles -->
-          <div class="hide-if-empty" style="display: flex; flex-direction: column; gap: 8px; padding: 4px 2px; border-bottom: 1px dotted rgb(158, 159, 161);">
-            <profiles include="{{abilityProfiles}}" split="\n">
-              <div class="removable" style="font-size: 0.8em; line-height: 1.4;">
-                <span class="rule-name" style="font-weight: 700;">{{name}}</span> <characteristics>
-                  <if field="$text"> 
-                    <if field="length" type="greater" value="1">
-                      <div class="removable" style="margin-left: 4px;"><span style="font-weight: bold; font-size: 0.8em; ">{{name}}</span>: <span type="markdown">{{$text}}</span></div>
-                    </if>
-                    <if field="length" type="atmost" value="1">
-                      <span class="removable" type="markdown">{{$text}}</span>
-                    </if>
-                  </if>
-                </characteristics>
-              </div>
-            </profiles>
-          </div>
-
-          <!-- Placeholder to prevent text being under keywords -->
-          <div style="margin-bottom: 50px" />
-
-          <!-- Faction Keywords/Categories -->
-          <div class="keywords">
-            <span style="font-size: 0.9em; line-height: 1.3;">FACTION KEYWORDS:</span>
-            <secondaries>
-              <if field="name" type="match" value="faction: .*" flags="i">
-                <span class="split" style="font-size: 0.9em; font-weight: 600; white-space: nowrap;">{{name}}</span>
-              </if>
-            </secondaries>
-          </div>
-
-          <!-- Faction Icon-->
-          <div style="position: absolute; left: -28px; bottom: -16px; width: 54px; height: 54px; transform: rotate(-45deg); border: 2px solid var(--primary-color); overflow: hidden; display: flex; align-items: center; justify-content: center;">
-            <div style="background: center center rgb(188, 188, 190); min-height: 75px; min-width: 76px; transform: rotate(45deg);"></div>
-          </div>
         </div>
-      </div>
     </div>
-  </if>
-  </units>
-
-  <!-- Rules -->
-  <if type="has-rule" recursive="true">
-  <div type="card">
-    <div class="rules">
-      <forces>
-        <if type="has-rule">
-          <div class="force removable"><span class="force-name">{{name}}</span> <span class="force-catalogue">({{catalogue}})</span>
-            <rules recursive="false">
-            <div class="rule nested removable">
-            <span class="rule-name">{{name}}</span>
-            <span class="rule-desc" type="markdown">{{description}}</span>
-            </div>
-            </rules>
-          </div>
-        </if>
-      </forces>
-      <rules skip-forces="true">
-        <div class="rule removable">
-          <span class="rule-name">{{name}}</span>
-          <span class="rule-desc" type="markdown">{{description}}</span>
-        </div>
-      </rules>
-      <profiles include="{{ruleProfiles}}">
-        <div class="rule removable">
-          <span class="rule-name">{{name}}</span>
-          <characteristics>
-            <span class="rule-desc" type="markdown">{{value}}</span>
-          </characteristics>
-        </div>
-      </profiles>
-    </div>
-  </div>
-  </if>
+</if>
 </template>
 <style>
 @import url('https://cdn.jsdelivr.net/npm/notosans-fontface@1.3.0/css/notosans-fontface.min.css');
-  html {
-    // --primary-color: #206173;
-  --primary-color-transparent: #20617360;
-    // --primary-color-transparent: #20617360;
-  }
 
-  html {
+html {
+    --primary-color: #206173;
+    --primary-color-transparent: #20617360;
+}
+
+html {
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
     font-feature-settings: normal;
-    font-variation-settings: normal
-  }
+    font-variation-settings: normal;
+    column-count: 1;
+    column-gap: 10px;
 
-  body {
-    margin: 0;
-    line-height: inherit
-  }
+    @media screen and (min-width: 1400px) {
+        column-count: 2;
+    }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+    @media screen and (min-width: 1950px) {
+        column-count: 3;
+    }
+
+    @media screen and (min-width: 2600px) {
+        column-count: 4;
+    }
+}
+
+@media print {
+    body {
+        margin: 0;
+        line-height: inherit
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-size: inherit;
     font-weight: inherit
-  }
-  b,
-  strong {
+}
+
+b,
+strong {
     font-weight: bolder
-  }
+}
 
-  small {
+small {
     font-size: 80%
-  }
+}
 
-  table {
+table {
     text-indent: 0;
     border-color: inherit;
     border-collapse: collapse
-  }
+}
 
-  blockquote,
-  dl,
-  dd,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  hr,
-  figure,
-  p,
-  pre {
-    margin: 0
-  }
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+    margin: 0;
+}
 
-  ol,ul,menu {
+ol,
+ul,
+menu {
     margin: 0;
     padding-left: 18px;
     margin-bottom: -18px;
-  }
+}
 
-  :disabled {
-    cursor: default
-  }
+:disabled {
+    cursor: default;
+}
 
-  img,
-  svg,
-  video,
-  canvas,
-  audio,
-  iframe,
-  embed,
-  object {
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
     display: block;
-    vertical-align: middle
-  }
+    vertical-align: middle;
+}
 
-  img,
-  video {
+img,
+video {
     max-width: 100%;
     height: auto
-  }
+}
 
-  [hidden] {
+[hidden] {
     display: none
-  }
-  *,:before,:after {
-      box-sizing: border-box;
-      border-width: 0;
-      border-style: solid;
-      border-color: #e5e7eb;
-  }
-  :root {
+}
+
+*,
+:before,
+:after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+}
+
+:root {
     font-family: 'Noto Sans', sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
     font-size: 14px;
@@ -418,573 +502,614 @@
     --size-20: 20px;
     --size-24: 24px;
     --size-32: 32px
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: ConduitITCStd;
     src: url("https://nilsueter.github.io/fancyscribe/fonts/ConduitITCStd ExtraBold.woff2") format("woff2");
     font-weight: 800
-  }
+}
 
-  @font-face {
+@font-face {
     font-family: ConduitITCStd;
     src: url("https://nilsueter.github.io/fancyscribe/fonts/ConduitITCStd Bold.woff2") format("woff2");
     font-weight: 700
-  }
+}
 
-  * {
+* {
     box-sizing: border-box;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact
-  }
+}
 
-  body {
+body {
     margin: 0;
     min-height: 100vh
-  }
+}
 
-  h1 {
+h1 {
     font-size: 3.2em;
     line-height: 1.1
-  }
+}
 
-  a {
+a {
     font-weight: 500;
     color: #646cff;
     text-decoration: inherit
-  }
+}
 
-  a:hover {
+a:hover {
     color: #535bf2
-  }
+}
 
 
-  .weapons-table th {
+.weapons-table th {
     font-size: 1.1em;
     padding: 2px .8rem;
     height: 27px;
     font-weight: 600;
-  }
+}
 
-  .weapons-table td {
+.weapons-table td {
     padding: 1px .8rem;
     text-align: center
-  }
+}
 
-  .weapons-table td:nth-child(2), .weapons-table th:nth-child(2){
+.weapons-table td:nth-child(2),
+.weapons-table th:nth-child(2) {
     padding-left: 0 !important;
-  }
+}
 
-  .weapons-table tr:not(:first-child) {    
+.weapons-table tr:not(:first-child) {
     border-top: 1px dotted #9e9fa1;
-  }
+}
 
-  .data-cell {
+.data-cell {
     padding: 2px .8rem !important;
-  }
+}
 
-  .noBorderTop td {
+.noBorderTop td {
     border-top: none
-  }
+}
 
-  .emptyRow {
+.emptyRow {
     height: 22.5px
-  }
+}
 
 
-  .avoid-page-break {
+.avoid-page-break {
     position: relative;
     page-break-inside: avoid;
     -moz-column-break-inside: avoid;
     break-inside: avoid
-  }
+}
 
-  .page-break:not(.print-display-none) {
+.page-break:not(.print-display-none) {
     page-break-after: page;
     -moz-column-break-after: page;
     break-after: page
-  }
+}
 
-  @media print {
+@media print {
+
     .print-display-none,
     .print-display-none * {
-      display: none !important
+        display: none !important
     }
 
     #root {
-      min-width: 1000px
+        min-width: 1000px
     }
 
     .body {
-      padding: 0;
-      display: block;
-      max-width: none
+        padding: 0;
+        display: block;
+        max-width: none
     }
-  }
+}
 
-  @media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
     :root {
-      font-size: 11px;
-      --size-20: 8px;
-      --size-24: 12px;
-      --size-32: 16px
+        font-size: 11px;
+        --size-20: 8px;
+        --size-24: 12px;
+        --size-32: 16px
     }
-  }
+}
 
-  @media screen and (max-width: 640px) {
+@media screen and (max-width: 640px) {
     :root {
-      font-size: 9px;
-      line-height: 1.3;
-      --size-20: 8px;
-      --size-24: 12px;
-      --size-32: 16px
+        font-size: 9px;
+        line-height: 1.3;
+        --size-20: 8px;
+        --size-24: 12px;
+        --size-32: 16px
     }
 
     .body {
-      padding-left: 0;
-      padding-right: 0
+        padding-left: 0;
+        padding-right: 0
     }
 
     .weapons-table th {
-      font-size: .9em;
-      padding: 2px .2rem
+        font-size: .9em;
+        padding: 2px .2rem
     }
 
     .weapons-table td {
-      font-size: .95em;
-      padding: 1px .2rem
+        font-size: .95em;
+        padding: 1px .2rem
     }
-  }
+}
 
-  .visible {
+.visible {
     visibility: visible
-  }
+}
 
-  .absolute {
+.absolute {
     position: absolute
-  }
+}
 
-  .relative {
+.relative {
     position: relative
-  }
+}
 
-  .right--4px {
+.right--4px {
     right: -4px
-  }
+}
 
-  .right-1px {
+.right-1px {
     right: 1px
-  }
+}
 
-  .top--4px {
+.top--4px {
     top: -4px
-  }
+}
 
-  .top-2px {
+.top-2px {
     top: 2px
-  }
+}
 
-  .flex {
+.flex {
     display: flex
-  }
+}
 
-  .table {
+.table {
     display: table
-  }
+}
 
-  .contents {
+.contents {
     display: contents
-  }
+}
 
-  .hidden {
+.hidden {
     display: none
-  }
+}
 
-  .min-h-15rem {
+.min-h-15rem {
     min-height: 15rem
-  }
+}
 
-  .w-2em {
+.w-2em {
     width: 2em
-  }
+}
 
 
-  .data-cell {
+.data-cell {
     min-width: 7%;
     padding: 5px 5px;
-  }
+}
 
-  .max-w-400px {
+.max-w-400px {
     max-width: 400px
-  }
+}
 
-  .max-w-95vw {
+.max-w-95vw {
     max-width: 95vw
-  }
+}
 
-  .flex-1 {
+.flex-1 {
     flex: 1 1 0%
-  }
+}
 
-  .flex-1\\.2 {
-    flex: 1.2
-  }
-
-  .transform {
+.transform {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-  }
+}
 
-  .flex-wrap {
+.flex-wrap {
     flex-wrap: wrap
-  }
+}
 
-  .items-center {
+.items-center {
     align-items: center
-  }
+}
 
-  .justify-center {
+.justify-center {
     justify-content: center
-  }
+}
 
-  .gap-1 {
+.gap-1 {
     gap: .25rem
-  }
+}
 
-  .gap-2 {
+.gap-2 {
     gap: .5rem
-  }
+}
 
-  .whitespace-nowrap {
+.whitespace-nowrap {
     white-space: nowrap
-  }
+}
 
-  .rounded-full {
+.rounded-full {
     border-radius: 9999px
-  }
+}
 
-  .rounded-sm {
+.rounded-sm {
     border-radius: .125rem
-  }
+}
 
-  .border {
+.border {
     border-width: 1px
-  }
+}
 
-  .border-0 {
+.border-0 {
     border-width: 0px
-  }
+}
 
-  .border-b-2 {
+.border-b-2 {
     border-bottom-width: 2px
-  }
+}
 
-  .border-t-0 {
+.border-t-0 {
     border-top-width: 0px
-  }
+}
 
-  .border-var\\(--primary-color\\) {
+.border-var\\(--primary-color\\) {
     border-color: var(--primary-color)
-  }
+}
 
-  .border-gray-400 {
+.border-gray-400 {
     --tw-border-opacity: 1;
     border-color: rgb(156 163 175 / var(--tw-border-opacity))
-  }
+}
 
-  .p-1 {
+.p-1 {
     padding: .25rem
-  }
+}
 
-  .p-2px {
+.p-2px {
     padding: 2px
-  }
+}
 
-  .pb-4 {
+.pb-4 {
     padding-bottom: 1rem
-  }
+}
 
-  .pb-50px {
+.pb-50px {
     padding-bottom: 50px
-  }
+}
 
-  .pt-5 {
+.pt-5 {
     padding-top: 1.25rem
-  }
+}
 
-  .align-middle {
+.align-middle {
     vertical-align: middle
-  }
+}
 
-  .text-sm {
+.text-sm {
     font-size: .875rem;
     line-height: 1.25rem
-  }
+}
 
-  .uppercase {
+.uppercase {
     text-transform: uppercase
-  }
+}
 
-  @media print {
-    .print\:p-20px {
-      padding: 20px
+@media print {
+    .print\\:p-20px {
+        padding: 20px
     }
-  }
+}
 
-  @media (min-width: 640px) {
+@media (min-width: 640px) {
     .sm\\:border-l-2 {
-      border-left-width: 2px
+        border-left-width: 2px
     }
 
     .sm\\:border-r-2 {
-      border-right-width: 2px
+        border-right-width: 2px
     }
 
     .sm\\:p-2 {
-      padding: .5rem
+        padding: .5rem
     }
 
     .sm\\:pb-50px {
-      padding-bottom: 50px
+        padding-bottom: 50px
     }
 
     .sm\\:pt-5 {
-      padding-top: 1.25rem
+        padding-top: 1.25rem
     }
 
     @media print {
-      .sm\\:print\\:p-20px {
-        padding: 20px
-      }
+        .sm\\:print\\:p-20px {
+            padding: 20px
+        }
 
-      .sm\\:print\\:pb-50px {
-        padding-bottom: 50px
-      }
+        .sm\\:print\\:pb-50px {
+            padding-bottom: 50px
+        }
     }
-  }
+}
 
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
     .md\\:p-20px {
-      padding: 20px
+        padding: 20px
     }
 
     .md\\:pb-50px {
-      padding-bottom: 50px
+        padding-bottom: 50px
     }
 
     .md\\:pt-5 {
-      padding-top: 1.25rem
+        padding-top: 1.25rem
     }
 
     @media print {
-      .md\\:print\\:p-20px {
-        padding: 20px
-      }
+        .md\\:print\\:p-20px {
+            padding: 20px
+        }
 
-      .md\\:print\\:pb-50px {
-        padding-bottom: 50px
-      }
+        .md\\:print\\:pb-50px {
+            padding-bottom: 50px
+        }
     }
-  }
+}
 
-  .split::after {
+.split::after {
     content: ",";
     font-family: inherit;
-  }
+}
 
-  .split:last-of-type::after {
+.split:last-of-type::after {
     content: "";
-  }
+}
 
-  .hide-if-empty:not(:has(div, span)) {
+.hide-if-empty:not(:has(div, span)) {
     display: none !important;
-  }
-  @media print {
+}
+
+@media print {
     html {
-      zoom: 0.7;
+        zoom: 0.7;
     }
-  }
+}
 
-  .row-header {
+.row-header {
     width: 65%
-  }
+}
 
-  .rules-block:not(:has(.rule)) {
+.rules-block:not(:has(.rule)) {
     display: none !important;
-  }
-  .rules {
-      padding: 8px;
-      background-color: rgb(233, 234, 236);
-      border: 2px solid gray;
-      margin-bottom: 32px;
-  }
-  .rule:not(:last-child), .force:not(:last-child)  {
-    margin-bottom: 10px;
-  }
-  .rule-name {
-    white-space: nowrap; 
+}
+
+.rules-list {
+    padding: 8px;
+    background-color: rgb(233, 234, 236);
+    border: 2px solid gray;
+    margin-bottom: 32px;
+
+    >.rule:not(:last-child) {
+        margin-bottom: 10px;
+    }
+}
+
+.rule-name {
+    white-space: nowrap;
     font-weight: 700;
     display: block;
-  }
-  .rule-desc {
-  }
-  .force-name {
-    white-space: nowrap; font-weight: 800;
-  }
-  .force-catalogue {
-    color: gray; font-weight: 500;
-  }
-  .nested {
-    margin-left: 5px
-  }
-  .model:not(:has(.modelCharacteristic)) {
-    display: none !important;
-  }
-  
-  .keywords {
-    position: absolute; 
-    left: 0px; 
-    bottom: -16px; 
-    padding: 0px 4px 0px 42px; 
-    display: flex; 
-    justify-content: center; 
-    flex-direction: column; 
-    color: rgb(255, 255, 255); 
-    border-left: none; 
-    width: calc(100% - 0.9rem); 
+}
+
+.force-name {
+    white-space: nowrap;
+    font-weight: 800;
+}
+
+.force-catalogue {
+    color: gray;
+    font-weight: 500;
+}
+
+.nested {
+    margin-left: 5px;
+}
+
+.model-name-options:not(:has(.model-name)) {
+    padding-top: 1.2em;
+}
+
+
+.keywords {
+    position: absolute;
+    left: 0px;
+    bottom: -16px;
+    padding: 0px 4px 0px 42px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(255, 255, 255);
+    border-left: none;
+    width: calc(100% - 0.9rem);
     min-height: 54px;
-    background: url("data:image/bmp;base64,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E/8dGxD/GBUN/xcUDP8WEwv/FRIK/xQSCP8UEgj/FBII/xQSCP8VEwn/FRMJ/xYUCf8XFQr/GBYL/xkXDP8aGA3/GhkL/x0dDf8dHQv/GhoK/xgYCP8aGA3/GxkO/xcVC/8QDgT/DQoC/w4LA/8QDAf/EQ0I/xIPB/8SDwf/Eg8H/xIPB/8TDwr/Ew8K/xMPCv8TDwr/Ew8K/xMPCv8TDgv/Ew4L/w8LBv8SDgn/Eg8H/xYTC/8bGQ//FBII/w0LAP8RDwX/Eg8H/xQQC/8VEgr/ExAI/xEOBv8QDQX/ExAI/xYTC/8YFgz/FxUL/xYUCv8VEwn/FRMJ/xMRB/8TEQb/FBIH/xUSCv8WEwv/GRYO/xsYEP8XFAz/Eg8H/xIPB/8WEwv/FhML/xcUDP8WEwv/FRIK/xMQCP8SDwf/ExAI/xQSCP8SEAX/FRQG/xoYDf8cGg//GRcN/xIQBv8LCAD/BwQA/xgVDf8aFw//GRcN/xYUCv8YFgv/HhwR/x8eEP8bGQ7/IB4U/xcUDP8RDgb/DgsD/w8NA/8bGQ//IyEX/x8dE/8ZFw3/GRcN/xgWC/8YFgv/GRcM/xkXDP8aGA3/GhgN/x0bEP8dGxD/HhwR/x4cEf8dGxD/HBoP/xoYDf8ZFwz/GxkO/xsZDv8aGA3/GhgN/xkXDP8ZFwz/GBYL/xgWC/8YFwn/HBsN/x0bEP8aGA3/FhQJ/xYUCf8YFgz/GRcN/xUTCf8TEQf/ExAI/xMQCP8PDAT/CgcA/wkGAP8MCQH/FBEJ/xkWDv8cGRH/GRYO/xYUCv8VEwn/FRMJ/xMRB/8QDgT/ExEH/xQSB/8SEAX/FxUK/yEfFP8oJhv/KCYb/xgVDf8XFAz/FhML/xUSCv8UEgj/FBII/xQSCP8UEgj/FBII/xQSCP8VEwj/FhQJ/xgWC/8ZFwz/GhgN/xoZC/8dHQ3/HR0L/xsbC/8XFgj/GBYL/xoYDf8YFgz/ExEH/w8MBP8QDQX/EQ0I/xIOCf8TEAj/ExAI/xQRCf8UEQn/ExAI/xMQCP8TDwr/Ew8K/xQQC/8UEAv/FBAL/xQQC/8QDAf/Ew8K/xEOBv8UEQn/GxkP/xcVC/8PDQL/EQ8F/xIPB/8UEAv/FRIK/xMQCP8RDgb/EA0F/xMQCP8WEwv/HhwS/xwaEP8ZFw3/FRMJ/xMRB/8VEwn/GBYL/xgWC/8QDQX/Eg8H/xYTC/8ZFg7/FxQM/xIPB/8UEQn/GBUN/xcUDP8XFAz/FxQM/xQRCf8SDwf/Eg8H/xMQCP8VEwn/FBIH/xcVCv8aGA3/HBoP/xoYDv8UEgj/DAkB/wYDAP8aFw//GxgQ/xsZD/8YFgz/GBYL/xoYDf8bGQ7/GhgN/x8dE/8XFAz/Eg8H/w4LA/8PDQP/GxkP/yYkGv8jIRf/GxkP/xoYDv8ZFwz/GBYL/xkXDP8aGA3/GxkO/xwaD/8dGxD/HRsQ/x0bEP8dGxD/HBoP/xsZDv8aGA3/GRcM/xsZDv8bGQ7/GhgN/xoYDf8aGA3/GhgN/xkXDP8ZFwz/GBYL/xoYDf8cGg//GxkO/xcVCv8UEgf/FRMI/xgWC/8aGA7/GBYM/xYUCv8VEwn/EA4E/wkHAP8HBAD/CQYA/wkGAP8TEAj/GhcP/xoXD/8XFQv/FRMJ/xMRB/8QDgT/GBYM/xcVC/8VEwj/ExEG/xUTCP8aGA3/Hx0S/yEfFP8YFQ3/FxQM/xYUCv8VEwn/FBII/xQSCP8UEgj/FBII/xQSB/8UEgf/FRMI/xYUCf8XFQr/GBYL/xkXDP8ZGAr/GhoK/xsbC/8aGQv/FxYI/xYUCf8YFgv/FxUL/xMRB/8SDwf/Eg8H/xMQCP8TEAj/FBEJ/xUSCv8WEwv/FxQM/xIPB/8SDwf/Eg4J/xIOCf8TDwr/Ew8K/xMPCv8UEAv/EAwH/xMPCv8PDAT/EQ4G/xkXDf8YFgz/EhAG/xMRB/8SDwf/FBAL/xUSCv8TEAj/EQ4G/xANBf8TEAj/FhML/yUjGf8kIhj/HhwS/xYUCv8TEQf/FhQK/xgWC/8XFQr/DgsD/w8MBP8SDwf/FxQM/xcUDP8UEQn/FBEJ/xcUDP8YFQ3/GBUN/xcUDP8UEQn/Eg8H/xIPB/8UEQn/FhQK/xgWDP8ZFwz/GhgN/xwaD/8bGQ//FRMJ/w0KAv8HBAD/GBUN/xsYEP8cGhD/GxkP/xcVCv8VEwj/FxUK/xoYDf8gHRX/GhcP/xYTC/8RDgb/DAoA/xUTCf8gHhT/Hx0T/x4cEv8cGhD/GxkO/xkXDP8ZFwz/GhgN/xwaD/8dGxD/HBoP/xwaD/8cGg//HBoP/xsZDv8bGQ7/GxkO/xsZDv8aGA3/GhgN/xoYDf8aGA3/GhgN/xoYDf8aGA3/GhgN/xoYDf8YFgv/GRcM/xsZDv8YFgv/ExEG/xMRBv8WFAn/HRsR/xoYDv8YFgz/FhQK/xEPBf8MCgD/DAkB/w8MBP8GAwD/DwwE/xgVDf8ZFg7/FxUL/xYUCv8TEQf/EA4E/xoYDv8YFgz/FRMI/xMRBv8TEQb/FhQJ/xkXDP8cGg//GBYM/xcUDP8WFAr/FRMJ/xQSCP8UEgj/FBII/xQSCP8VEwj/FRMI/xYUCf8WFAn/FhQJ/xcVCv8XFQr/FxYI/xYWBv8ZGQn/GhkL/xcWCP8WFAn/FxUK/xYUCv8SEAb/FBEJ/xQRCf8UEQn/FBEJ/xUSCv8WEwv/GBUN/xkWDv8PDAT/DwwE/xANBf8QDQX/EQ0I/xENCP8SDgn/Eg4J/w4KBf8RDQj/DAkB/wsIAP8VEgr/GBYM/xQSCP8UEgj/Eg8H/xQQC/8VEgr/ExAI/xEOBv8QDQX/ExAI/xYTC/8iIBb/JCIY/yAeFP8YFgz/FhQK/xkXDf8ZFwz/FhQJ/xEOBv8PDAT/EA0F/xUSCv8XFAz/FBEJ/xIPB/8TEAj/GRYO/xgVDf8XFAz/FBEJ/xIPB/8SDwf/FBEJ/xcVC/8cGhD/GxkO/xoYDv8bGQ//GhgO/xYUCv8PDQP/CQcA/xEPBf8XFQv/HRsR/x4cEv8XFQv/EhAG/xUTCP8cGg//HRoS/xoXD/8ZFg7/EQ4G/wgGAP8ODAL/GRcN/xoYDv8hHxX/Hx0T/x0bEP8aGA3/GhgN/xsZDv8cGg//HRsQ/xsZDv8bGQ7/GhgN/xoYDf8bGQ7/GxkO/xwaD/8cGg//GhgN/xoYDf8aGA3/GxkO/xsZDv8bGQ7/GxkO/xsZDv8dGxD/GBYL/xcVCv8bGQ7/GxkO/xUTCP8SEAX/FBIH/xwaD/8ZFwz/FxUK/xYUCf8UEgj/EhAG/xUTCf8aGA7/DQoC/xMQCP8XFAz/FxQM/xYUCv8YFgz/FhQK/xQSCP8WFAr/FBII/xMRBv8UEgf/FRMI/xYUCf8aGA3/HRsQ/xgWDP8XFQv/FhQK/xUTCf8UEgj/FBII/xQSB/8UEgf/FxUK/xcVCv8XFQr/FhQJ/xYVB/8VFAb/FRQG/xUUBv8UFAT/GRkJ/xsaDP8ZGAr/GBYL/xcVCv8VEwn/EhAG/xQRCf8UEQn/ExAI/xMQCP8UEQn/FhML/xcVC/8ZFw3/DAkB/w0KAv8NCgL/DgsD/w4KBf8PCwb/EAwH/xAMB/8NCQT/DwsG/wkGAP8HBAD/Eg8H/xgVDf8VEwn/FBEJ/xIOCf8UEAv/FRIK/xMQCP8RDgb/EA0F/xMQCP8WEwv/GRcN/x4cEv8fHRP/GhgO/xkXDf8eHBL/HRsQ/xgWC/8UEQn/EA0F/w8MBP8UEQn/FxQM/xQRCf8QDQX/DwwE/xkWDv8ZFg7/FxQM/xQRCf8SDwf/Eg8H/xUSCv8XFAz/Hx0T/x0bEP8bGQ//GhgO/xoYDv8XFQv/EA4E/wsJAP8LCQD/ExEH/x0bEf8fHRP/FxUL/xEPBf8WFAn/Hx0T/xYTC/8WEwv/GBUN/xANBf8FAwD/CwkA/xcVC/8aGA7/IyEX/yEfFf8eHBH/GxkO/xoYDf8bGQ7/HBoP/x0bEP8aGA3/GhgN/xoYDf8aGA3/GxkO/xwaD/8dGxD/HhwR/xoYDf8aGA3/GhgN/xsZDv8bGQ7/GxkO/xsZDv8bGQ7/Hx0S/xgWC/8WFAn/HBoP/x4cEf8XFQr/ExEG/xMRBv8ZFwz/FhQJ/xUTCP8WFAn/FhQJ/xcVCv8dGxH/IyEX/xYTC/8YFQ3/GBUN/xUSCv8WFAr/GRcN/xkXDf8XFQv/GBYM/xUTCf8UEgf/FhQJ/xYUCf8VEwj/FxUK/xoYDf8YFgz/FxUL/xYUCv8VEwn/FBII/xQSCP8UEgf/FBIH/xgWC/8YFgv/FxUK/xYUCf8VFAb/FBMF/xQTBf8TEgT/EhIC/xkZCf8dHA7/GxoM/xkXDP8YFgv/FhQK/xIQBv8UEQn/ExAI/xIPB/8SDwf/ExAI/xQSCP8XFQv/GBYM/xoYDv8VEwn/DQoC/wgFAP8LCAD/EQ4G/xAMB/8MCAP/EQ0I/xQQC/8TDwr/EQ0I/xUSCv8bGBD/GRYO/xEOBv8WEg3/GRUQ/xYTC/8QDQX/DwwE/xQRCf8SDwf/DAkB/w8NA/8XFQv/GhgO/xsZD/8fHRP/GhgO/xQSB/8XFQr/GhcP/xIPB/8PDAT/FBEJ/xgVDf8VEgr/FRIK/xkWDv8TEAj/FhML/xgVDf8YFQ3/FRIK/xUSCv8XFAz/GhcP/xsZD/8bGQ//HBoQ/xsZD/8ZFw3/FxUL/xQSB/8TEQb/HBoP/xkXDP8ZFw3/GxkP/xsZD/8YFgz/GBYM/xoYDv8WEwv/FxQM/xUSCv8QDQX/CggA/wsJAP8RDwX/GBYM/yEfFf8kIhj/JiQZ/yMhFv8dGxD/GhgN/xwaD/8fHRL/IB4T/x8dEv8eHBH/HRsQ/xwaD/8bGQ7/GhgN/xoYDf8eHBH/HRsQ/xsZDv8aGA3/GRcM/xgWC/8YFgv/GBYL/xsZDv8aGA3/GhgN/xsZDv8bGQ7/GRcM/xYUCf8TEQb/EhAF/xUTCP8YFgv/FhQJ/xMRBv8UEwX/GRcM/x8dEv8UEgj/DwwE/xMQCP8YFQ3/FxUL/xsZD/8eHBL/GBYM/x4cEv8cGhD/GhgN/xkXDP8ZFwz/GBYL/xYUCf8UEgf/GhgO/xkXDf8XFQv/FhQK/xYUCf8XFQr/GBYL/xkXDP8ZFwz/GBYL/xgXCf8ZGAr/GhkL/xkYCv8WFQf/ExIE/xcWCP8YFwn/GhgN/xoYDf8ZFw3/FxUL/xQRCf8SDwf/ExAI/xQRCf8WEwv/FhML/xYUCv8WFAr/GBYM/xkXDP8aGA7/FhQK/w8MBP8KBwD/DAkB/xIPB/8SDgn/DQkE/xIOCf8TDwr/Eg4J/xAMB/8TEAj/GhcP/xkWDv8TEAj/FREM/xcTDv8UEQn/DwwE/xANBf8VEgr/FRIK/xANBf8PDQP/FxUL/xgWDP8ZFw3/HBoQ/xkXDf8UEgf/GBYL/xoXD/8SDwf/DQoC/xEOBv8UEQn/FBEJ/xUSCv8ZFg7/ExAI/xUSCv8YFQ3/FxQM/xUSCv8VEgr/FxQM/xoXD/8YFgz/GRcN/xoYDv8bGQ//GxkP/xoYDv8YFgv/FxUK/x4cEf8aGA3/GRcN/xoYDv8bGQ//GRcN/xcVC/8YFgz/GBUN/xkWDv8XFAz/Eg8H/wwKAP8LCQD/Dw0D/xQSCP8dGxH/IR8V/yQiF/8iIBX/HRsQ/xoYDf8bGQ7/HhwR/x4cEf8eHBH/HRsQ/x0bEP8cGg//GxkO/xsZDv8bGQ7/HRsQ/xwaD/8bGQ7/GhgN/xkXDP8YFgv/GBYL/xgWC/8aGA3/GhgN/xkXDP8aGA3/GxkO/xoYDf8XFQr/FRMI/xMRBv8XFQr/GxkO/xsZDv8ZGAr/GRgK/x4dD/8iIBX/FxUL/xEOBv8TEAj/FBEJ/xEPBf8WFAr/HRsR/xsZD/8eHBL/HBoQ/xoYDf8ZFwz/GRcM/xgWC/8WFAn/FBIH/xkXDf8YFgz/FxUL/xYUCv8XFQr/GBYL/xkXDP8bGQ7/GBYL/xgWC/8YFwn/GRgK/xoZC/8ZGAr/FxYI/xUUBv8VFAb/FxYI/xkXDP8aGA3/GRcN/xcVC/8VEgr/ExAI/xMQCP8UEQn/FhML/xYUCv8WFAr/FhQK/xgWC/8ZFwz/GhgN/xcVCv8RDwX/DAoA/w4LA/8TEAj/Ew8K/xAMB/8SDgn/Eg4J/xAMB/8OCgX/EQ0I/xcTDv8ZFg7/FxQM/xURDP8VEQz/Eg8H/w4LA/8QDQX/FRIK/xYTC/8UEQn/EQ8F/xcVC/8WFAr/FhQK/xoYDv8YFgz/FRMI/xoYDf8aFw//Eg8H/w4LA/8PDAT/ExAI/xMQCP8VEgr/GBUN/xIPB/8UEQn/FhML/xYTC/8VEgr/FRIK/xcUDP8ZFg7/FhML/xcUDP8ZFw3/GxkP/xwaD/8dGxD/HRsQ/x0bEP8gHhP/HBoP/xkXDP8ZFwz/GxkP/xoYDv8XFAz/FBEJ/xkWDv8bGBD/GhcP/xYTC/8QDgT/DQsB/w4MAv8RDwX/FxUL/xwaEP8gHhP/IR8U/x4cEf8bGQ7/GxkO/xwaD/8cGg//HBoP/xwaD/8cGg//HBoP/xwaD/8bGQ7/GxkO/xwaD/8bGQ7/GxkO/xoYDf8ZFwz/GRcM/xgWC/8YFgv/GRcM/xkXDP8YFgv/GRcM/xsZDv8aGA3/GRcM/xcVCv8TEgT/FxYI/x0cDv8eHQ//HRwO/x0cDv8fHw//ISAS/xoYDv8VEgr/FBEJ/xIPB/8LCQD/EA4E/xsZD/8dGxH/HRsR/xsZD/8aGA3/GRcM/xkXDP8YFgv/FxUK/xUTCP8XFQr/FxUK/xYUCf8XFQr/GBYL/xoYDf8bGQ7/HBoP/xgXCf8XFgj/FxYI/xkYCv8aGQv/GxoM/xkZCf8XFgj/FBMF/xUTCP8XFQr/GBYL/xkXDf8YFgz/FhML/xUSCv8TEAj/FBEJ/xYUCv8WFAr/FhQK/xYUCf8YFgv/GRcM/xoYDf8YFgv/FBII/w8NA/8QDQX/FBEJ/xURDP8SDgn/Ew8K/xENCP8OCgX/DAgD/w8LBv8UEAv/GRYO/xsYEP8YFA//FhIN/xIPB/8PDAT/EA0F/xMQCP8VEgr/FRIK/xMRB/8YFgz/FhQK/xQSCP8ZFw3/GBYM/xcVCv8dGxD/GBUN/xQRCf8RDgb/Eg8H/xUSCv8WEwv/FRIK/xQRCf8RDgb/Eg8H/xMQCP8UEQn/FBEJ/xUSCv8WEwv/FxQM/xgVDf8YFQ3/GhgO/xsZD/8cGg//HRsQ/x4cEf8eHBH/IR8U/x8dEv8aGA3/GBYL/xoYDv8bGQ//FhML/xEOBv8ZFg7/GxgQ/xwZEf8ZFg7/FRMJ/xIQBv8SEAb/EhAG/xMRB/8XFQv/HRsQ/x8dEv8eHBH/HBoP/xoYDf8aGA3/GxkO/xsZDv8bGQ7/GxkO/xwaD/8cGg//HBoP/xwaD/8bGQ7/GxkO/xsZDv8bGQ7/GhgN/xkXDP8YFgv/GBYL/xkXDP8YFgv/FxUK/xkXDP8aGA3/GxkO/xoYDf8YFgv/ExIE/xgXCf8dHA7/Hx4Q/x4dD/8bGgz/GhoK/xoZC/8bGQ//FxQM/xgVDf8VEgr/CwkA/w4MAv8ZFw3/HRsR/xwaEP8bGQ//GRcM/xkXDP8ZFwz/GRcM/xcVCv8WFAn/FRMI/xYUCf8XFQr/GBYL/xoYDf8cGg//HRsQ/x4cEf8YFwn/FxYI/xcWCP8ZGAr/GxoM/xwbDf8bGwv/GhoK/xIQBf8UEgf/FRMI/xcVCv8YFgz/GBYM/xgVDf8XFAz/ExAI/xQRCf8WFAr/FhQK/xYUCf8WFAn/GBYL/xkXDP8ZFwz/GRcM/xYUCv8RDwX/Eg8H/xUSCv8WEg3/FBAL/xQPDP8RDAn/DgoF/wwIA/8NCQT/EQ0I/xcTDv8cGBP/HBgT/xcTDv8TEAj/Eg8H/xIPB/8SDwf/Eg8H/xMQCP8UEgj/GRcN/xYUCv8VEwn/GRcN/xkXDf8ZFwz/IB4T/xYTC/8WEwv/FRIK/xYTC/8ZFg7/GhcP/xYTC/8SDwf/EQ4G/xANBf8RDgb/ExAI/xUSCv8WEwv/FxQM/xcUDP8cGRH/HBkR/xsZD/8bGQ//GxkO/xwaD/8cGw3/HBsN/yAfEf8gHxH/HRsQ/xgWC/8YFgz/GhgO/xcUDP8QDQX/GBUN/xoXD/8bGBD/GxgQ/xoYDv8YFgz/FxUL/xcVC/8RDwX/FRMJ/xoYDf8dGxD/HhwR/x0bEP8bGQ7/GhgN/xsZDv8bGQ7/HBoP/xwaD/8cGg//HBoP/x0bEP8dGxD/GhgN/xsZDv8cGg//HBoP/xwaD/8bGQ7/GhgN/xkXDP8aGA7/GBYM/xcVCv8YFgv/GRcM/xsZDv8aGQv/GRgK/xcWCP8aGQv/Hh4O/yAgEP8eHg7/GxsL/xcXB/8VFAb/GhgO/xkWDv8dGhL/GhcP/xEPBf8RDwX/GBYM/xkXDf8cGhD/GhgO/xkXDP8ZFwz/GRcM/xkXDP8YFgv/FhQJ/xUTCP8WFAn/FxUK/xkXDP8cGg//HRsQ/x4dD/8fHhD/GhkL/xkYCv8YFwn/GRgK/xsbC/8cHAz/HBwM/xsbC/8SEAX/ExEG/xQSCP8WFAr/FxUL/xgWDP8YFQ3/GBUN/xMQCP8UEQn/FhQK/xYUCv8WFAn/FhQJ/xgXCf8ZGAr/FxUK/xkXDP8XFQv/ExEH/xIPB/8VEgr/FxMO/xYSDf8UDwz/EAsI/w4KBf8OCgX/DQkE/w0JBP8TDwr/GhYR/xwYE/8XEw7/FBEJ/xUSCv8VEgr/EQ4G/xANBf8RDgb/EhAG/xgWDP8WFAr/FRMJ/xkXDf8ZFw3/GRcM/x8dEv8XFAz/GBUN/xcUDP8WEwv/GRYO/xsYEP8XFAz/EQ4G/xMQCP8SDwf/Eg8H/xQRCf8XFAz/GRYO/xkWDv8YFQ3/HhsT/x4bE/8cGhD/GxkP/xoYDf8aGA3/GhkL/xsaDP8dHA7/ISAS/yAeE/8ZFwz/FhQK/xkXDf8XFAz/Eg8H/xkWDv8ZFg7/GhcP/xoXD/8bGQ//GxkP/xoYDv8ZFw3/FBII/xYUCv8ZFwz/HBoP/x4cEf8eHBH/HBoP/xsZDv8dGxD/HRsQ/x0bEP8dGxD/HRsQ/x0bEP8dGxD/HRsQ/xoYDf8bGQ7/HRsQ/x4cEf8eHBH/HRsQ/xsZDv8aGA3/GxkP/xkXDf8YFgv/FxUK/xkXDP8aGA3/GRgK/xkYCv8aGQv/HBsN/x4eDv8gIBD/Hx8P/xwcDP8YGAj/FRQG/xoYDv8YFQ3/HRoS/x4bE/8VEwn/FRMJ/xgWDP8WFAr/GxkP/xoYDv8YFgv/GRcM/xkXDP8aGA3/GBYL/xcVCv8VEwj/FhQJ/xkXDP8bGQ7/HRsQ/x4cEf8fHhD/Hx4Q/xwbDf8aGQv/GRgK/xkYCv8bGwv/HBwM/xwcDP8cHAz/ExEG/xMRBv8UEgj/FRMJ/xYUCv8XFQv/GBUN/xgVDf8TEAj/FBEJ/xYUCv8WFAr/FhQJ/xYUCf8YFwn/GRgK/xYUCf8ZFwz/GBYL/xQSCP8TEAj/FRIK/xcT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Dv8ZFwz/FxUK/xYUCf8XFQr/GBYL/xkXDf8ZFw3/GBYM/xcVC/8XFQv/FxUL/xcVC/8XFQv/FRMJ/xkXDf8cGhD/GRcN/xUTCf8UEgj/FhQK/xcVC/8RDwX/FRMI/xoYDv8dGxD/HBoP/xkXDP8WFAn/FRQG/xsaDP8bGgz/GxsL/xwcDP8dHQ3/HR0N/xwcDP8aGgr/GBcJ/xgWC/8YFgv/GBYL/xkXDP8ZFwz/GRcN/xkXDf8XFQv/FhQK/xYUCv8VEwn/FRIK/xQRCf8UEQn/FBII/xYUCf8UEwX/FhQJ/xoYDf8aGA3/FhQJ/xQSCP8VEwn/FRIK/xcUDP8aFhH/GhYR/xMPCv8LBwL/CwYD/w8KB/8SDgn/EQ0I/xANBf8RDgb/ExAI/xQRCf8TEAj/Eg8H/xMRB/8WFAr/GBYM/xUTCf8RDwX/EQ8F/xYUCf8bGQ7/GhkL/xsaDP8cGhD/GhgO/xcUDP8UEQn/FBEJ/xQRCf8VEwn/FhQK/xoYDf8gHhP/IB4T/xsZDv8YFgz/GRcM/x8dEv8dHA7/GxoM/xsaDP8cGw3/HBsN/xsaDP8aGQv/HRwO/xwbDf8bGgz/HBsN/x8eEP8fHhD/HBsN/xcWCP8dGxD/GBYL/xYUCf8ZFwz/FxUK/xEPBP8QDgP/FBIH/xkXDP8ZFwz/GBYL/xgWC/8ZFwz/GhgN/xwaD/8dGxD/GhgO/xoYDv8aGA7/GhgO/xoYDv8aGA7/GxkO/xsZDv8fHRL/Hx0S/x4dD/8dHA7/HRwO/xwbDf8cGw3/HBsN/yAeE/8aGA3/FBIH/xQSB/8YFgv/HBoP/xwaD/8aGA3/HBoP/x0bEP8cGg//GhgN/xcVCv8WFAn/FxUK/xkXDP8YFgz/FxUL/xYUCv8VEwn/FBII/xUTCf8WFAr/FhQK/xEPBf8VEwn/GRcN/xsZD/8ZFw3/FBII/xMRB/8UEgj/DQsB/xIQBv8XFAz/GhgO/xsZD/8aGA3/GRcM/xkXDP8cGw3/HBsN/xsbC/8cHAz/Hh4M/x0dC/8cHAr/GhoK/xkYCv8ZFwz/GRcM/xkXDP8ZFwz/GRcM/xkXDP8ZFwz/GBYM/xgWDP8YFgz/FxUL/xcVC/8WFAr/FhML/xUTCf8SEAX/ERAC/xQSB/8ZFwz/GhgN/xYUCf8UEgj/FRMJ/w4LA/8QDQX/FhIN/xoW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")
-    0% 0% / contain;
-  }
+    background: url("data:image/bmp;base64,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E/8dGxD/GBUN/xcUDP8WEwv/FRIK/xQSCP8UEgj/FBII/xQSCP8VEwn/FRMJ/xYUCf8XFQr/GBYL/xkXDP8aGA3/GhkL/x0dDf8dHQv/GhoK/xgYCP8aGA3/GxkO/xcVC/8QDgT/DQoC/w4LA/8QDAf/EQ0I/xIPB/8SDwf/Eg8H/xIPB/8TDwr/Ew8K/xMPCv8TDwr/Ew8K/xMPCv8TDgv/Ew4L/w8LBv8SDgn/Eg8H/xYTC/8bGQ//FBII/w0LAP8RDwX/Eg8H/xQQC/8VEgr/ExAI/xEOBv8QDQX/ExAI/xYTC/8YFgz/FxUL/xYUCv8VEwn/FRMJ/xMRB/8TEQb/FBIH/xUSCv8WEwv/GRYO/xsYEP8XFAz/Eg8H/xIPB/8WEwv/FhML/xcUDP8WEwv/FRIK/xMQCP8SDwf/ExAI/xQSCP8SEAX/FRQG/xoYDf8cGg//GRcN/xIQBv8LCAD/BwQA/xgVDf8aFw//GRcN/xYUCv8YFgv/HhwR/x8eEP8bGQ7/IB4U/xcUDP8RDgb/DgsD/w8NA/8bGQ//IyEX/x8dE/8ZFw3/GRcN/xgWC/8YFgv/GRcM/xkXDP8aGA3/GhgN/x0bEP8dGxD/HhwR/x4cEf8dGxD/HBoP/xoYDf8ZFwz/GxkO/xsZDv8aGA3/GhgN/xkXDP8ZFwz/GBYL/xgWC/8YFwn/HBsN/x0bEP8aGA3/FhQJ/xYUCf8YFgz/GRcN/xUTCf8TEQf/ExAI/xMQCP8PDAT/CgcA/wkGAP8MCQH/FBEJ/xkWDv8cGRH/GRYO/xYUCv8VEwn/FRMJ/xMRB/8QDgT/ExEH/xQSB/8SEAX/FxUK/yEfFP8oJhv/KCYb/xgVDf8XFAz/FhML/xUSCv8UEgj/FBII/xQSCP8UEgj/FBII/xQSCP8VEwj/FhQJ/xgWC/8ZFwz/GhgN/xoZC/8dHQ3/HR0L/xsbC/8XFgj/GBYL/xoYDf8YFgz/ExEH/w8MBP8QDQX/EQ0I/xIOCf8TEAj/ExAI/xQRCf8UEQn/ExAI/xMQCP8TDwr/Ew8K/xQQC/8UEAv/FBAL/xQQC/8QDAf/Ew8K/xEOBv8UEQn/GxkP/xcVC/8PDQL/EQ8F/xIPB/8UEAv/FRIK/xMQCP8RDgb/EA0F/xMQCP8WEwv/HhwS/xwaEP8ZFw3/FRMJ/xMRB/8VEwn/GBYL/xgW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Dv8aGQv/GRgK/xcWCP8aGQv/Hh4O/yAgEP8eHg7/GxsL/xcXB/8VFAb/GhgO/xkWDv8dGhL/GhcP/xEPBf8RDwX/GBYM/xkXDf8cGhD/GhgO/xkXDP8ZFwz/GRcM/xkXDP8YFgv/FhQJ/xUTCP8WFAn/FxUK/xkXDP8cGg//HRsQ/x4dD/8fHhD/GhkL/xkYCv8YFwn/GRgK/xsbC/8cHAz/HBwM/xsbC/8SEAX/ExEG/xQSCP8WFAr/FxUL/xgWDP8YFQ3/GBUN/xMQCP8UEQn/FhQK/xYUCv8WFAn/FhQJ/xgXCf8ZGAr/FxUK/xkXDP8XFQv/ExEH/xIPB/8VEgr/FxMO/xYSDf8UDwz/EAsI/w4KBf8OCgX/DQkE/w0JBP8TDwr/GhYR/xwYE/8XEw7/FBEJ/xUSCv8VEgr/EQ4G/xANBf8RDgb/EhAG/xgWDP8WFAr/FRMJ/xkXDf8ZFw3/GRcM/x8dEv8XFAz/GBUN/xcUDP8WEwv/GRYO/xsYEP8XFAz/EQ4G/xMQCP8SDwf/Eg8H/xQRCf8XFAz/GRYO/xkWDv8YFQ3/HhsT/x4bE/8cGhD/GxkP/xoYDf8aGA3/GhkL/xsaDP8dHA7/ISAS/yAeE/8ZFwz/FhQK/xkXDf8XFAz/Eg8H/xkWDv8ZFg7/GhcP/xoXD/8bGQ//GxkP/xoYDv8ZFw3/FBII/xYUCv8ZFwz/HBoP/x4cEf8eHBH/HBoP/xsZDv8dGxD/HRsQ/x0bEP8dGxD/HRsQ/x0bEP8dGxD/HRsQ/xoYDf8bGQ7/HRsQ/x4cEf8eHBH/HRsQ/xsZDv8aGA3/GxkP/xkXDf8YFgv/FxUK/xkXDP8aGA3/GRgK/xkYCv8aGQv/HBsN/x4eDv8gIBD/Hx8P/xwcDP8YGAj/FRQG/xoYDv8YFQ3/HRoS/x4bE/8VEwn/FRMJ/xgWDP8WFAr/GxkP/xoYDv8YFgv/GRcM/xkXDP8aGA3/GBYL/xcVCv8VEwj/FhQJ/xkXDP8bGQ7/HRsQ/x4cEf8fHhD/Hx4Q/xwbDf8aGQv/GRgK/xkYCv8bGwv/HBwM/xwcDP8cHAz/ExEG/xMRBv8UEgj/FRMJ/xYUCv8XFQv/GBUN/xgVDf8TEAj/FBEJ/xYUCv8WFAr/FhQJ/xYUCf8YFwn/GRgK/xYUCf8ZFwz/GBYL/xQSCP8TEAj/FRIK/xcT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Dv8ZFwz/FxUK/xYUCf8XFQr/GBYL/xkXDf8ZFw3/GBYM/xcVC/8XFQv/FxUL/xcVC/8XFQv/FRMJ/xkXDf8cGhD/GRcN/xUTCf8UEgj/FhQK/xcVC/8RDwX/FRMI/xoYDv8dGxD/HBoP/xkXDP8WFAn/FRQG/xsaDP8bGgz/GxsL/xwcDP8dHQ3/HR0N/xwcDP8aGgr/GBcJ/xgWC/8YFgv/GBYL/xkXDP8ZFwz/GRcN/xkXDf8XFQv/FhQK/xYUCv8VEwn/FRIK/xQRCf8UEQn/FBII/xYUCf8UEwX/FhQJ/xoYDf8aGA3/FhQJ/xQSCP8VEwn/FRIK/xcUDP8aFhH/GhYR/xMPCv8LBwL/CwYD/w8KB/8SDgn/EQ0I/xANBf8RDgb/ExAI/xQRCf8TEAj/Eg8H/xMRB/8WFAr/GBYM/xUTCf8RDwX/EQ8F/xYUCf8bGQ7/GhkL/xsaDP8cGhD/GhgO/xcUDP8UEQn/FBEJ/xQRCf8VEwn/FhQK/xoYDf8gHhP/IB4T/xsZDv8YFgz/GRcM/x8dEv8dHA7/GxoM/xsaDP8cGw3/HBsN/xsaDP8aGQv/HRwO/xwbDf8bGgz/HBsN/x8eEP8fHhD/HBsN/xcWCP8dGxD/GBYL/xYUCf8ZFwz/FxUK/xEPBP8QDgP/FBIH/xkXDP8ZFwz/GBYL/xgWC/8ZFwz/GhgN/xwaD/8dGxD/GhgO/xoYDv8aGA7/GhgO/xoYDv8aGA7/GxkO/xsZDv8fHRL/Hx0S/x4dD/8dHA7/HRwO/xwbDf8cGw3/HBsN/yAeE/8aGA3/FBIH/xQSB/8YFgv/HBoP/xwaD/8aGA3/HBoP/x0bEP8cGg//GhgN/xcVCv8WFAn/FxUK/xkXDP8YFgz/FxUL/xYUCv8VEwn/FBII/xUTCf8WFAr/FhQK/xEPBf8VEwn/GRcN/xsZD/8ZFw3/FBII/xMRB/8UEgj/DQsB/xIQBv8XFAz/GhgO/xsZD/8aGA3/GRcM/xkXDP8cGw3/HBsN/xsbC/8cHAz/Hh4M/x0dC/8cHAr/GhoK/xkYCv8ZFwz/GRcM/xkXDP8ZFwz/GRcM/xkXDP8ZFwz/GBYM/xgWDP8YFgz/FxUL/xcVC/8WFAr/FhML/xUTCf8SEAX/ERAC/xQSB/8ZFwz/GhgN/xYUCf8UEgj/FRMJ/w4LA/8QDQX/FhIN/xoW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") 0% 0% / contain;
+}
 </style>
 <style>
-html { 
-  --primary-color: #1f787f;
-  --primary-color-transparent: #1f787f60;
+html {
+    --primary-color: #1f787f;
+    --primary-color-transparent: #1f787f60;
 }
-[catalogue*="Adeptus Astartes" i] { 
-  --primary-color: #536766;
-  --primary-color-transparent: #53676660;
+
+[catalogue*="Adeptus Astartes" i] {
+    --primary-color: #536766;
+    --primary-color-transparent: #53676660;
 }
-[catalogue*="Blood Angels" i] { 
-  --primary-color: #761119;
-  --primary-color-transparent: #76111960;
+
+[catalogue*="Blood Angels" i] {
+    --primary-color: #761119;
+    --primary-color-transparent: #76111960;
 }
-[catalogue*="Space Wolves" i] { 
-  --primary-color: #3e646f;
-  --primary-color-transparent: #3e646f60;
+
+[catalogue*="Space Wolves" i] {
+    --primary-color: #3e646f;
+    --primary-color-transparent: #3e646f60;
 }
-[catalogue*="Imperial Fists" i] { 
-  --primary-color: #b87d00;
-  --primary-color-transparent: #b87d0060;
+
+[catalogue*="Imperial Fists" i] {
+    --primary-color: #b87d00;
+    --primary-color-transparent: #b87d0060;
 }
-[catalogue*="Raven Guard" i] { 
-  --primary-color: #2b2b2b;
-  --primary-color-transparent: #2b2b2b60;
+
+[catalogue*="Raven Guard" i] {
+    --primary-color: #2b2b2b;
+    --primary-color-transparent: #2b2b2b60;
 }
-[catalogue*="Salamanders" i] { 
-  --primary-color: #1b623f;
-  --primary-color-transparent: #1b623f60;
+
+[catalogue*="Salamanders" i] {
+    --primary-color: #1b623f;
+    --primary-color-transparent: #1b623f60;
 }
-[catalogue*="White Scars" i] { 
-  --primary-color: #783028;
-  --primary-color-transparent: #78302860;
+
+[catalogue*="White Scars" i] {
+    --primary-color: #783028;
+    --primary-color-transparent: #78302860;
 }
-[catalogue*="Dark Angels" i] { 
-  --primary-color: #014419;
-  --primary-color-transparent: #01441960;
+
+[catalogue*="Dark Angels" i] {
+    --primary-color: #014419;
+    --primary-color-transparent: #01441960;
 }
-[catalogue*="Black Templars" i] { 
-  --primary-color: #002f42;
-  --primary-color-transparent: #002f4260;
+
+[catalogue*="Black Templars" i] {
+    --primary-color: #002f42;
+    --primary-color-transparent: #002f4260;
 }
-[catalogue*="Deathwatch" i] { 
-  --primary-color: #44494d;
-  --primary-color-transparent: #44494d60;
+
+[catalogue*="Deathwatch" i] {
+    --primary-color: #44494d;
+    --primary-color-transparent: #44494d60;
 }
-[catalogue*="Adeptus Custodes" i] { 
-  --primary-color: #765c41;
-  --primary-color-transparent: #765c4160;
+
+[catalogue*="Adeptus Custodes" i] {
+    --primary-color: #765c41;
+    --primary-color-transparent: #765c4160;
 }
-[catalogue*="Adeptus Mechanicus" i] { 
-  --primary-color: #a03332;
-  --primary-color-transparent: #a0333260;
+
+[catalogue*="Adeptus Mechanicus" i] {
+    --primary-color: #a03332;
+    --primary-color-transparent: #a0333260;
 }
-[catalogue*="Adepta Sororitas" i] { 
-  --primary-color: #5e0a00;
-  --primary-color-transparent: #5e0a0060;
+
+[catalogue*="Adepta Sororitas" i] {
+    --primary-color: #5e0a00;
+    --primary-color-transparent: #5e0a0060;
 }
-[catalogue*="Astra Militarum" i] { 
-  --primary-color: #375441;
-  --primary-color-transparent: #37544160;
+
+[catalogue*="Astra Militarum" i] {
+    --primary-color: #375441;
+    --primary-color-transparent: #37544160;
 }
-[catalogue*="Grey Knights" i] { 
-  --primary-color: #4a6672;
-  --primary-color-transparent: #4a667260;
+
+[catalogue*="Grey Knights" i] {
+    --primary-color: #4a6672;
+    --primary-color-transparent: #4a667260;
 }
-[catalogue*="Imperial Knights" i] { 
-  --primary-color: #03495e;
-  --primary-color-transparent: #03495e60;
+
+[catalogue*="Imperial Knights" i] {
+    --primary-color: #03495e;
+    --primary-color-transparent: #03495e60;
 }
-[catalogue*="Daemons" i] { 
-  --primary-color: #383c46;
-  --primary-color-transparent: #383c4660;
+
+[catalogue*="Daemons" i] {
+    --primary-color: #383c46;
+    --primary-color-transparent: #383c4660;
 }
-[catalogue*="Chaos Space Marines" i] { 
-  --primary-color: #1d3138;
-  --primary-color-transparent: #1d313860;
+
+[catalogue*="Chaos Space Marines" i] {
+    --primary-color: #1d3138;
+    --primary-color-transparent: #1d313860;
 }
-[catalogue*="World Eaters" i] { 
-  --primary-color: #883531;
-  --primary-color-transparent: #88353160;
+
+[catalogue*="World Eaters" i] {
+    --primary-color: #883531;
+    --primary-color-transparent: #88353160;
 }
-[catalogue*="Death Guard" i] { 
-  --primary-color: #576011;
-  --primary-color-transparent: #57601160;
+
+[catalogue*="Death Guard" i] {
+    --primary-color: #576011;
+    --primary-color-transparent: #57601160;
 }
-[catalogue*="Chaos Knights" i] { 
-  --primary-color: #513627;
-  --primary-color-transparent: #51362760;
+
+[catalogue*="Chaos Knights" i] {
+    --primary-color: #513627;
+    --primary-color-transparent: #51362760;
 }
-[catalogue*="Thousand Sons" i] { 
-  --primary-color: #015d68;
-  --primary-color-transparent: #015d6860;
+
+[catalogue*="Thousand Sons" i] {
+    --primary-color: #015d68;
+    --primary-color-transparent: #015d6860;
 }
-[catalogue*="Necrons" i] { 
-  --primary-color: #005c2f;
-  --primary-color-transparent: #005c2f60;
+
+[catalogue*="Necrons" i] {
+    --primary-color: #005c2f;
+    --primary-color-transparent: #005c2f60;
 }
-[catalogue*="Orks" i] { 
-  --primary-color: #4b6621;
-  --primary-color-transparent: #4b662160;
+
+[catalogue*="Orks" i] {
+    --primary-color: #4b6621;
+    --primary-color-transparent: #4b662160;
 }
-[catalogue*="Tyranids" i] { 
-  --primary-color: #44264C;
-  --primary-color-transparent: #44264C60;
+
+[catalogue*="Tyranids" i] {
+    --primary-color: #44264C;
+    --primary-color-transparent: #44264C60;
 }
-[catalogue*="Genestealer Cults" i] { 
-  --primary-color: #44264C;
-  --primary-color-transparent: #44264C60;
+
+[catalogue*="Genestealer Cults" i] {
+    --primary-color: #44264C;
+    --primary-color-transparent: #44264C60;
 }
-[catalogue*="Craftworlds" i] { 
-  --primary-color: #1f787f;
-  --primary-color-transparent: #1f787f60;
+
+[catalogue*="Craftworlds" i] {
+    --primary-color: #1f787f;
+    --primary-color-transparent: #1f787f60;
 }
-[catalogue*="Harlequins" i] { 
-  --primary-color: #6f322f;
-  --primary-color-transparent: #6f322f60;
+
+[catalogue*="Harlequins" i] {
+    --primary-color: #6f322f;
+    --primary-color-transparent: #6f322f60;
 }
-[catalogue*="Leagues of Votann" i] { 
-  --primary-color: #7d4c08;
-  --primary-color-transparent: #7d4c0860;
+
+[catalogue*="Leagues of Votann" i] {
+    --primary-color: #7d4c08;
+    --primary-color-transparent: #7d4c0860;
 }
-[catalogue*="T'au Empire" i] { 
-  --primary-color: #206173;
-  --primary-color-transparent: #20617360;
+
+[catalogue*="T'au Empire" i] {
+    --primary-color: #206173;
+    --primary-color-transparent: #20617360;
 }
-.profile-icon[typeName*="melee" i], .profile-icon[typeName*="weapon" i] {
-  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAASCAYAAAC0EpUuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAH0SURBVDhPvVN/b9JQFH1o/I/MxG/A1+AzGhN/xrglE4i4odtwxmQF5hSyRQPKzDInaGxDCBmtdB2s7aNQjpdHQ1KhBf3Dk7y+9+695/S9k3fZf8Vq5jm85QwePUviycZGYH4uyrUaTAAnDXmG+DCxDt3huKK8dHi4WDixswOLim0amnkl5vLZqY+oqG30Kd4xbXCa5bYaLLxdKODSdUVhU7+YEG0Lj5MJH6lUKcOmOtNxYZgcvYGLnjuaL9zQdRLh0HomDO5AaZ/j/trq3OL9Ugl614Q1GAlxnfexncv5a8+5TT45wsfxCQc0DMsKvFahWMTQqxuPlnEprFrLZATn2uQTYRRj12ndaLZYsXTELMti5shF6uULn3j12xni8Tir/5BZ9fiEdS3Obt1cEblIJCLmKTTbFn/0tgITfzvT2Oab18LzL/XaNPZKyotTJrNZHzcQ98jTytdTdEdD7Fc+QtY1FD4cLUdehF8Djgty8d3xp6UEhaeLMPbqBjkei8W8SDhCRd9Xq5A7HRTyb1mUlKPRFTbuJC/998jkJKhOH1v5vE+k/L2O3r8Ibx0coENdk9zdnUtWDAPNkHc8gyw9bI0ENyUplPRZUdDiHHdTqXDxO9Tn6nCI9N7eUqf4SSdWqUG8bTAepNPLX4tw++n6H/WM/Qb5yZZZuC/34QAAAABJRU5ErkJggg==");
+
+.profile-icon[typeName*="melee" i],
+.profile-icon[typeName*="weapon" i] {
+    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAASCAYAAAC0EpUuAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAH0SURBVDhPvVN/b9JQFH1o/I/MxG/A1+AzGhN/xrglE4i4odtwxmQF5hSyRQPKzDInaGxDCBmtdB2s7aNQjpdHQ1KhBf3Dk7y+9+695/S9k3fZf8Vq5jm85QwePUviycZGYH4uyrUaTAAnDXmG+DCxDt3huKK8dHi4WDixswOLim0amnkl5vLZqY+oqG30Kd4xbXCa5bYaLLxdKODSdUVhU7+YEG0Lj5MJH6lUKcOmOtNxYZgcvYGLnjuaL9zQdRLh0HomDO5AaZ/j/trq3OL9Ugl614Q1GAlxnfexncv5a8+5TT45wsfxCQc0DMsKvFahWMTQqxuPlnEprFrLZATn2uQTYRRj12ndaLZYsXTELMti5shF6uULn3j12xni8Tir/5BZ9fiEdS3Obt1cEblIJCLmKTTbFn/0tgITfzvT2Oab18LzL/XaNPZKyotTJrNZHzcQ98jTytdTdEdD7Fc+QtY1FD4cLUdehF8Djgty8d3xp6UEhaeLMPbqBjkei8W8SDhCRd9Xq5A7HRTyb1mUlKPRFTbuJC/998jkJKhOH1v5vE+k/L2O3r8Ibx0coENdk9zdnUtWDAPNkHc8gyw9bI0ENyUplPRZUdDiHHdTqXDxO9Tn6nCI9N7eUqf4SSdWqUG8bTAepNPLX4tw++n6H/WM/Qb5yZZZuC/34QAAAABJRU5ErkJggg==");
 }
-.profile-icon[typeName*="ranged" i], .profile-icon[typeName*="spell" i], .profile-icon[typeName*="psychic" i] {
-  content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAJJSURBVDhPtVRbTxpBGB3Qxmd+RmvShMe+81L6C0z60r70F/S1iZWHXmy4SDSAhSKNBBpCtVqboiataWJTY0ShrQpyaUK3IJcuC6vuwunsZDUlRFlsepLZ2Zk558y3s9985H9Ap/bn4qHTCaPRSAwGA8nmMuT2zVs9NT0xHX6FsiRDBJDMZaBOXw42z3PEUwfg6g3w7TY4vo56S0bt5BhLax/6N595PYffNLKC0MDHrTg+xeMs0rmVGNYT2+w9xXEYtVq1mU/4Z9Cgongm2yH4Xiicjd2hWdQpJ1up9DZ96nKDa4pIZvNd5LFJZ8ecxeFgmyfy3dwObOzto3x00nt3FZFYjEU87nZ3a0btdozZHUhzRaxtbmk2VZAplbCZSsHinOjUbdBJ5fCV9jnxlW2gLl0IXyQCgWoqssz6lwtvmE6vPCRJUjpyLLfJ9eGrxGQysfFFcAWDMJvNRJJlMjQwQLUyqVQqbI2ZiqJIdnb3yNCgniS+7ZIbw9d63pp7IyO6QCBAeJ4nh7Ua4YU60V8ZVFf/wnY2h3y5qvlMbV4v+1H+aPR8jZJSCml9J6nJuNpq0RRs9uZGV1bZbZpdWOwge0Khs/GDZ0+QKZdRo9d3fNqjKQASXHzLEjtdOoTjhR/ecBicIMDqcWF+dZl+TQtKKj2emtJmeIro+2UUGyIOfpVYqh3RlisVUahVWbV6REuiSu0foaV3zLQqSUj/LMBis13e7BRWnw8/6rTsUeMv+3uaDDVV8clwCDpqJzQb5P6du/9e+fsHIX8AQcajpvRRPZkAAAAASUVORK5CYII=");
-  }
+
+.profile-icon[typeName*="ranged" i],
+.profile-icon[typeName*="spell" i],
+.profile-icon[typeName*="psychic" i] {
+    content: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAAJJSURBVDhPtVRbTxpBGB3Qxmd+RmvShMe+81L6C0z60r70F/S1iZWHXmy4SDSAhSKNBBpCtVqboiataWJTY0ShrQpyaUK3IJcuC6vuwunsZDUlRFlsepLZ2Zk558y3s9985H9Ap/bn4qHTCaPRSAwGA8nmMuT2zVs9NT0xHX6FsiRDBJDMZaBOXw42z3PEUwfg6g3w7TY4vo56S0bt5BhLax/6N595PYffNLKC0MDHrTg+xeMs0rmVGNYT2+w9xXEYtVq1mU/4Z9Cgongm2yH4Xiicjd2hWdQpJ1up9DZ96nKDa4pIZvNd5LFJZ8ecxeFgmyfy3dwObOzto3x00nt3FZFYjEU87nZ3a0btdozZHUhzRaxtbmk2VZAplbCZSsHinOjUbdBJ5fCV9jnxlW2gLl0IXyQCgWoqssz6lwtvmE6vPCRJUjpyLLfJ9eGrxGQysfFFcAWDMJvNRJJlMjQwQLUyqVQqbI2ZiqJIdnb3yNCgniS+7ZIbw9d63pp7IyO6QCBAeJ4nh7Ua4YU60V8ZVFf/wnY2h3y5qvlMbV4v+1H+aPR8jZJSCml9J6nJuNpq0RRs9uZGV1bZbZpdWOwge0Khs/GDZ0+QKZdRo9d3fNqjKQASXHzLEjtdOoTjhR/ecBicIMDqcWF+dZl+TQtKKj2emtJmeIro+2UUGyIOfpVYqh3RlisVUahVWbV6REuiSu0foaV3zLQqSUj/LMBis13e7BRWnw8/6rTsUeMv+3uaDDVV8clwCDpqJzQb5P6du/9e+fsHIX8AQcajpvRRPZkAAAAASUVORK5CYII=");
+}
 </style>

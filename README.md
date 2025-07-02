@@ -125,7 +125,7 @@ Attributes:
   `in`: specify the parent(s) to affect, using a css selector  
   `join`: the join string if appending, defaults to a space
 
-### `<set>`,
+### `<set>`  
 Assigns a value to a variable  
 Attributes:  
   `name`: the name of the attribute  
@@ -135,6 +135,54 @@ Attributes:
     `add`, `subtract`, `multiply`, `divide`, `typeof`  
   `string` or `number` or `regex`: followed by a number for the position to specify a call argument, eg `<set fn="match" regex1=".*"/>` is equivalent to `.match(/.*/)`  
   `index`: the index of the return value to use, usefull for regex match  
+
+### `<groupBy>`  
+Group multiple elements that have something in common  
+Elements rendered within must have a `<by>` element whose string content will be used to group.  
+Groups can then be rendered using `<groups>` and then `<items>` within  
+
+### Examples:  
+Group models by their characteristics to only display the stats once if multiple models have the same stats  
+```xml
+    <groupBy>
+        <entries>
+            <if type="has-profile" value="{{unitProfiles}}">
+                <by>
+                    <profiles include="{{unitProfiles}}" recursive="false">
+                        <characteristics exclude="{{hideCharacteristics}}">{{name}}{{$text}}</characteristics>
+                    </profiles>
+                </by>
+            </if>
+        </entries>
+
+        <groups>
+            <!-- Model Stats -->
+            <items max="1">
+                <profiles include="{{unitProfiles}}" recursive="false">
+                <characteristics exclude="{{hideCharacteristics}}">
+                    <div class="modelCharacteristic">
+                        <div>{{name}}</div>
+                        <div>{{$text}}</div>
+                    </div>
+                </characteristics>
+                </profiles>
+            </items>
+            <div class="model" style="display: flex; gap: 1.2rem;">
+                <items>
+                    <div>
+                        <span>{{amount}}x</span>
+                        <span class="model-name">{{name}}</span>
+                        <div class="model-options">{{options}}</div>
+                    </div>
+                </items>
+            </div>
+        </groups>
+    </groupBy>
+```
+
+### `<dedupe>`  
+Dedupes child nodes
+
 
 # Special Attributes
 ### Markdown
