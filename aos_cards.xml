@@ -94,7 +94,7 @@
               </div>
             </if>
             <!--body-->
-            <if field="name" type="not-equals" value="Manifestation Lore">
+            <if field="type" type="equals" value="unit">
               <table cellspacing="0" class="weapons-table">
                 <thead>
                   <profiles include="ranged weapon" max="1">
