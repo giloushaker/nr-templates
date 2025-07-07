@@ -31,11 +31,8 @@ Results in:
 ```
 
 # Common
-All elements have these fields/values:  
-`first`: Indicates if this is the first element in a list  
+All elements within a list have these fields/values:  
 `last`: Indicates if this is the last element in a list  
-`odd`: Indicates if this is an odd element in a list  
-`even`: Indicates if this is an even element in a list  
 `length`: The length of the containing list  
 `index`: The (zero-based) position of the element in its containing list  
 
