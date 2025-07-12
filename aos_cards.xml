@@ -5,14 +5,14 @@
   <units dedupe="true">
     <entries>
       <if field="type" type="equals" value="unit">
-        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$" />
+        <or field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Battle Tactic Cards|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$" />
         <div class="avoid-page-break" type="card" catalogue="{{catalogue}}">
           <div class="card">
             <if field="settings.cardBackgroundGraphics.state" type="equals" value="true">
               <append-attribute name="class" value="bg" />
             </if>
             <div class="card-header">
-              <if field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$"><span class="section-header">{{name}}</span></if>
+              <if field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Battle Tactic Cards|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$"><span class="section-header">{{name}}</span></if>
               <if field="type" type="equals" value="unit">
                 <entries>
                   <if type="has-profile" value="model,unit,stats,manifestation">
@@ -149,7 +149,7 @@
                 <set name="profileIncludes" value="ability (spell), ability (prayer)" />
               </if>
               <else>
-                <set name="profileIncludes" value="ability (passive),ability (activated),ability (command),ability (spell), ability (prayer)" />
+                <set name="profileIncludes" value="ability (passive),ability (activated),ability (command),ability (spell), ability (prayer), battle tactic card" />
               </else>
               <profiles include="{{profileIncludes}}" split="">
                 <div class="ability-box">
@@ -187,6 +187,10 @@
                       <set-attribute name="timing" value="Passive" in=".ability-box" />
                       <span>Passive</span>
                     </if>
+                    <else-if type="equals" field="typeName" value="Battle Tactic Card">
+                      <set-attribute name="timing" value="Battle Tactic Card" in=".ability-box" />
+                      <span>Battle Tactic Card</span>
+                    </else-if>
                     <else>
                       <characteristics include="timing">
                         <set-attribute name="timing" value="{{$text}}" in=".ability-box" />
@@ -199,7 +203,7 @@
                       <div style="text-transform: uppercase">
                         <strong>{{name}}</strong>
                       </div>
-                      <characteristics include="declare,used by,effect">
+                      <characteristics include="declare,used by,effect, card, affray, strike, domination">
                         <if field="$text">
                           <div>
                             <span><strong>{{name}}</strong>: </span><span type="markdown">{{$text}}</span>
