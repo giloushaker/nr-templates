@@ -13,47 +13,51 @@
             </if>
             <div class="card-header">
               <if field="name" type="match" value="^(.+ Lore|Battle Traits.+?|Battle Tactic Cards|Arcane Tome|Campaign Progress|Honour Guard|Battle Formation|Emberstone Vault|Regiment of Renown.+?)*$"><span class="section-header">{{name}}</span></if>
-              <if type="has-profile" value="model,unit,stats,manifestation">
-                <secondaries>
-                  <if field="name" type="match" value="^WARD \((\d\+)\)$">
-                    <set name="wardValue" value="{{name}}" fn="match" regex1=".?(\d\+)." index="1" />
-                    <div class="ward">
-                      <span>{{wardValue}}</span>
+              <if field="type" type="equals" value="unit">
+                <entries>
+                  <if type="has-profile" value="model,unit,stats,manifestation">
+                    <secondaries>
+                      <if field="name" type="match" value="^WARD \((\d\+)\)$">
+                        <set name="wardValue" value="{{name}}" fn="match" regex1=".?(\d\+)." index="1" />
+                        <div class="ward">
+                          <span>{{wardValue}}</span>
+                        </div>
+                      </if>
+                    </secondaries>
+                    <profiles include="model,unit,stats,manifestation" recursive="false">
+                      <div class="statWheel">
+                        <div class="statWheelStats">
+                          <characteristics>
+                            <div class="statwheelEntry">
+                              <div class="statLabel">
+                                <svg>
+                                  <text>
+                                    <if field="last" type="match" value="true">
+                                      <textPath href="#circlePathReversed" startOffset="50%">
+                                        {{name}}
+                                      </textPath>
+                                    </if>
+                                    <else>
+                                      <textPath href="#circlePath" startOffset="50%">
+                                        {{name}}
+                                      </textPath>
+                                    </else>
+                                  </text>
+                                </svg>
+                              </div>
+                              <div class="stat">{{$text}}</div>
+                            </div>
+                          </characteristics>
+                        </div>
+                      </div>
+                    </profiles>
+                    <div class="titleWrap">
+                      <div class="titleCard">
+                        <div class="title"><if field="customName">{{customName}}<if field="settings.customWarscrollNames.state" type="equals" value="true"><div class="subtitle">{{name}}</div></if></if><else>{{name}}</else></div>
+                      </div>
                     </div>
                   </if>
-                </secondaries>
-                <profiles include="model,unit,stats,manifestation" recursive="false">
-                  <div class="statWheel">
-                    <div class="statWheelStats">
-                      <characteristics>
-                        <div class="statwheelEntry">
-                          <div class="statLabel">
-                            <svg>
-                              <text>
-                                <if field="last" type="match" value="true">
-                                  <textPath href="#circlePathReversed" startOffset="50%">
-                                    {{name}}
-                                  </textPath>
-                                </if>
-                                <else>
-                                  <textPath href="#circlePath" startOffset="50%">
-                                    {{name}}
-                                  </textPath>
-                                </else>
-                              </text>
-                            </svg>
-                          </div>
-                          <div class="stat">{{$text}}</div>
-                        </div>
-                      </characteristics>
-                    </div>
-                  </div>
-                </profiles>
-                <div class="titleWrap">
-                  <div class="titleCard">
-                    <div class="title"><if field="customName">{{customName}}<if field="settings.customWarscrollNames.state" type="equals" value="true"><div class="subtitle">{{name}}</div></if></if><else>{{name}}</else></div>
-                  </div>
-                </div>
+                </entries>
               </if>
             </div>
             <!-- Rules -->
@@ -225,6 +229,11 @@
               <div class="header">Keywords</div>
               <div class="keywords">
                 <secondaries>
+                  <span class="">
+                    <if field="name" type="match" value="^(Army Composition|Configuration|Reference)*$">
+                      <append-attribute name="class" value="hide-keywords" />
+                    </if>
+                  </span>
                   <if field="name" type="match" value="^(?!.*[a-z]).+$">
                     <span type="markdown" class="split">{{name}}
                       <if field="last" type="not">, </if>
@@ -695,9 +704,6 @@ html {
 }
 
 .keyword-box {
-  &:not(:has([type="markdown"])) {
-    display: none;
-  }
   .header {
     font-weight: 700;
     align-self: stretch;
