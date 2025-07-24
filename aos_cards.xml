@@ -187,10 +187,10 @@
                       <set-attribute name="timing" value="Passive" in=".ability-box" />
                       <span>Passive</span>
                     </if>
-                    <else-if type="equals" field="typeName" value="Battle Tactic Card">
+                    <if type="equals" field="typeName" value="Battle Tactic Card">
                       <set-attribute name="timing" value="Battle Tactic Card" in=".ability-box" />
                       <span>Battle Tactic Card</span>
-                    </else-if>
+                    </if>
                     <else>
                       <characteristics include="timing">
                         <set-attribute name="timing" value="{{$text}}" in=".ability-box" />
