@@ -214,7 +214,18 @@ Results in
 You can use `debugger;` or `console.log` to help debug  
 You can view the acessible variables with `console.log(scope)`, you may need to open the `[[Prototype]]` to see everything  
 
-
+Example script to round characteristics to to 1 decimal place:  
+```html
+<characteristics>
+  <span class="stat">{{name}}
+    <script>
+      isNumber = isFinite(Number(characteristic.value))
+      roundedValue = isNumber ? Number(characteristic.value).toFixed(1) : characteristic.value;
+    </script>
+    <strong type="markdown">{{roundedValue}}</strong>
+  </span>
+</characteristics>
+```
 
 # Special Attributes
 ### Markdown
