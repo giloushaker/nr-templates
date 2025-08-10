@@ -182,6 +182,39 @@ Group models by their characteristics to only display the stats once if multiple
 ### `<dedupe>`  
 Dedupes child nodes
 
+### `<script>`  
+Supports evaluating JS code, altho with a limited subset of globals to reduce potential abuse.  
+To have a variable acessible in the template outside of the script, it needs to be declared as a global within the script, eg:  
+```js
+const myLocalConstVariable = 1 // Cant be accessed outside of script
+let myLocalLetVariable = 1 // Cant be accessed outside of script
+myGlobalVariable = 1 // Can be accessed
+```
+Global variables including arrays can then be used in the template:
+```html
+<div>
+  <script>
+    myArray = [{text: "1"}, {text: "2"}]
+    myVariable = "Hello"
+  </script>
+  {{myVariable}}
+  <myArray>
+    <span>{{text}}</span>
+  </myArray>
+</div>
+```
+Results in
+```html
+<div>
+  Hello
+  <span>1</span>
+  <span>2</span>
+</div>
+```
+You can use `debugger;` or `console.log` to help debug  
+You can view the acessible variables with `console.log(scope)`, you may need to open the `[[Prototype]]` to see everything  
+
+
 
 # Special Attributes
 ### Markdown
@@ -209,11 +242,11 @@ Dedupes child nodes
 - [x] `<else-if>`
 - [x] attribute that generates a "dont print this card" checkbox (would also allow users to print one per page)
 - [x] attribute that generates a "move up" and "move down" button
-- [ ] scripting
+- [x] scripting
 - [ ] user defined variables
 - [x] markdown support for profiles
 - [ ]  abiity to reuse logic
 
 
-
+ 
 
