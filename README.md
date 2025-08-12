@@ -212,9 +212,9 @@ Results in
 </div>
 ```
 You can use `debugger;` or `console.log` to help debug  
-You can view the acessible variables with `console.log(scope)`, you may need to open the `[[Prototype]]` to see everything  
+You can view the accessible variables with `console.log(scope)`, you may need to open the `[[Prototype]]` to see everything  
 
-Example script to round characteristics to to 1 decimal place:  
+Example script to round characteristics to 1 decimal place:  
 ```html
 <characteristics>
   <span class="stat">{{name}}
