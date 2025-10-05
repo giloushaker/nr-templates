@@ -44,7 +44,7 @@ All "list elements" support the `max` attribute. (`max="1"` is useful for header
 Values `name`, `options`, `hidden`, `primaryCatalogue`    
 Lists: `units`, `entries`, `costs`  
 ### `<units>`
-Values: `name`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`, `primaryCatalogue`  
+Values: `name`, `customName`, `primary`, `options`, `secondaries`, `type`, `hidden`, `amount`, `primaryCatalogue`, `note`  
 Lists: `entries`, `costs`, `profiles`, `rules`, `secondaries`  
 Attributes:  
 `exclude-primary-categories`: exclude units with matching primary category (case insensitive, separate by `,`)  
