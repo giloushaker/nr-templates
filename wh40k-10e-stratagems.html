@@ -1,57 +1,59 @@
 <template>
-    <stratagems>
+    <stratagems class="test_class">
         <div class="container avoid-page-break ">
             <div class="name">{{ stratagem.name }}</div>
             <div class="stratagem">
-            <if field="turn" type="match" value="Either.*">
-                <set-attribute name="class" value="stratagem eitherTurn" in=".stratagem"></set-attribute>
-            </if>
-            <else-if field="turn" type="match" value="Opponent.*">
-                 <set-attribute name="class" value="stratagem opponentTurn" in=".stratagem"></set-attribute>
-            </else-if>
-            <else-if field="turn" type="match" value="Your.*">
-                <set-attribute name="class" value="stratagem playerTurn" in=".stratagem"></set-attribute>
-            </else-if>
-            <div class="description" type="html">{{stratagem.description}}</div>
-            <div class="strDiamondWrapWrap">
-                <div class="strDiamondWrap">
-                    <if field="phase" type="match" value="Any.*">
+                <if field="turn" type="match" value="Either.*">
+                    <set-attribute name="class" value="stratagem eitherTurn" in=".stratagem"></set-attribute>
+                </if>
+                <else-if field="turn" type="match" value="Opponent.*">
+                    <set-attribute name="class" value="stratagem opponentTurn" in=".stratagem"></set-attribute>
+                </else-if>
+                <else-if field="turn" type="match" value="Your.*">
+                    <set-attribute name="class" value="stratagem playerTurn" in=".stratagem"></set-attribute>
+                </else-if>
+                <script><![CDATA[
+                cleanedDescription = stratagem.description.replace(/(<br>\s*)+/gi, '<br>');
+                ]]></script>
+                <div class="description" type="html">{{cleanedDescription}}</div>
+                <div class="strDiamondWrapWrap">
+                    <div class="strDiamondWrap">
+                        <if field="phase" type="match" value="Any.*">
+                            <div class="strDiamond">
+                                <div class="stratagemIcon strAny"></div>
+                            </div>
+                        </if>
+                        <if field="phase" type="match" value=".*ommand.*">
+                            <div class="strDiamond">
+                                <div class="strCommand stratagemIcon"></div>
+                            </div>
+                        </if>
+                        <if field="phase" type="match" value=".*ovement.*">
+                            <div class="strDiamond">
+                                <div class="strMovement stratagemIcon"></div>
+                            </div>
+                        </if>
+                        <if field="phase" type="match" value=".*hooting.*">
+                            <div class="strDiamond">
+                                <div class="strShooting stratagemIcon"></div>
+                            </div>
+                        </if>
+                        <if field="phase" type="match" value=".*arge.*">
+                            <div class="strDiamond">
+                                <div class="strCharge stratagemIcon"></div>
+                            </div>
+                        </if>
+                        <if field="phase" type="match" value=".*ight.*">
+                            <div class="strDiamond">
+                                <div class="strFight stratagemIcon"></div>
+                            </div>
+                        </if>
                         <div class="strDiamond">
-                            <div class="stratagemIcon strAny"></div>
+                            <div class="strCP">{{ stratagem.cp_cost }}</div>
                         </div>
-                    </if>
-                    <if field="phase" type="match" value=".*ommand.*">
-                        <div class="strDiamond">
-                            <div class="strCommand stratagemIcon"></div>
-                        </div>
-                    </if>
-                    <if field="phase" type="match" value=".*ovement.*">
-                        <div class="strDiamond">
-                            <div class="strMovement stratagemIcon"></div>
-                        </div>
-                    </if>
-                    <if field="phase" type="match" value=".*hooting.*">
-                        <div class="strDiamond">
-                            <div class="strShooting stratagemIcon"></div>
-                        </div>
-                    </if>
-                    <if field="phase" type="match" value=".*arge.*">
-                        <div class="strDiamond">
-                            <div class="strCharge stratagemIcon"></div>
-                        </div>
-                    </if>
-                    <if field="phase" type="match" value=".*ight.*">
-                        <div class="strDiamond">
-                            <div class="strFight stratagemIcon"></div>
-                        </div>
-                    </if>
-                    <br/>
-                    <div class="strDiamond">
-                        <div class="strCP">{{ stratagem.cp_cost }}CP</div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </stratagems>
 </template>
@@ -127,7 +129,7 @@
         display: flex;
         flex-direction: column;
         margin-left: -37px;
-        margin-top: -32px;
+        margin-top: -52px;
         position: absolute;
         top: 8px;
         left: 0;
@@ -204,13 +206,6 @@
         font-weight: bold;
         font-size: 20px;
         margin-left: 50px;
-    }
-
-
-    .type {
-        text-transform: capitalize;
-        font-weight: bold;
-        margin-bottom: px;
     }
 
 
