@@ -182,6 +182,12 @@ Group models by their characteristics to only display the stats once if multiple
 ### `<dedupe>`  
 Dedupes child nodes
 
+### `<sort>`, `<sort-by>`, `<order>`, `<order-by>`
+Re-orders child elements using an attribute, if the specified field isnt directly on the child element it will be searched recursively
+Attributes:
+  `field`: the name of the attribute to use, defaults to "order"  
+  `direction`: "ascending" or "descending", defaults to "ascending"
+  
 ### `<script>`  
 Supports evaluating JS code, altho with a limited subset of globals to reduce potential abuse.  
 To have a variable acessible in the template outside of the script, it needs to be declared as a global within the script, eg:  
